@@ -4,7 +4,7 @@
 
 An extraordinary, production-ready one-page React/JSX developer portfolio featuring cutting-edge visual techniques, 3D effects, glassmorphism, animated gradients, and flawless implementation.
 
-[![Deploy to GitHub Pages](https://github.com/kariemSeiam/portfolio-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/kariemSeiam/portfolio-website/actions/workflows/deploy.yml)
+[![Deploy to GitHub Pages](https://github.com/kariemSeiam/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/kariemSeiam/portfolio/actions/workflows/deploy.yml)
 
 ## ✨ Features
 
@@ -25,8 +25,8 @@ An extraordinary, production-ready one-page React/JSX developer portfolio featur
 
 ```bash
 # Clone the repository
-git clone https://github.com/kariemSeiam/portfolio-website.git
-cd portfolio-website
+git clone https://github.com/kariemSeiam/portfolio.git
+cd portfolio
 
 # Install dependencies
 npm install
@@ -161,7 +161,7 @@ Edit `index.html` to update:
 
 1. Push to the `main` branch
 2. GitHub Actions automatically builds and deploys
-3. Site available at `https://username.github.io/portfolio-website/`
+3. Site available at `https://kariemSeiam.github.io/portfolio/`
 
 ### Manual Deployment
 
@@ -177,7 +177,7 @@ Update `vite.config.js` base path for custom domains:
 ```javascript
 export default defineConfig({
   base: '/', // For custom domain
-  // base: '/portfolio-website/', // For GitHub Pages subdirectory
+  // base: '/portfolio/', // For GitHub Pages subdirectory
 })
 ```
 

@@ -15,7 +15,7 @@ export default defineConfig({
       ext: '.br',
     }),
   ],
-  base: '/portfolio-website/',
+  base: '/portfolio/',
   build: {
     outDir: 'dist',
     sourcemap: false,
