@@ -1,13 +1,15 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
-import { ArrowDown, Sparkles, MapPin, Briefcase, Code2, Users, Tag } from 'lucide-react'
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react'
+import { 
+  ArrowDown, Sparkles, Briefcase, Tag, ArrowRight, Navigation, Code
+} from 'lucide-react'
 import { scrollToSection } from '../../utils/animations'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * HeroSection - The Navigator's Ultra Cinematic Gateway
+ * HeroSection - The Navigator's Horizon
  * 
- * An artistic, immersive hero with dramatic visual storytelling.
- * Minimal text, maximum impact.
+ * An architectural, cinematic hero with flowing geometric forms.
+ * Inspired by maps, horizons, and the journey of navigation.
  */
 const HeroSection = () => {
   const sectionRef = useRef(null)
@@ -44,10 +46,28 @@ const HeroSection = () => {
   // Dynamic parallax
   const getParallax = (intensity = 1) => {
     if (prefersReducedMotion) return {}
-    const xOffset = (mousePosition.x - 0.5) * 40 * intensity
-    const yOffset = (mousePosition.y - 0.5) * 40 * intensity
+    const xOffset = (mousePosition.x - 0.5) * 30 * intensity
+    const yOffset = (mousePosition.y - 0.5) * 30 * intensity
     return { transform: `translate(${xOffset}px, ${yOffset}px)` }
   }
+
+  // Generate geometric shapes for the architectural background
+  const geometricShapes = useMemo(() => {
+    const shapes = []
+    const types = ['diamond', 'triangle', 'line', 'hexagon']
+    for (let i = 0; i < 12; i++) {
+      shapes.push({
+        type: types[i % types.length],
+        x: 10 + (i % 4) * 25 + Math.random() * 10,
+        y: 15 + Math.floor(i / 4) * 30 + Math.random() * 10,
+        size: 20 + Math.random() * 40,
+        delay: i * 0.3,
+        duration: 20 + Math.random() * 15,
+        rotation: Math.random() * 360,
+      })
+    }
+    return shapes
+  }, [])
 
   return (
     <section
@@ -57,75 +77,56 @@ const HeroSection = () => {
       aria-label="Hero section"
     >
       {/* ═══════════════════════════════════════════════════════════════════
-          ULTRA BACKGROUND SYSTEM
+          THE NAVIGATOR'S HORIZON - MASTERPIECE BACKGROUND
+          Minimal, elegant, artistic - not noisy
           ═══════════════════════════════════════════════════════════════════ */}
       
-      {/* Deep space gradient */}
-      <div className="absolute inset-0 hero-ultra-gradient" aria-hidden="true" />
+      {/* Base gradient - Pure & Clean */}
+      <div className="absolute inset-0 hero-horizon-base" aria-hidden="true" />
+
+      {/* Elegant geometric constellation - CSS styled */}
+      <div 
+        className="hero-constellation-art" 
+        style={getParallax(0.08)}
+        aria-hidden="true"
+      >
+        {/* Flowing curves */}
+        <div className="hero-flow-line hero-flow-1" />
+        <div className="hero-flow-line hero-flow-2" />
+        <div className="hero-flow-line hero-flow-3" />
+        
+        {/* Accent nodes */}
+        <div className="hero-node hero-node-1" />
+        <div className="hero-node hero-node-2" />
+        <div className="hero-node hero-node-3" />
+        <div className="hero-node hero-node-4" />
+        <div className="hero-node hero-node-5" />
+      </div>
+
+      {/* Floating accent orbs - artistic depth */}
+      <div className="hero-orbs" aria-hidden="true">
+        <div className="hero-orb hero-orb-1" style={getParallax(0.15)} />
+        <div className="hero-orb hero-orb-2" style={getParallax(-0.1)} />
+        <div className="hero-orb hero-orb-3" style={getParallax(0.12)} />
+      </div>
+
+      {/* Two signature icons - refined placement */}
+      <div 
+        className="hero-signature-icon hero-signature-nav"
+        style={getParallax(0.18)}
+        aria-hidden="true"
+      >
+        <div className="hero-signature-glow" />
+        <Navigation size={80} strokeWidth={0.4} />
+      </div>
       
-      {/* Animated aurora waves */}
-      <div className="hero-aurora" aria-hidden="true">
-        <div className="hero-aurora-wave hero-aurora-1" style={getParallax(0.3)} />
-        <div className="hero-aurora-wave hero-aurora-2" style={getParallax(-0.4)} />
-        <div className="hero-aurora-wave hero-aurora-3" style={getParallax(0.2)} />
-      </div>
-
-      {/* Floating particles */}
-      <div className="hero-particles" aria-hidden="true">
-        {[...Array(20)].map((_, i) => (
-          <div 
-            key={i} 
-            className="hero-particle"
-            style={{
-              '--delay': `${i * 0.5}s`,
-              '--duration': `${15 + Math.random() * 10}s`,
-              '--x-start': `${Math.random() * 100}%`,
-              '--x-end': `${Math.random() * 100}%`,
-              '--size': `${2 + Math.random() * 4}px`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Orbital rings */}
-      <div className="hero-orbital-system" style={getParallax(0.15)} aria-hidden="true">
-        <div className="hero-orbit hero-orbit-1" />
-        <div className="hero-orbit hero-orbit-2" />
-        <div className="hero-orbit hero-orbit-3" />
-        {/* Central glow */}
-        <div className="hero-central-glow" />
-      </div>
-
-      {/* Geometric constellation */}
-      <div className="hero-constellation" aria-hidden="true">
-        <svg className="hero-constellation-svg" viewBox="0 0 1000 1000" style={getParallax(0.25)}>
-          <defs>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(255,90,54,0.3)" />
-              <stop offset="50%" stopColor="rgba(251,191,36,0.2)" />
-              <stop offset="100%" stopColor="rgba(6,182,212,0.3)" />
-            </linearGradient>
-          </defs>
-          {/* Constellation lines */}
-          <path 
-            className="hero-constellation-line"
-            d="M200,300 L350,200 L500,250 L650,150 L800,280 M350,200 L400,400 L600,350 L650,150 M400,400 L500,600 L700,550 L800,280"
-            stroke="url(#lineGradient)"
-            strokeWidth="1"
-            fill="none"
-          />
-          {/* Star nodes */}
-          {[[200,300], [350,200], [500,250], [650,150], [800,280], [400,400], [600,350], [500,600], [700,550]].map(([x, y], i) => (
-            <circle 
-              key={i}
-              cx={x} 
-              cy={y} 
-              r="3"
-              className="hero-constellation-star"
-              style={{ animationDelay: `${i * 0.2}s` }}
-            />
-          ))}
-        </svg>
+      <div 
+        className="hero-signature-icon hero-signature-code"
+        style={getParallax(0.14)}
+        aria-hidden="true"
+      >
+        <div className="hero-signature-glow" />
+        <Code size={70} strokeWidth={0.4} />
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
@@ -252,9 +253,11 @@ const HeroSection = () => {
             </button>
             <button
               onClick={() => scrollToSection('about', 80)}
-              className="hero-cta-secondary"
+              className="hero-cta-secondary group"
             >
+              <span className="hero-cta-secondary-ripple" />
               <span>Connect With Me</span>
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
