@@ -5,14 +5,23 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * CareerTimeline - The Navigator's Journey
+ * CareerTimeline - The Navigator's Ascending Path
  * 
- * A visual timeline showing the evolution from first code
- * to production systems - a journey of continuous growth.
+ * Compact, responsive timeline from 2019 to 2025.
+ * Clean design matching the overall theme.
  */
 const CareerTimeline = () => {
   const prefersReducedMotion = useReducedMotion()
   const [headerRef, headerVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+  const [milestonesRef, milestonesVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+  const [mobileMilestonesRef, mobileMilestonesVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+
+  const milestones = [
+    { year: '2019', label: 'First Code', icon: Code2, color: 'pathfinder', phase: 'Foundation' },
+    { year: '2021', label: 'Kotlin Mastery', icon: Rocket, color: 'horizon', phase: 'Growth' },
+    { year: '2024', label: 'Full-Stack', icon: Globe2, color: 'compass', phase: 'Expansion' },
+    { year: '2025', label: 'Production', icon: Zap, color: 'navigator', phase: 'Mastery', isCurrent: true },
+  ]
 
   return (
     <section 
@@ -20,13 +29,15 @@ const CareerTimeline = () => {
       className="section relative overflow-hidden"
       aria-label="Career journey"
     >
-      {/* Background decorations */}
-      <div className="absolute inset-0 mesh-gradient opacity-50" aria-hidden="true" />
+      {/* Background */}
+      <div className="absolute inset-0 career-gradient-base" aria-hidden="true" />
+      <div className="career-atmosphere" aria-hidden="true">
+        <div className="career-atmo-layer career-atmo-1" />
+        <div className="career-atmo-layer career-atmo-2" />
+      </div>
       
       <div className="relative z-10 max-w-6xl mx-auto">
-        {/* ═══════════════════════════════════════════════════════════════════
-            Section Header
-            ═══════════════════════════════════════════════════════════════════ */}
+        {/* Section Header */}
         <div 
           ref={headerRef}
           className={`section-header ${!prefersReducedMotion ? 'animate-on-scroll' : ''} ${headerVisible ? 'visible' : ''}`}
@@ -48,48 +59,117 @@ const CareerTimeline = () => {
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            Evolution Stats
+            MILESTONE TIMELINE - Desktop Horizontal Layout
             ═══════════════════════════════════════════════════════════════════ */}
         <div 
-          className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 ${!prefersReducedMotion ? 'animate-on-scroll delay-2' : ''} ${headerVisible ? 'visible' : ''}`}
+          ref={milestonesRef}
+          className={`milestone-timeline-container hidden md:block ${!prefersReducedMotion ? 'animate-on-scroll delay-2' : ''} ${milestonesVisible ? 'visible' : ''}`}
         >
-          <EvolutionStat 
-            icon={<Code2 size={20} />}
-            year="2019"
-            label="First Code"
-            colorVar="navigator"
-          />
-          <EvolutionStat 
-            icon={<Rocket size={20} />}
-            year="2021"
-            label="Kotlin Mastery"
-            colorVar="compass"
-          />
-          <EvolutionStat 
-            icon={<Globe2 size={20} />}
-            year="2024"
-            label="Full-Stack"
-            colorVar="horizon"
-          />
-          <EvolutionStat 
-            icon={<Zap size={20} />}
-            year="2025"
-            label="Production"
-            colorVar="pathfinder"
-          />
+          {/* Start marker */}
+          <div className="milestone-marker milestone-start">
+            <span>START</span>
+          </div>
+
+          {/* Timeline path */}
+          <div className="milestone-path-wrapper">
+            <div className="milestone-path-line" />
+            <div className="milestone-path-glow" />
+            <div className="milestone-path-fill" />
+          </div>
+
+          {/* Milestone nodes */}
+          <div className="milestone-nodes-grid">
+            {milestones.map((milestone, index) => {
+              const Icon = milestone.icon
+              return (
+                <div 
+                  key={milestone.year}
+                  className={`milestone-item ${milestone.isCurrent ? 'milestone-item-current' : ''}`}
+                  style={{ 
+                    '--index': index,
+                    '--color': `var(--${milestone.color})`,
+                    '--delay': `${0.2 + index * 0.1}s`
+                  }}
+                >
+                  {/* Dot on line */}
+                  <div className="milestone-dot-wrapper">
+                    <div className="milestone-dot-ring" />
+                    <div className="milestone-dot-core" />
+                    {milestone.isCurrent && <div className="milestone-dot-pulse" />}
+                  </div>
+
+                  {/* Card - Always above */}
+                  <div className="milestone-item-card milestone-card-top">
+                    <div className="milestone-icon-box">
+                      <Icon size={16} />
+                    </div>
+                    
+                    <div className="milestone-year-text">{milestone.year}</div>
+                    <div className="milestone-phase-text">{milestone.phase}</div>
+                    <div className="milestone-label-text">{milestone.label}</div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* End marker */}
+          <div className="milestone-marker milestone-end">
+            <span>TODAY</span>
+          </div>
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            Timeline
+            MILESTONE CARDS - Mobile Grid Layout (EvolutionStat Style)
             ═══════════════════════════════════════════════════════════════════ */}
-        <div className="relative">
-          {/* Timeline line - hidden on mobile */}
-          <div 
-            className="timeline-line hidden md:block"
-            aria-hidden="true"
-          />
+        <div 
+          ref={mobileMilestonesRef}
+          className={`grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 mb-12 md:hidden ${!prefersReducedMotion ? 'animate-on-scroll delay-2' : ''} ${mobileMilestonesVisible ? 'visible' : ''}`}
+        >
+          {milestones.map((milestone, index) => {
+            const Icon = milestone.icon
+            const colorVar = milestone.color
+            
+            return (
+              <div
+                key={milestone.year}
+                className="card-compass milestone-card-no-bubble p-4 text-center"
+                style={{ 
+                  '--delay': `${0.1 + index * 0.1}s`,
+                  transitionDelay: `${0.1 + index * 0.1}s`
+                }}
+              >
+                {/* Icon in colored box */}
+                <div 
+                  className="inline-flex p-2 rounded-xl mb-3"
+                  style={{
+                    backgroundColor: `rgba(var(--${colorVar}), 0.1)`,
+                    color: `rgb(var(--${colorVar}))`
+                  }}
+                >
+                  <Icon size={20} />
+                </div>
 
-          {/* Timeline cards */}
+                {/* Year */}
+                <p className="text-title text-lg text-[rgb(var(--ink-primary))]">
+                  {milestone.year}
+                </p>
+
+                {/* Label */}
+                <p className="text-sm text-[rgb(var(--ink-tertiary))]">
+                  {milestone.label}
+                </p>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Timeline Cards */}
+        <div className="relative mt-12 md:mt-20">
+          <div className="career-timeline-flow" aria-hidden="true">
+            <div className="career-timeline-line" />
+          </div>
+
           <div className="space-y-8 md:space-y-0">
             {careerPositions.map((position, index) => (
               <TimelineCard
@@ -134,24 +214,5 @@ const CareerTimeline = () => {
     </section>
   )
 }
-
-/**
- * EvolutionStat - Key milestone indicator
- */
-const EvolutionStat = ({ icon, year, label, colorVar }) => (
-  <div className="card-growth p-4 text-center">
-    <div 
-      className="inline-flex p-2 rounded-xl mb-3"
-      style={{
-        backgroundColor: `rgba(var(--${colorVar}), 0.1)`,
-        color: `rgb(var(--${colorVar}))`
-      }}
-    >
-      {icon}
-    </div>
-    <p className="text-title text-lg text-[rgb(var(--ink-primary))]">{year}</p>
-    <p className="text-sm text-[rgb(var(--ink-tertiary))]">{label}</p>
-  </div>
-)
 
 export default CareerTimeline
