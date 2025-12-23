@@ -1,193 +1,232 @@
-# Portfolio Website - AI Documentation
+# CLAUDE.md
 
-> **Complete context for AI assistants working on this project**
+This file provides guidance to Claude Code (claude.ai/claude-code) when working with code in this repository.
 
 ## Project Overview
 
-**Type:** Single-page React developer portfolio  
-**Stack:** React 18.3.1 + Vite 6.0.3 + Tailwind CSS 3.4.17  
-**Status:** Production-ready  
-**Deployment:** GitHub Pages with automatic deployment via GitHub Actions
+**Kariem Seiam's Portfolio Website** - "The Navigator" themed production-ready React/JSX single-page application. Showcases a full-stack developer's work, skills, and career journey with a distinctive design inspired by desert sunsets, cosmic imagery, and navigation/exploration metaphors.
 
-## Architecture
+**Live URL**: https://kariemseiam.github.io/portfolio/
 
-### Component Structure
+## Tech Stack
 
-```
-src/components/
-├── About/              # About section
-│   ├── AboutSection.jsx    - Main about component with bio, stats, contact
-│   ├── PhilosophyCard.jsx  - Philosophy statement cards
-│   └── StatsCard.jsx       - 3D animated stats cards
-├── Career/             # Career timeline
-│   ├── CareerTimeline.jsx  - Timeline with alternating layout
-│   └── TimelineCard.jsx    - Expandable career cards
-├── Hero/               # Hero section
-│   ├── FloatingCodeBlocks.jsx - Animated code snippets
-│   └── HeroSection.jsx     - Full hero with stats, CTAs
-├── Projects/           # Project gallery
-│   ├── ProjectCard.jsx     - 3D project cards
-│   ├── ProjectGallery.jsx  - Filterable gallery
-│   └── ProjectModal.jsx    - Full-screen project details
-├── Shared/             # Reusable components
-│   ├── Navigation.jsx      - Fixed nav with mobile menu
-│   ├── ScrollProgress.jsx  - Top scroll progress bar
-│   ├── ThemeSwitcher.jsx   - Color theme switcher
-│   └── ThreeDCard.jsx      - Reusable 3D perspective card
-└── Skills/             # Skills section
-    ├── SkillBar.jsx        - Animated progress bars
-    └── SkillsSection.jsx   - Category tabs with skills
-```
-
-### Custom Hooks
-
-| Hook | Purpose |
-|------|---------|
-| `useTheme` | Theme management with localStorage persistence |
-| `useScrollProgress` | Scroll progress tracking (0-1) |
-| `useSmoothScroll` | Smooth scroll navigation |
-| `useIntersectionObserver` | Entrance animations |
-| `useReducedMotion` | Respects user motion preferences |
-
-### Data Files
-
-All content is stored in `src/data/`:
-
-- `about.js` - Bio, statistics, philosophy, contact
-- `career.js` - Career positions with achievements
-- `projects.js` - Featured projects with full details
-- `skills.js` - Skill categories with proficiency levels
-
-## Key Patterns
-
-### Lazy Loading
-
-Below-fold sections are lazy loaded:
-
-```jsx
-const CareerTimeline = lazy(() => import('./components/Career/CareerTimeline'))
-```
-
-### Theme System
-
-Three color themes stored in constants:
-- Purple/Indigo (default)
-- Teal/Emerald
-- Amber/Orange
-
-Theme persisted to localStorage and applied via CSS classes.
-
-### 3D Card Effect
-
-`ThreeDCard` component provides perspective transforms on hover:
-- Configurable intensity
-- GPU-accelerated transforms
-- Smooth transitions
-
-### Glass Effect
-
-Utility classes for glassmorphism:
-- `.glass` - Light glass with backdrop blur
-- `.glass-dark` - Dark glass variant
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| React | 18.3.1 | Component-based UI with hooks |
+| Vite | 6.0.3 | Build tool and dev server |
+| Tailwind CSS | 3.4.17 | Utility-first styling with extensive customizations |
+| Lucide React | 0.469.0 | Icon library |
+| ESLint | 9.39.1 | Code linting |
 
 ## Commands
 
 ```bash
-npm run dev      # Start dev server on :5173
-npm run build    # Production build to dist/
+npm run dev      # Start dev server (--host enabled, port 5173)
+npm run build    # Production build with Terser minification
 npm run preview  # Preview production build
+npm run lint     # ESLint check (js, jsx files)
 ```
 
-## File Locations
+## Project Architecture
 
-| Purpose | Location |
-|---------|----------|
-| Entry point | `src/main.jsx` |
-| Global styles | `src/index.css` |
-| SEO/Meta | `index.html` |
-| Build config | `vite.config.js` |
-| Tailwind config | `tailwind.config.js` |
-| Deployment | `.github/workflows/deploy.yml` |
+```
+src/
+├── components/              # React components by section
+│   ├── About/
+│   │   └── AboutSection.jsx
+│   ├── Career/
+│   │   ├── CareerTimeline.jsx
+│   │   └── TimelineCard.jsx
+│   ├── Hero/
+│   │   └── HeroSection.jsx
+│   ├── Projects/
+│   │   ├── ProjectCard.jsx
+│   │   ├── ProjectGallery.jsx
+│   │   └── ProjectModal.jsx
+│   ├── Shared/
+│   │   ├── Navigation.jsx
+│   │   ├── NoiseOverlay.jsx
+│   │   ├── ScrollProgress.jsx
+│   │   └── ThemeToggle.jsx
+│   └── Skills/
+│       ├── SkillBar.jsx
+│       └── SkillsSection.jsx
+├── data/                    # Content data files (edit to update site)
+│   ├── about.js             # Bio, statistics, philosophy, journey
+│   ├── career.js            # Work history (careerPositions array)
+│   ├── projects.js          # Featured projects (featuredProjects array)
+│   └── skills.js            # Skills by category (skillCategories array)
+├── hooks/                   # Custom React hooks
+│   ├── useIntersectionObserver.js  # Visibility detection
+│   ├── useReducedMotion.js         # Motion preference detection
+│   ├── useScrollProgress.js        # Scroll position tracking
+│   ├── useSmoothScroll.js          # Smooth scroll behavior
+│   └── useTheme.js                 # Dark/light theme management
+├── utils/
+│   ├── animations.js        # scrollToSection, isInViewport, debounce
+│   └── constants.js         # NAV_SECTIONS, ANIMATIONS, BREAKPOINTS, SOCIAL_LINKS, SITE_CONFIG
+├── App.jsx                  # Main app with lazy-loaded sections
+├── index.css                # Global styles with CSS variables (very large file)
+└── main.jsx                 # Entry point
+```
 
-## Accessibility Features
+## Key Conventions
 
-- Skip link to main content
-- Focus visible styles
-- Reduced motion CSS media query
-- High contrast mode support
-- ARIA labels on interactive elements
-- Semantic HTML structure
+### Component Patterns
+
+1. **Lazy Loading**: Below-fold sections use `React.lazy()` for code splitting
+   ```jsx
+   const CareerTimeline = lazy(() => import('./components/Career/CareerTimeline'))
+   ```
+
+2. **Animation-Aware Components**: Use `useReducedMotion()` hook to respect user preferences
+   ```jsx
+   const prefersReducedMotion = useReducedMotion()
+   if (prefersReducedMotion) return {}  // Skip animation
+   ```
+
+3. **Intersection Observer**: Use `useIntersectionObserver()` for scroll-triggered animations
+   ```jsx
+   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+   ```
+
+### Theming System
+
+- **Theme Toggle**: `useTheme()` hook manages dark/light mode
+- **Storage Key**: `localStorage.getItem('navigator-theme')`
+- **CSS Class**: `dark` class on `<html>` element toggles themes
+- **CSS Variables**: Defined in `index.css` under `:root` and `.dark`
+
+**Core CSS Variables**:
+```css
+--canvas-primary      /* Background */
+--ink-primary         /* Text */
+--navigator           /* Primary accent (coral) */
+--compass             /* Secondary accent (gold) */
+--horizon             /* Tertiary accent (teal) */
+--pathfinder          /* Code accent (indigo) */
+--growth              /* Success accent (green) */
+```
+
+### Color System (Tailwind)
+
+Custom color palettes in `tailwind.config.js`:
+- `navigator` - Coral/sunset tones (primary brand color)
+- `compass` - Gold/amber tones (guidance, CTAs)
+- `horizon` - Teal tones (exploration, links)
+- `pathfinder` - Blue/indigo (technical, code)
+- `canvas` - Background shades
+- `ink` - Text shades
+- `cosmos` - Dark theme backgrounds
+
+### CSS Class Naming
+
+Custom component classes in `index.css`:
+- `card-navigator`, `card-compass` - Card styles
+- `tag-navigator`, `tag-horizon`, `tag-pathfinder` - Tag variants
+- `hero-*` - Hero section elements
+- `nav-*` - Navigation elements
+- `section-badge` - Section header badges
+- `text-body`, `text-title` - Typography utilities
+
+### Data Structure Patterns
+
+**Projects** (`src/data/projects.js`):
+```js
+{
+  id: number,
+  title: string,
+  shortDescription: string,
+  longDescription: string,
+  technologies: string[],
+  category: 'Full-Stack' | 'API Platform' | 'Mobile App' | 'Marketing Site',
+  features: string[],
+  performanceMetrics: { loadTime, bundleSize, lighthouseScore },
+  liveDemoUrl: string | null,
+  githubUrl: string,
+  isPrivate: boolean,
+  stars?: number
+}
+```
+
+**Career** (`src/data/career.js`):
+```js
+{
+  id: number,
+  company: string,
+  role: string,
+  period: string,
+  description: string,
+  achievements: string[],
+  isCurrent: boolean
+}
+```
+
+**Skills** (`src/data/skills.js`):
+```js
+{
+  id: string,
+  name: string,
+  icon: string,  // Lucide icon name
+  skills: [{ name, level, description }]
+}
+```
+
+## Build Configuration
+
+### Vite Config (`vite.config.js`)
+
+- **Base Path**: `/portfolio/` (GitHub Pages subdirectory)
+- **Minification**: Terser with console/debugger removal
+- **Compression**: Gzip + Brotli via `vite-plugin-compression`
+- **Chunks**: Manual splitting for `react-vendor` and `icons`
+- **Asset Naming**: Hash-based for cache busting
+
+### GitHub Actions (`.github/workflows/deploy.yml`)
+
+- Triggers on push to `main` or manual dispatch
+- Node 18, npm ci, build, deploy to GitHub Pages
+- Output in `dist/` folder
+
+## Content Updates
+
+To update site content, edit files in `src/data/`:
+
+| File | Content |
+|------|---------|
+| `about.js` | Name, bio, statistics, philosophy, journey milestones |
+| `career.js` | Work history positions and achievements |
+| `projects.js` | Featured projects with details |
+| `skills.js` | Technical skills organized by category |
+
+## Accessibility
+
+- Skip link: `<a href="#main-content" className="skip-link">`
+- ARIA labels on all interactive elements
+- `useReducedMotion()` respects `prefers-reduced-motion`
+- Semantic HTML structure (`<main>`, `<nav>`, `<article>`, etc.)
+- Keyboard navigation support (focusable elements, Enter key handlers)
 
 ## Performance Optimizations
 
-- Lazy loading with Suspense
-- Manual chunk splitting (react-vendor, icons)
-- Terser minification with console drops
-- Asset naming for caching
-- Optimized dependency pre-bundling
+1. **Lazy Loading**: Sections below fold are lazily loaded
+2. **Code Splitting**: Manual chunks for vendor libraries
+3. **Compression**: Gzip and Brotli compressed assets
+4. **Console Removal**: Production builds strip console.log
+5. **Font Preconnect**: Google Fonts and Fontshare preconnected
+6. **Critical Font Preload**: Satoshi 900 weight preloaded
 
-## Common Tasks
+## SEO
 
-### Add a new project
+- Complete meta tags in `index.html`
+- Open Graph and Twitter Card support
+- JSON-LD structured data (Person schema)
+- Canonical URL configured
+- Robots meta allowing indexing
 
-Edit `src/data/projects.js`:
+## Important Notes
 
-```javascript
-{
-  id: 6,
-  title: 'New Project',
-  shortDescription: '...',
-  longDescription: '...',
-  technologies: ['...'],
-  category: 'Full-Stack',
-  features: ['...'],
-  performanceMetrics: { ... },
-  githubUrl: '...',
-}
-```
-
-### Add a new skill category
-
-Edit `src/data/skills.js`:
-
-```javascript
-{
-  id: 'newcategory',
-  name: 'New Category',
-  icon: 'Code', // Lucide icon name
-  skills: [
-    { name: 'Skill', level: 90, description: '...' },
-  ],
-}
-```
-
-### Change theme colors
-
-Edit `src/utils/constants.js`:
-
-```javascript
-export const THEMES = {
-  custom: {
-    name: 'Custom Theme',
-    gradient: 'from-red-500 to-pink-500',
-  },
-}
-```
-
-## Deployment
-
-Automatic deployment via GitHub Actions on push to `main`.
-
-Manual deployment:
-1. Run `npm run build`
-2. Deploy `dist/` folder to any static host
-
-For custom domains, update `vite.config.js`:
-```javascript
-base: '/', // Instead of '/portfolio-website/'
-```
-
----
-
-*Last updated: December 2025*
-
+- **index.css is very large**: Contains extensive custom CSS. Read portions with offset/limit if needed.
+- **Scrollbar hidden**: Custom CSS hides native scrollbars site-wide.
+- **Fonts**: Satoshi (display), Plus Jakarta Sans (body), JetBrains Mono (code)
+- **Animation library**: Custom keyframes in Tailwind config, no external animation library
