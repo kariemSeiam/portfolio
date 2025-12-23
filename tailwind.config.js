@@ -137,6 +137,7 @@ export default {
         'fade-right': 'fadeRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'scale-up': 'scaleUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'blur-in': 'blurIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'fade-in': 'fadeIn 0.3s ease-out forwards',
         
         // Path drawing
         'draw-path': 'drawPath 2s ease-out forwards',
@@ -212,6 +213,10 @@ export default {
         blurIn: {
           '0%': { opacity: '0', filter: 'blur(10px)', transform: 'scale(0.95)' },
           '100%': { opacity: '1', filter: 'blur(0)', transform: 'scale(1)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
         drawPath: {
           '0%': { strokeDashoffset: '1000' },
@@ -332,5 +337,19 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Custom plugin for hiding scrollbars
+    function ({ addUtilities }) {
+      addUtilities({
+        '.scrollbar-hide': {
+          /* Firefox */
+          'scrollbar-width': 'none',
+          /* Safari and Chrome */
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          }
+        }
+      })
+    }
+  ],
 }
