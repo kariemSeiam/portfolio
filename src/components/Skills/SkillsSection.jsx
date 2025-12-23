@@ -1,20 +1,23 @@
-import { useState } from 'react'
-import { Zap, Code2, Server, Smartphone, Globe2, Map, Languages, Database, Navigation, Rocket } from 'lucide-react'
+import { useState, useMemo, useRef, useCallback, useEffect } from 'react'
+import { 
+  Zap, Code2, Server, Smartphone, Globe2, Map, Languages, 
+  Sparkles, ChevronLeft, ChevronRight, Star
+} from 'lucide-react'
 import { skillCategories } from '../../data/skills'
-import SkillBar from './SkillBar'
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * SkillsSection - The Navigator's Toolkit
+ * SkillsSection - The Navigator's Mastery Atlas
  * 
- * Uses card-horizon style representing exploration and discovery.
- * Skills are horizons to reach and master.
+ * A masterpiece visualization of technical expertise.
+ * Clean, elegant, and works perfectly on all devices.
  */
 const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState(skillCategories[0]?.id || 'frontend')
+  const [activeCategory, setActiveCategory] = useState(0)
   const prefersReducedMotion = useReducedMotion()
   const [headerRef, headerVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+  const [contentRef, contentVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
 
   const iconMap = {
     Code: Code2,
@@ -23,196 +26,161 @@ const SkillsSection = () => {
     Smartphone: Smartphone,
     Globe: Globe2,
     Globe2: Globe2,
-    Map: Map,
-    Languages: Languages,
-    Database: Database,
   }
 
-  const currentCategory = skillCategories.find(cat => cat.id === activeCategory)
+  const themeColors = ['navigator', 'compass', 'horizon', 'pathfinder']
 
   // Category data with averages
-  const categoryStats = skillCategories.map((cat, i) => ({
+  const categoryData = useMemo(() => skillCategories.map((cat, i) => ({
     ...cat,
     average: Math.round(cat.skills.reduce((sum, s) => sum + s.level, 0) / cat.skills.length),
     Icon: iconMap[cat.icon] || Code2,
-  }))
+    color: themeColors[i % 4],
+  })), [])
 
-  // Color styles for each category
-  const colorStyles = {
-    0: { // Navigator
-      active: { backgroundColor: 'rgb(var(--navigator))', color: 'white' },
-      inactive: { backgroundColor: 'rgba(var(--navigator), 0.1)', color: 'rgb(var(--navigator))' },
-      ring: { boxShadow: '0 0 0 2px rgba(var(--navigator), 0.3)' },
-      text: { color: 'rgb(var(--navigator))' },
-    },
-    1: { // Compass
-      active: { backgroundColor: 'rgb(var(--compass))', color: 'white' },
-      inactive: { backgroundColor: 'rgba(var(--compass), 0.1)', color: 'rgb(var(--compass))' },
-      ring: { boxShadow: '0 0 0 2px rgba(var(--compass), 0.3)' },
-      text: { color: 'rgb(var(--compass))' },
-    },
-    2: { // Horizon
-      active: { backgroundColor: 'rgb(var(--horizon))', color: 'white' },
-      inactive: { backgroundColor: 'rgba(var(--horizon), 0.1)', color: 'rgb(var(--horizon))' },
-      ring: { boxShadow: '0 0 0 2px rgba(var(--horizon), 0.3)' },
-      text: { color: 'rgb(var(--horizon))' },
-    },
-    3: { // Pathfinder
-      active: { backgroundColor: 'rgb(var(--pathfinder))', color: 'white' },
-      inactive: { backgroundColor: 'rgba(var(--pathfinder), 0.1)', color: 'rgb(var(--pathfinder))' },
-      ring: { boxShadow: '0 0 0 2px rgba(var(--pathfinder), 0.3)' },
-      text: { color: 'rgb(var(--pathfinder))' },
-    },
+  const currentCategory = categoryData[activeCategory]
+
+  const totalSkills = skillCategories.reduce((sum, cat) => sum + cat.skills.length, 0)
+
+  // Navigation handlers
+  const goToPrev = () => {
+    setActiveCategory(prev => prev === 0 ? categoryData.length - 1 : prev - 1)
+  }
+
+  const goToNext = () => {
+    setActiveCategory(prev => prev === categoryData.length - 1 ? 0 : prev + 1)
   }
 
   return (
-    <section id="skills" className="section relative overflow-hidden">
-      <div className="absolute inset-0 mesh-gradient opacity-40" aria-hidden="true" />
-      
-      <div className="relative z-10 max-w-6xl mx-auto">
+    <section id="skills" className="skills-masterpiece">
+      {/* ═══════════════════════════════════════════════════════════════════
+          AMBIENT BACKGROUND
+          ═══════════════════════════════════════════════════════════════════ */}
+      <div className="skills-ambient" aria-hidden="true">
+        <div className="skills-glow skills-glow-1" />
+        <div className="skills-glow skills-glow-2" />
+      </div>
+
+      <div className="skills-container">
         {/* ═══════════════════════════════════════════════════════════════════
-            Section Header
+            HEADER
             ═══════════════════════════════════════════════════════════════════ */}
         <div 
           ref={headerRef}
-          className={`section-header ${!prefersReducedMotion ? 'animate-on-scroll' : ''} ${headerVisible ? 'visible' : ''}`}
+          className={`skills-header ${headerVisible ? 'visible' : ''}`}
         >
-          <div className="section-badge">
-            <Zap size={16} />
+          <div className="skills-badge">
+            <Zap size={14} />
             <span>Technical Expertise</span>
           </div>
           
-          <h2 className="text-section mb-4">
-            <span className="text-[rgb(var(--ink-primary))]">Skills & </span>
-            <span className="gradient-text">Mastery</span>
+          <h2 className="skills-title">
+            <span className="skills-title-primary">Skills & </span>
+            <span className="skills-title-gradient">Mastery</span>
           </h2>
           
-          <p className="text-body-lg max-w-2xl mx-auto">
-            A comprehensive toolkit built over 
-            <span className="font-semibold" style={{ color: 'rgb(var(--navigator))' }}> 6+ years</span> of 
-            continuous learning and real-world application.
+          <p className="skills-subtitle">
+            A comprehensive toolkit built over
+            <span className="skills-highlight"> 6+ years</span> of 
+            continuous learning and real-world application
           </p>
+
+          {/* Mastery Overview */}
+          <div className="skills-overview">
+            <div className="skills-stat-info">
+              <Sparkles size={14} />
+              <span>{totalSkills} skills across {categoryData.length} domains</span>
+            </div>
+          </div>
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            Category Cards - Horizon Style
+            CATEGORY TABS - Clean horizontal tabs
             ═══════════════════════════════════════════════════════════════════ */}
         <div 
-          className={`grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-12 ${
-            !prefersReducedMotion ? 'animate-on-scroll delay-2' : ''
-          } ${headerVisible ? 'visible' : ''}`}
+          ref={contentRef}
+          className={`skills-tabs ${contentVisible ? 'visible' : ''}`}
         >
-          {categoryStats.map((cat, index) => {
+          {categoryData.map((cat, index) => {
             const Icon = cat.Icon
-            const isActive = activeCategory === cat.id
-            const styles = colorStyles[index % 4]
+            const isActive = activeCategory === index
             
             return (
-              <button
+              <TabButton
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className="card-horizon p-3 sm:p-4 text-center transition-all"
-                style={isActive ? styles.ring : {}}
-              >
-                <div 
-                  className="inline-flex p-2 sm:p-3 rounded-xl sm:rounded-2xl mb-2 sm:mb-3 transition-all shadow-sm"
-                  style={isActive ? styles.active : styles.inactive}
-                >
-                  <Icon size={20} className="sm:w-6 sm:h-6" />
-                </div>
-                <p className="text-xs sm:text-sm font-semibold text-[rgb(var(--ink-primary))] mb-0.5 sm:mb-1">
-                  {cat.name}
-                </p>
-                <div className="flex items-center justify-center gap-1">
-                  <span 
-                    className="text-base sm:text-xl font-bold"
-                    style={isActive ? styles.text : { color: 'rgb(var(--ink-secondary))' }}
-                  >
-                    {cat.average}%
-                  </span>
-                  <span className="text-[10px] sm:text-xs text-[rgb(var(--ink-tertiary))]">avg</span>
-                </div>
-              </button>
+                cat={cat}
+                index={index}
+                isActive={isActive}
+                Icon={Icon}
+                onClick={() => setActiveCategory(index)}
+              />
             )
           })}
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            Skills Detail - Navigator Style (Featured)
+            SKILLS DISPLAY - Beautiful grid
             ═══════════════════════════════════════════════════════════════════ */}
-        <div 
-          className={`card-navigator p-4 sm:p-6 lg:p-8 ${
-            !prefersReducedMotion ? 'animate-on-scroll delay-3' : ''
-          } ${headerVisible ? 'visible' : ''}`}
-        >
-          {/* Category Header */}
-          <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 pb-3 sm:pb-4 border-b" style={{ borderColor: 'rgba(var(--border-primary), 0.5)' }}>
-            {currentCategory && (
-              <>
+        <div className={`skills-display ${contentVisible ? 'visible' : ''}`}>
+          {/* Category Header with Navigation */}
+          <div className="skills-category-bar">
+            <div className="skills-category-info">
+              <div 
+                className="skills-category-icon"
+                style={{ '--cat-color': `var(--${currentCategory.color})` }}
+              >
                 {(() => {
-                  const Icon = iconMap[currentCategory.icon] || Code2
-                  return (
-                    <div 
-                      className="p-2 sm:p-3 rounded-xl sm:rounded-2xl text-white shadow-lg"
-                      style={{ background: 'linear-gradient(135deg, rgb(var(--navigator)), rgb(var(--compass)))' }}
-                    >
-                      <Icon size={20} className="sm:w-6 sm:h-6" />
-                    </div>
-                  )
+                  const Icon = currentCategory.Icon
+                  return <Icon size={22} />
                 })()}
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-[rgb(var(--ink-primary))]">{currentCategory.name}</h3>
-                  <p className="text-xs sm:text-sm text-[rgb(var(--ink-tertiary))]">
-                    {currentCategory.skills.length} skills mastered
-                  </p>
-                </div>
-              </>
-            )}
+              </div>
+              <div 
+                className="skills-category-text"
+                style={{ '--cat-color': `var(--${currentCategory.color})` }}
+              >
+                <h3 className="skills-category-name">{currentCategory.name}</h3>
+                <p className="skills-category-count">{currentCategory.skills.length} technologies</p>
+              </div>
+            </div>
+            
+            <div className="skills-nav" style={{ '--cat-color': 'var(--navigator)' }}>
+              <button onClick={goToPrev} className="skills-nav-btn" aria-label="Previous category">
+                <ChevronLeft size={18} />
+              </button>
+              <span className="skills-nav-counter">{activeCategory + 1} / {categoryData.length}</span>
+              <button onClick={goToNext} className="skills-nav-btn" aria-label="Next category">
+                <ChevronRight size={18} />
+              </button>
+            </div>
           </div>
 
           {/* Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-            {currentCategory?.skills.map((skill, index) => (
-              <SkillBar key={skill.name} skill={skill} index={index} />
+          <div className="skills-grid">
+            {currentCategory.skills.map((skill, index) => (
+              <SkillCard 
+                key={skill.name} 
+                skill={skill} 
+                index={index}
+                color={currentCategory.color}
+                isVisible={contentVisible}
+              />
             ))}
           </div>
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            SPECIALIZATIONS - Elegant Compact Pills
+            SPECIALIZATIONS
             ═══════════════════════════════════════════════════════════════════ */}
-        <div 
-          className={`mt-8 sm:mt-12 text-center ${
-            !prefersReducedMotion ? 'animate-on-scroll delay-4' : ''
-          } ${headerVisible ? 'visible' : ''}`}
-        >
-          <p className="text-label text-[rgb(var(--ink-tertiary))] mb-4 sm:mb-5">Core Specializations</p>
-          
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-            <SpecialtyPill
-              icon={<Map size={14} />}
-              label="Geolocation"
-              colorVar="navigator"
-              prefersReducedMotion={prefersReducedMotion}
-            />
-            <SpecialtyPill
-              icon={<Languages size={14} />}
-              label="Arabic/RTL"
-              colorVar="compass"
-              prefersReducedMotion={prefersReducedMotion}
-            />
-            <SpecialtyPill
-              icon={<Server size={14} />}
-              label="Production"
-              colorVar="horizon"
-              prefersReducedMotion={prefersReducedMotion}
-            />
-            <SpecialtyPill
-              icon={<Rocket size={14} />}
-              label="API Design"
-              colorVar="pathfinder"
-              prefersReducedMotion={prefersReducedMotion}
-            />
+        <div className={`skills-specs ${contentVisible ? 'visible' : ''}`}>
+          <div className="skills-specs-label">
+            <Star size={12} />
+            <span>Core Specializations</span>
+          </div>
+          <div className="skills-specs-grid">
+            <SpecCard icon={<Map size={18} />} title="Geolocation" color="navigator" />
+            <SpecCard icon={<Languages size={18} />} title="Arabic/RTL" color="compass" />
+            <SpecCard icon={<Server size={18} />} title="Production" color="horizon" />
+            <SpecCard icon={<Globe2 size={18} />} title="API Design" color="pathfinder" />
           </div>
         </div>
       </div>
@@ -221,63 +189,168 @@ const SkillsSection = () => {
 }
 
 /**
- * SpecialtyPill - Elegant compact specialty badge
- * Masterpiece-level minimal design with subtle interactions
+ * TabButton - Category tab with mouse tracking
  */
-const SpecialtyPill = ({ icon, label, colorVar, prefersReducedMotion }) => {
-  const [isHovered, setIsHovered] = useState(false)
+const TabButton = ({ cat, index, isActive, Icon, onClick }) => {
+  const tabRef = useRef(null)
+  const prefersReducedMotion = useReducedMotion()
+
+  const handleMouseMove = useCallback((e) => {
+    if (prefersReducedMotion || !tabRef.current) return
+    
+    const rect = tabRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    
+    tabRef.current.style.setProperty('--mouse-x', `${x * 100}%`)
+    tabRef.current.style.setProperty('--mouse-y', `${y * 100}%`)
+  }, [prefersReducedMotion])
+
+  useEffect(() => {
+    const tab = tabRef.current
+    if (!tab || prefersReducedMotion) return
+
+    tab.addEventListener('mousemove', handleMouseMove)
+    return () => tab.removeEventListener('mousemove', handleMouseMove)
+  }, [handleMouseMove, prefersReducedMotion])
 
   return (
-    <div
-      className="group relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full cursor-default transition-all duration-300"
-      style={{
-        backgroundColor: isHovered 
-          ? `rgba(var(--${colorVar}), 0.15)` 
-          : `rgba(var(--${colorVar}), 0.08)`,
-        border: `1px solid ${isHovered ? `rgba(var(--${colorVar}), 0.4)` : `rgba(var(--${colorVar}), 0.2)`}`,
-        transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
-        boxShadow: isHovered 
-          ? `0 4px 12px -2px rgba(var(--${colorVar}), 0.25)` 
-          : 'none',
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <button
+      ref={tabRef}
+      onClick={onClick}
+      className={`skills-tab ${isActive ? 'active' : ''}`}
+      style={{ '--tab-color': `var(--${cat.color})` }}
+      aria-label={`View ${cat.name} skills`}
     >
-      {/* Icon */}
-      <span 
-        className="transition-all duration-300"
-        style={{ 
-          color: `rgb(var(--${colorVar}))`,
-          transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-        }}
-      >
-        {icon}
-      </span>
-      
-      {/* Label */}
-      <span 
-        className="text-xs sm:text-sm font-medium transition-colors duration-300"
-        style={{ 
-          color: isHovered ? `rgb(var(--${colorVar}))` : 'rgb(var(--ink-primary))',
-        }}
-      >
-        {label}
-      </span>
+      <div className="skills-tab-background" />
+      <div className="skills-tab-icon">
+        <Icon size={18} />
+      </div>
+      <span className="skills-tab-name">{cat.name}</span>
+      <span className="skills-tab-avg">{cat.average}%</span>
+    </button>
+  )
+}
 
-      {/* Subtle shine effect on hover */}
-      {isHovered && !prefersReducedMotion && (
-        <div 
-          className="absolute inset-0 rounded-full overflow-hidden pointer-events-none"
-          aria-hidden="true"
-        >
-          <div 
-            className="absolute inset-0 -translate-x-full animate-shimmer"
-            style={{
-              background: `linear-gradient(90deg, transparent, rgba(var(--${colorVar}), 0.1), transparent)`,
+/**
+ * SkillCard - Individual skill visualization
+ */
+const SkillCard = ({ skill, index, color, isVisible }) => {
+  const prefersReducedMotion = useReducedMotion()
+  const cardRef = useRef(null)
+  const delay = prefersReducedMotion ? 0 : index * 50
+
+  // Determine tier based on level
+  const getTier = (level) => {
+    if (level >= 95) return { label: 'Legendary', class: 'legendary' }
+    if (level >= 90) return { label: 'Master', class: 'master' }
+    if (level >= 80) return { label: 'Expert', class: 'expert' }
+    return { label: 'Advanced', class: 'advanced' }
+  }
+
+  const tier = getTier(skill.level)
+
+  const handleMouseMove = useCallback((e) => {
+    if (prefersReducedMotion || !cardRef.current) return
+    
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    
+    cardRef.current.style.setProperty('--mouse-x', `${x * 100}%`)
+    cardRef.current.style.setProperty('--mouse-y', `${y * 100}%`)
+  }, [prefersReducedMotion])
+
+  useEffect(() => {
+    const card = cardRef.current
+    if (!card || prefersReducedMotion) return
+
+    card.addEventListener('mousemove', handleMouseMove)
+    return () => card.removeEventListener('mousemove', handleMouseMove)
+  }, [handleMouseMove, prefersReducedMotion])
+
+  return (
+    <div 
+      ref={cardRef}
+      className={`skill-card ${tier.class}`}
+      style={{ 
+        '--skill-color': `var(--${color})`,
+        '--delay': `${delay}ms`,
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`
+      }}
+    >
+      {/* Radial progress */}
+      <div className="skill-card-ring">
+        <svg viewBox="0 0 80 80">
+          <circle 
+            cx="40" cy="40" r="34" 
+            fill="none" 
+            stroke="rgba(var(--border-primary), 0.2)" 
+            strokeWidth="4"
+          />
+          <circle 
+            cx="40" cy="40" r="34" 
+            fill="none" 
+            className="skill-card-progress"
+            strokeWidth="4"
+            strokeLinecap="round"
+            strokeDasharray={`${skill.level * 2.14} ${214 - skill.level * 2.14}`}
+            style={{ 
+              '--level': skill.level,
+              transition: `stroke-dasharray 1.5s cubic-bezier(0.16, 1, 0.3, 1) ${delay + 300}ms`
             }}
           />
-        </div>
-      )}
+        </svg>
+        <span className="skill-card-level">{skill.level}</span>
+      </div>
+
+      {/* Info */}
+      <div className="skill-card-info">
+        <h4 className="skill-card-name">{skill.name}</h4>
+        {skill.description && (
+          <p className="skill-card-desc">{skill.description}</p>
+        )}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * SpecCard - Specialization card with mouse tracking
+ */
+const SpecCard = ({ icon, title, color }) => {
+  const cardRef = useRef(null)
+  const prefersReducedMotion = useReducedMotion()
+
+  const handleMouseMove = useCallback((e) => {
+    if (prefersReducedMotion || !cardRef.current) return
+    
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top) / rect.height
+    
+    cardRef.current.style.setProperty('--mouse-x', `${x * 100}%`)
+    cardRef.current.style.setProperty('--mouse-y', `${y * 100}%`)
+  }, [prefersReducedMotion])
+
+  useEffect(() => {
+    const card = cardRef.current
+    if (!card || prefersReducedMotion) return
+
+    card.addEventListener('mousemove', handleMouseMove)
+    return () => card.removeEventListener('mousemove', handleMouseMove)
+  }, [handleMouseMove, prefersReducedMotion])
+
+  return (
+    <div 
+      ref={cardRef}
+      className="spec-card"
+      style={{ '--spec-color': `var(--${color})` }}
+    >
+      <div className="spec-icon">{icon}</div>
+      <span className="spec-title">{title}</span>
     </div>
   )
 }

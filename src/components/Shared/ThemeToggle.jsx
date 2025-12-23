@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '../../hooks/useTheme'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
@@ -11,8 +12,31 @@ import { useReducedMotion } from '../../hooks/useReducedMotion'
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme()
   const prefersReducedMotion = useReducedMotion()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const isDark = theme === 'dark'
+
+  // Check if modal is open by monitoring body attribute
+  useEffect(() => {
+    const checkModalState = () => {
+      setIsModalOpen(document.body.hasAttribute('data-modal-open'))
+    }
+
+    // Initial check
+    checkModalState()
+
+    // Watch for changes using MutationObserver
+    const observer = new MutationObserver(checkModalState)
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-modal-open']
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Hide toggle when modal is open
+  if (isModalOpen) return null
 
   return (
     <button
