@@ -48,7 +48,7 @@ export const skillCategories = [
   },
   {
     id: 'cloud',
-    name: 'Cloud & DevOps',
+    name: 'Cloud',
     icon: 'Globe',
     skills: [
       { name: 'Git/GitHub', level: 95, description: 'Version control mastery' },

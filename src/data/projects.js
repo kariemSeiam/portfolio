@@ -25,6 +25,17 @@ Native Arabic/RTL support with Cairo and Tajawal fonts ensures first-class local
       bundleSize: '245KB',
       lighthouseScore: 92,
     },
+    images: [
+      // Add web screenshots to: public/images/projects/hvar-hub/web/
+      // Add mobile screenshots to: public/images/projects/hvar-hub/mobile/
+      // Example:
+      // {
+      //   url: '/images/projects/hvar-hub/web/dashboard.png',
+      //   type: 'web',
+      //   alt: 'Hvar-Hub dashboard interface',
+      //   caption: 'Main dashboard with service management overview'
+      // },
+    ],
     liveDemoUrl: null,
     githubUrl: '#',
     isPrivate: true,
@@ -53,6 +64,63 @@ Deployed in production with Docker containerization support, serving real users 
       bundleSize: '180KB',
       lighthouseScore: 95,
     },
+    images: [
+      {
+        url: '/images/projects/geolink-api/web/landing-hero.png',
+        type: 'web',
+        alt: 'Geolink API landing page with hero section',
+        caption: 'Landing page featuring "Location Services Made Simple" with code example demonstration'
+      },
+      {
+        url: '/images/projects/geolink-api/mobile/landing-hero.jpg',
+        type: 'mobile',
+        alt: 'Geolink API mobile landing page',
+        caption: 'Mobile-first landing page with responsive design and touch-optimized interface'
+      },
+      {
+        url: '/images/projects/geolink-api/mobile/api-keys.jpg',
+        type: 'mobile',
+        alt: 'Mobile API keys management page',
+        caption: 'Mobile API key management with touch-optimized interface'
+      },
+      {
+        url: '/images/projects/geolink-api/mobile/api-docs.jpg',
+        type: 'mobile',
+        alt: 'Mobile API documentation',
+        caption: 'Mobile-optimized API documentation interface with endpoint listings'
+      },
+      {
+        url: '/images/projects/geolink-api/mobile/notifications.jpg',
+        type: 'mobile',
+        alt: 'Mobile notifications page',
+        caption: 'Mobile notifications center with swipe gestures and filters'
+      },
+      // Add more web screenshots to: public/images/projects/geolink-api/web/
+      // {
+      //   url: '/images/projects/geolink-api/web/dashboard.png',
+      //   type: 'web',
+      //   alt: 'Geolink admin dashboard interface',
+      //   caption: 'Admin dashboard with real-time analytics, user management, and API key administration'
+      // },
+      // {
+      //   url: '/images/projects/geolink-api/web/api-keys.png',
+      //   type: 'web',
+      //   alt: 'API key management page',
+      //   caption: 'API key management interface with rate limiting and usage tracking'
+      // },
+      // {
+      //   url: '/images/projects/geolink-api/web/api-docs.png',
+      //   type: 'web',
+      //   alt: 'API documentation page',
+      //   caption: 'Comprehensive API documentation with interactive examples and code snippets'
+      // },
+      // {
+      //   url: '/images/projects/geolink-api/web/notifications.png',
+      //   type: 'web',
+      //   alt: 'Notifications page',
+      //   caption: 'Notifications center with activity feed and alerts'
+      // },
+    ],
     liveDemoUrl: 'https://geolink-eg.com',
     githubUrl: 'https://github.com/kariemSeiam/Geolink',
     isPrivate: false,
@@ -82,6 +150,22 @@ Background LocationService runs in a separate process with wake locks and batter
       bundleSize: '8.5MB',
       lighthouseScore: null,
     },
+    images: [
+      // Add mobile screenshots to: public/images/projects/areo/mobile/
+      // Example:
+      // {
+      //   url: '/images/projects/areo/mobile/home-screen.png',
+      //   type: 'mobile',
+      //   alt: 'Areo home screen',
+      //   caption: 'Home screen with trip management interface'
+      // },
+      // {
+      //   url: '/images/projects/areo/mobile/compass-view.png',
+      //   type: 'mobile',
+      //   alt: 'Custom compass interface',
+      //   caption: 'Custom compass using accelerometer and magnetometer sensors'
+      // },
+    ],
     liveDemoUrl: null,
     githubUrl: 'https://github.com/kariemSeiam/Areo',
     isPrivate: false,
@@ -111,6 +195,22 @@ Sequential permission queue system ensures Android 13+ compliance, while AppUpda
       bundleSize: '12MB',
       lighthouseScore: null,
     },
+    images: [
+      // Add mobile screenshots to: public/images/projects/taxiarab-platform/mobile/
+      // Example:
+      // {
+      //   url: '/images/projects/taxiarab-platform/mobile/client-home.png',
+      //   type: 'mobile',
+      //   alt: 'Taxiarab client app home screen',
+      //   caption: 'Client app home screen with ride booking interface'
+      // },
+      // {
+      //   url: '/images/projects/taxiarab-platform/mobile/driver-dashboard.png',
+      //   type: 'mobile',
+      //   alt: 'Taxiarab driver app dashboard',
+      //   caption: 'Driver app dashboard with real-time ride tracking'
+      // },
+    ],
     liveDemoUrl: null,
     githubUrl: '#',
     isPrivate: true,
@@ -139,6 +239,22 @@ Premium Arabic/RTL design system uses Almarai and Tajawal fonts with a carefully
       bundleSize: '150KB',
       lighthouseScore: 98,
     },
+    images: [
+      // Add web screenshots to: public/images/projects/hvar-catalog/web/
+      // Example:
+      // {
+      //   url: '/images/projects/hvar-catalog/web/homepage.png',
+      //   type: 'web',
+      //   alt: 'Hvar-Catalog homepage',
+      //   caption: 'SEO-optimized homepage with product showcase'
+      // },
+      // {
+      //   url: '/images/projects/hvar-catalog/web/catalog-view.png',
+      //   type: 'web',
+      //   alt: 'Product catalog view',
+      //   caption: 'Product catalog with filtering and search functionality'
+      // },
+    ],
     liveDemoUrl: null,
     githubUrl: '#',
     isPrivate: true,
