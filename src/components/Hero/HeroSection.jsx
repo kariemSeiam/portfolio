@@ -207,7 +207,7 @@ const HeroSection = () => {
           >
             <div className="hero-orbit-stats-ring">
               <OrbitStat 
-                value="6+" 
+                value="3+" 
                 label="Years" 
                 angle={-60}
                 icon={<Briefcase size={14} />}
