@@ -7,13 +7,13 @@ export const aboutContent = {
   tagline: 'Building production-ready systems that make a difference',
   
   bio: [
-    'A dedicated and passionate Computer Science and Mathematics student, skilled native Android developer, and full-stack architect with 6+ years of experience building production systems.',
+    'A dedicated and passionate Computer Science and Mathematics student, skilled native Android developer, and full-stack architect with 3+ years of experience building production systems.',
     'Specialized in geolocation services (10+ projects, public API with 8 stars), Arabic/RTL localization (rare skill, MENA market focus), and complete business management systems.',
     'From first code to production systems - building complete solutions, not just features. Every project reflects a commitment to quality, performance, and real-world impact.',
   ],
   
   statistics: {
-    yearsExperience: 6,
+    yearsExperience: 3,
     projectsCompleted: 75,
     publicProjects: 64,
     githubStars: 10,
