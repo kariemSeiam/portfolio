@@ -1,0 +1,88 @@
+---
+description: Core project identity and architecture for The Navigator portfolio. This rule provides essential context about the tech stack, architecture, and design philosophy. Always applied to understand project context.
+alwaysApply: true
+---
+
+# The Navigator - Project Identity
+
+## Project Overview
+
+**Kariem Seiam's Portfolio Website** - "The Navigator" themed production-ready React single-page application. A portfolio showcasing a full-stack developer's work with a distinctive design inspired by desert sunsets, cosmic imagery, and navigation/exploration metaphors.
+
+**Live URL**: https://kariemseiam.github.io/portfolio/
+**Theme**: "A developer who builds bridges between worlds" - Arabic ↔ English | Mobile ↔ Web | Code ↔ Impact
+
+## Tech Stack
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| React | 18.3.1 | Component-based UI with hooks (NO TypeScript) |
+| Vite | 6.0.3 | Build tool and dev server |
+| Tailwind CSS | 3.4.17 | Utility-first styling with extensive customizations |
+| Lucide React | 0.469.0 | Icon library (only icon source) |
+| ESLint | 9.39.1 | Code linting |
+
+## Architecture Pattern
+
+```
+src/
+├── components/              # React components by SECTION (not by type)
+│   ├── About/               # About section components
+│   ├── Career/              # Career timeline components
+│   ├── Hero/                # Hero section components
+│   ├── Projects/            # Projects gallery components
+│   ├── Shared/              # Shared UI components (Nav, Theme, etc.)
+│   └── Skills/              # Skills section components
+├── data/                    # Content data files (EDIT THESE to update content)
+├── hooks/                   # Custom React hooks (use* prefix)
+├── utils/                   # Shared utilities and constants
+├── App.jsx                  # Main app with lazy-loaded sections
+├── index.css                # Global styles with CSS variables (~6700 lines)
+└── main.jsx                 # Entry point
+```
+
+## Design Philosophy
+
+### The Navigator Metaphor
+- **Navigator** (Coral) - Primary accent, signature color
+- **Compass** (Gold) - Guidance, CTAs, secondary accent
+- **Horizon** (Teal) - Exploration, links, tertiary accent
+- **Pathfinder** (Indigo) - Technical, code elements
+- **Growth** (Green) - Success, evolution indicators
+
+### Visual Language
+- Warm ivory backgrounds in light mode, cosmic black in dark mode
+- Geometric patterns, corner accents, flowing curves
+- Parallax effects and staggered animations
+- Cards as "windows into the journey"
+
+## Commands
+
+```bash
+npm run dev      # Start dev server (--host enabled, port 5173)
+npm run build    # Production build with Terser minification
+npm run preview  # Preview production build
+npm run lint     # ESLint check (js, jsx files)
+```
+
+## Critical Rules
+
+### ✅ DO
+- Use JSX only (this is NOT a TypeScript project)
+- Import icons ONLY from `lucide-react`
+- Use CSS variables for colors: `rgb(var(--navigator))`
+- Respect the section-based folder structure
+- Follow the Navigator design metaphor naming
+
+### ❌ DON'T
+- Don't add TypeScript files or types
+- Don't use other icon libraries (Font Awesome, Heroicons, etc.)
+- Don't use inline colors - use CSS variables or Tailwind classes
+- Don't create components outside the established structure
+- Don't use class components - hooks only
+
+## File References
+@src/App.jsx - Main application structure
+@src/index.css - Complete design system (read sections, not entire file)
+@tailwind.config.js - Tailwind customizations and color palette
+@vite.config.js - Build configuration

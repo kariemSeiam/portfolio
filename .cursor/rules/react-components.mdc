@@ -1,0 +1,244 @@
+---
+description: React component patterns, structure, and best practices for The Navigator portfolio. Auto-attached when working with JSX component files.
+globs: ["src/components/**/*.jsx", "src/App.jsx"]
+alwaysApply: false
+---
+
+# React Component Patterns
+
+## Component Structure Template
+
+```jsx
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react'
+import { IconName } from 'lucide-react'
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
+import { useReducedMotion } from '../../hooks/useReducedMotion'
+
+/**
+ * ComponentName - Poetic description of purpose
+ * 
+ * Design philosophy and key features.
+ */
+const ComponentName = ({ prop1, prop2 }) => {
+  // 1. Hooks first (refs, state, custom hooks)
+  const sectionRef = useRef(null)
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+  const [localState, setLocalState] = useState(false)
+
+  // 2. Effects
+  useEffect(() => {
+    // Effect logic
+  }, [dependencies])
+
+  // 3. Callbacks and handlers
+  const handleClick = useCallback(() => {
+    // Handler logic
+  }, [])
+
+  // 4. Computed values
+  const animationDelay = prefersReducedMotion ? '0s' : '0.2s'
+
+  // 5. Render
+  return (
+    <section
+      ref={sectionRef}
+      id="section-id"
+      className="relative"
+      aria-label="Section description"
+    >
+      {/* Content */}
+    </section>
+  )
+}
+
+export default ComponentName
+```
+
+## Section Components
+
+Main page sections follow this pattern:
+
+```jsx
+const SectionName = () => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+  const prefersReducedMotion = useReducedMotion()
+
+  return (
+    <section
+      ref={ref}
+      id="section-id"  // Must match NAV_SECTIONS id
+      className="section relative py-20 sm:py-28 lg:py-36"
+      aria-labelledby="section-heading"
+    >
+      {/* Section badge */}
+      <div className="section-badge">
+        <IconName size={14} />
+        <span>Section Label</span>
+      </div>
+
+      {/* Section heading */}
+      <h2 id="section-heading" className="text-section text-center mb-8">
+        Section Title
+      </h2>
+
+      {/* Content container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section content */}
+      </div>
+    </section>
+  )
+}
+```
+
+## Card Components
+
+Cards use predefined CSS classes from `index.css`:
+
+```jsx
+// Featured/primary cards
+<article className="card-navigator">
+
+// Secondary cards
+<article className="card-compass">
+
+// Technical/code cards
+<article className="card-pathfinder">
+
+// Exploration/link cards
+<article className="card-horizon">
+
+// Success/achievement cards
+<article className="card-growth">
+```
+
+### Card with Animation
+
+```jsx
+const Card = ({ index }) => {
+  const prefersReducedMotion = useReducedMotion()
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true })
+  
+  const animationDelay = prefersReducedMotion ? '0s' : `${0.1 + index * 0.08}s`
+
+  return (
+    <article
+      ref={ref}
+      className={`card-compass ${!prefersReducedMotion ? 'animate-on-scroll' : ''} ${isVisible ? 'visible' : ''}`}
+      style={{ transitionDelay: animationDelay }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && onClick()}
+    >
+      {/* Card content */}
+    </article>
+  )
+}
+```
+
+## Animation Patterns
+
+### Staggered Entrance Animation
+
+```jsx
+<div 
+  className={`transition-all duration-1000 ${
+    isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+  }`}
+  style={{ transitionDelay: prefersReducedMotion ? '0ms' : '200ms' }}
+>
+```
+
+### Parallax Effect
+
+```jsx
+const getParallax = (intensity = 1) => {
+  if (prefersReducedMotion) return {}  // Always respect reduced motion
+  const xOffset = (mousePosition.x - 0.5) * 30 * intensity
+  const yOffset = (mousePosition.y - 0.5) * 30 * intensity
+  return { transform: `translate(${xOffset}px, ${yOffset}px)` }
+}
+
+// Usage
+<div style={getParallax(0.5)} />
+```
+
+## Accessibility Requirements
+
+### Required ARIA Attributes
+
+```jsx
+// Sections
+<section aria-label="Hero section" aria-labelledby="section-heading">
+
+// Decorative elements
+<div aria-hidden="true" />
+
+// Interactive cards
+<article
+  role="button"
+  tabIndex={0}
+  onKeyDown={(e) => e.key === 'Enter' && handleClick()}
+>
+
+// Links with new window
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Descriptive label"
+>
+```
+
+### Semantic HTML
+
+- Use `<section>` for page sections
+- Use `<article>` for cards/standalone content
+- Use `<nav>` for navigation
+- Use `<main>` for primary content
+- Use `<footer>` for footer content
+
+## Lazy Loading Pattern
+
+In `App.jsx`, below-fold sections use lazy loading:
+
+```jsx
+// Import
+const SectionName = lazy(() => import('./components/Section/SectionName'))
+
+// Usage with Suspense
+<Suspense fallback={<SectionLoader />}>
+  <SectionName />
+</Suspense>
+```
+
+## Sub-Component Pattern
+
+Define helper components within the same file for tightly coupled UI:
+
+```jsx
+/**
+ * MainComponent - Primary component
+ */
+const MainComponent = () => {
+  return (
+    <div>
+      <SubComponent data={data} />
+    </div>
+  )
+}
+
+/**
+ * SubComponent - Helper component for MainComponent
+ */
+const SubComponent = ({ data }) => (
+  <div>{/* Render data */}</div>
+)
+
+export default MainComponent  // Only export the main component
+```
+
+## File References
+@src/components/Hero/HeroSection.jsx - Example of section component
+@src/components/Projects/ProjectCard.jsx - Example of card component
+@src/App.jsx - Lazy loading and Suspense pattern

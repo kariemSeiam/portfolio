@@ -1,0 +1,167 @@
+---
+description: Universal coding standards, naming conventions, and documentation patterns for The Navigator portfolio. Enforces consistent code style across all JavaScript and JSX files.
+alwaysApply: true
+---
+
+# Coding Standards
+
+## Naming Conventions
+
+### Files
+| Type | Pattern | Example |
+|------|---------|---------|
+| Components | PascalCase.jsx | `HeroSection.jsx`, `ProjectCard.jsx` |
+| Hooks | camelCase with `use` prefix | `useTheme.js`, `useIntersectionObserver.js` |
+| Utils | camelCase.js | `animations.js`, `constants.js` |
+| Data | camelCase.js | `projects.js`, `skills.js` |
+
+### Variables & Functions
+| Type | Pattern | Example |
+|------|---------|---------|
+| React Components | PascalCase | `const HeroSection = () => {}` |
+| Functions | camelCase | `scrollToSection()`, `getParallax()` |
+| Constants | SCREAMING_SNAKE_CASE | `NAV_SECTIONS`, `DARK_THEME` |
+| State | camelCase | `isVisible`, `mousePosition` |
+| Refs | camelCase with Ref suffix | `sectionRef`, `cardRef` |
+| Booleans | `is`, `has`, `should` prefix | `isLoaded`, `hasError`, `shouldAnimate` |
+
+### CSS Classes
+| Type | Pattern | Example |
+|------|---------|---------|
+| Component classes | kebab-case | `hero-section`, `project-card` |
+| Modifier classes | BEM-like with dash | `hero-title-underline` |
+| State classes | adjective | `visible`, `active`, `featured` |
+| Card variants | `card-{theme}` | `card-navigator`, `card-compass` |
+| Tag variants | `tag-{theme}` | `tag-navigator`, `tag-horizon` |
+
+## Documentation Patterns
+
+### Component Documentation
+```jsx
+/**
+ * ComponentName - Brief poetic description
+ * 
+ * Longer description explaining the purpose and design philosophy.
+ * Use "The Navigator" metaphors where appropriate.
+ */
+const ComponentName = ({ prop1, prop2 }) => {
+  // Implementation
+}
+```
+
+### Hook Documentation
+```javascript
+/**
+ * Custom hook description
+ * @param {Object} options - Description of options
+ * @returns {[ref, value]} - Return value description
+ */
+export const useHookName = (options = {}) => {
+  // Implementation
+}
+```
+
+### Section Comments
+Use decorative dividers for major sections within files:
+```jsx
+{/* ═══════════════════════════════════════════════════════════════════
+    SECTION TITLE
+    ═══════════════════════════════════════════════════════════════════ */}
+```
+
+For subsections use simpler dividers:
+```jsx
+{/* ─────────────────────────────────────────────────────────────────────
+    Subsection Title
+    ───────────────────────────────────────────────────────────────────── */}
+```
+
+## Import Organization
+
+Order imports in this sequence with blank lines between groups:
+
+```jsx
+// 1. React core
+import { useEffect, useState, useRef, useCallback, useMemo, lazy, Suspense } from 'react'
+
+// 2. External libraries (lucide-react only)
+import { IconName, AnotherIcon } from 'lucide-react'
+
+// 3. Local components
+import ComponentName from './ComponentName'
+
+// 4. Hooks
+import { useHookName } from '../../hooks/useHookName'
+
+// 5. Utils and data
+import { utilFunction } from '../../utils/animations'
+import { dataArray } from '../../data/dataFile'
+```
+
+## Code Patterns
+
+### ✅ Correct Patterns
+
+```jsx
+// Named exports for hooks
+export const useTheme = () => { /* ... */ }
+
+// Default exports for components
+const HeroSection = () => { /* ... */ }
+export default HeroSection
+
+// Conditional rendering with visibility
+className={`base-class ${isVisible ? 'visible' : ''}`}
+
+// Style with CSS variables
+style={{ color: 'rgb(var(--navigator))' }}
+
+// Animation delay with reduced motion check
+style={{ transitionDelay: prefersReducedMotion ? '0ms' : '200ms' }}
+```
+
+### ❌ Avoid These
+
+```jsx
+// DON'T: Class components
+class MyComponent extends React.Component { }
+
+// DON'T: Inline colors
+style={{ color: '#FF6B4A' }}  // Use CSS variables instead
+
+// DON'T: Missing reduced motion check
+style={{ animationDelay: '500ms' }}  // Always check prefersReducedMotion
+
+// DON'T: Anonymous default exports
+export default () => { }  // Name your components
+
+// DON'T: Mixing named and default exports for components
+export const Component = () => { }  // Components use default export
+```
+
+## Error Handling
+
+```jsx
+// Use optional chaining for DOM operations
+const rect = sectionRef.current?.getBoundingClientRect()
+if (!rect) return
+
+// Guard clauses at function start
+if (!element) return false
+if (prefersReducedMotion) return {}
+```
+
+## State Management
+
+- Use `useState` for local component state
+- Use `useRef` for DOM references and mutable values
+- Use `useCallback` for event handlers passed to children
+- Use `useMemo` for expensive computations (like generating shapes)
+- NO external state management (Redux, Zustand, etc.) - keep it simple
+
+## Performance Considerations
+
+- Use `lazy()` for below-fold sections
+- Wrap lazy components in `<Suspense>` with fallback
+- Use `useIntersectionObserver` for scroll-triggered animations
+- Disconnect observers after first intersection when `triggerOnce: true`
