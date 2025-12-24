@@ -81,7 +81,7 @@ const SkillsSection = () => {
           
           <p className="skills-subtitle">
             A comprehensive toolkit built over
-            <span className="skills-highlight"> 6+ years</span> of 
+            <span className="skills-highlight"> 3+ years</span> of 
             continuous learning and real-world application
           </p>
 

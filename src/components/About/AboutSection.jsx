@@ -95,7 +95,7 @@ const AboutSection = () => {
     },
     { 
       id: 'producer', 
-      value: '700',
+      value: '~700',
       label: 'Avg Commits',
       color: 'pathfinder'
     }
