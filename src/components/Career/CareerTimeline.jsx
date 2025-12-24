@@ -54,7 +54,7 @@ const CareerTimeline = () => {
           
           <p className="text-body-lg max-w-2xl mx-auto">
             From first code to production systems—a journey of continuous learning, 
-            building, and growing over <span className="font-semibold" style={{ color: 'rgb(var(--navigator))' }}>6+ years</span>.
+            building, and growing over <span className="font-semibold" style={{ color: 'rgb(var(--navigator))' }}>3+ years</span>.
           </p>
         </div>
 
