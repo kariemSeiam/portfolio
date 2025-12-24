@@ -1,0 +1,297 @@
+---
+description: Performance optimization patterns and best practices for The Navigator portfolio. Invoke when optimizing load times, bundle size, or runtime performance.
+alwaysApply: false
+---
+
+# Performance Optimization
+
+## Build Configuration
+
+### Vite Config Optimizations
+
+The portfolio uses Vite with Terser for production builds:
+
+```javascript
+// vite.config.js
+{
+  build: {
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,    // Remove console.log
+        drop_debugger: true    // Remove debugger statements
+      }
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'icons': ['lucide-react']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 500  // Warn if chunk > 500KB
+  }
+}
+```
+
+### Compression
+
+Both Gzip and Brotli compression are enabled:
+
+```javascript
+import compression from 'vite-plugin-compression'
+
+plugins: [
+  compression({ algorithm: 'gzip', ext: '.gz' }),
+  compression({ algorithm: 'brotliCompress', ext: '.br' })
+]
+```
+
+## Code Splitting
+
+### Lazy Loading Below-Fold Sections
+
+Only the Hero section loads immediately. All other sections use `React.lazy()`:
+
+```jsx
+// In App.jsx
+import HeroSection from './components/Hero/HeroSection'  // Eager
+
+// Lazy imports
+const CareerTimeline = lazy(() => import('./components/Career/CareerTimeline'))
+const ProjectGallery = lazy(() => import('./components/Projects/ProjectGallery'))
+const SkillsSection = lazy(() => import('./components/Skills/SkillsSection'))
+const AboutSection = lazy(() => import('./components/About/AboutSection'))
+
+// Usage with Suspense
+<main>
+  <HeroSection />  {/* Loads immediately */}
+  
+  <Suspense fallback={<SectionLoader />}>
+    <CareerTimeline />  {/* Loads when needed */}
+  </Suspense>
+  
+  <Suspense fallback={<SectionLoader />}>
+    <ProjectGallery />
+  </Suspense>
+  {/* ... */}
+</main>
+```
+
+### Manual Chunk Splitting
+
+Vendor libraries are split into separate chunks:
+
+```javascript
+manualChunks: {
+  'react-vendor': ['react', 'react-dom'],
+  'icons': ['lucide-react']
+}
+```
+
+## Font Loading
+
+### Preconnect and Preload
+
+In `index.html`:
+
+```html
+<!-- Preconnect to font origins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+
+<!-- Preload critical font (Satoshi 900 for hero) -->
+<link rel="preload" href="https://api.fontshare.com/v2/css?f[]=satoshi@900&display=swap" as="style">
+```
+
+### Font Families
+
+| Font | Weight | Usage |
+|------|--------|-------|
+| Satoshi | 900 | Hero titles (preloaded) |
+| Plus Jakarta Sans | 400-600 | Body text |
+| JetBrains Mono | 400 | Code/monospace |
+
+## Image Optimization
+
+### No Images by Design
+
+This portfolio intentionally uses:
+- CSS gradients instead of background images
+- SVG icons (Lucide) instead of icon images
+- CSS-based decorative elements instead of PNGs
+
+### If Adding Images
+
+```jsx
+// Use lazy loading
+<img loading="lazy" src="image.webp" alt="Description" />
+
+// Prefer WebP format
+// Use srcset for responsive images
+<img 
+  srcset="image-400.webp 400w, image-800.webp 800w"
+  sizes="(max-width: 600px) 400px, 800px"
+  src="image-800.webp"
+  loading="lazy"
+  alt="Description"
+/>
+```
+
+## Animation Performance
+
+### GPU-Accelerated Properties
+
+Only animate these properties for smooth 60fps:
+- `transform` (translate, scale, rotate)
+- `opacity`
+
+```jsx
+// ✅ Performant
+style={{ transform: 'translateX(20px)', opacity: 0.5 }}
+
+// ❌ Causes layout/paint
+style={{ left: '20px', width: '100px' }}
+```
+
+### will-change Usage
+
+Use sparingly for known animations:
+
+```jsx
+// Only on elements with known animations
+className="will-change-transform"
+
+// Remove after animation completes if possible
+```
+
+### Observer Cleanup
+
+Always disconnect observers:
+
+```javascript
+useEffect(() => {
+  const observer = new IntersectionObserver(callback)
+  observer.observe(element)
+  
+  return () => observer.disconnect()  // Critical!
+}, [])
+```
+
+## Runtime Optimizations
+
+### Memoization
+
+```jsx
+// Memoize expensive computations
+const shapes = useMemo(() => {
+  const result = []
+  for (let i = 0; i < 12; i++) {
+    result.push(generateShape(i))
+  }
+  return result
+}, [])  // Empty deps = compute once
+
+// Memoize callbacks passed to children
+const handleClick = useCallback(() => {
+  doSomething()
+}, [dependency])
+```
+
+### Conditional Rendering
+
+```jsx
+// Skip expensive renders when not visible
+const [ref, isVisible] = useIntersectionObserver({ triggerOnce: true })
+
+return (
+  <div ref={ref}>
+    {isVisible && <ExpensiveComponent />}
+  </div>
+)
+```
+
+### Event Listener Optimization
+
+```jsx
+// Debounce scroll/resize handlers
+import { debounce } from '../../utils/animations'
+
+const handleResize = useCallback(
+  debounce(() => {
+    // Resize logic
+  }, 100),
+  []
+)
+```
+
+## Bundle Size Guidelines
+
+### Target Metrics
+
+| Metric | Target |
+|--------|--------|
+| Initial JS | < 100KB gzipped |
+| Total JS | < 250KB gzipped |
+| CSS | < 50KB gzipped |
+| LCP | < 2.5s |
+| TTI | < 3.8s |
+
+### Avoid Heavy Dependencies
+
+Currently allowed:
+- `react`, `react-dom` (~40KB gzipped)
+- `lucide-react` (~3KB gzipped per icon used)
+
+NOT allowed:
+- Animation libraries (use CSS)
+- State management (use hooks)
+- UI component libraries (custom components)
+- Moment.js or similar (use native Date)
+
+## Lighthouse Optimization
+
+### Key Targets
+
+| Category | Target |
+|----------|--------|
+| Performance | 90+ |
+| Accessibility | 100 |
+| Best Practices | 100 |
+| SEO | 100 |
+
+### Common Issues
+
+1. **LCP**: Ensure hero text renders quickly
+   - Preload critical fonts
+   - Avoid layout shift
+
+2. **CLS**: Prevent layout shifts
+   - Set dimensions on placeholders
+   - Use `min-height` on sections
+
+3. **TBT**: Minimize blocking time
+   - Lazy load non-critical JS
+   - Defer heavy computations
+
+## Monitoring Commands
+
+```bash
+# Analyze bundle size
+npm run build
+# Check dist folder sizes
+
+# Preview production build
+npm run preview
+
+# Run Lighthouse (in Chrome DevTools)
+# Or use CLI: lighthouse https://localhost:5173
+```
+
+## File References
+@vite.config.js - Build configuration and chunking
+@src/App.jsx - Lazy loading implementation
+@src/utils/animations.js - Debounce utility
+@index.html - Font preloading

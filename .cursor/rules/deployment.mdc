@@ -1,0 +1,238 @@
+---
+description: Deployment workflows and GitHub Pages configuration for The Navigator portfolio. Manually invoke with @deployment when preparing for or troubleshooting deployment.
+alwaysApply: false
+---
+
+# Deployment Guide
+
+## GitHub Pages Deployment
+
+The portfolio deploys to GitHub Pages at:
+**https://kariemseiam.github.io/portfolio/**
+
+### Base Path Configuration
+
+Vite is configured with the correct base path:
+
+```javascript
+// vite.config.js
+export default defineConfig({
+  base: '/portfolio/',  // Subdirectory deployment
+  // ...
+})
+```
+
+**Critical**: All asset paths are relative to this base. Don't use absolute paths starting with `/`.
+
+### GitHub Actions Workflow
+
+Deployment is automated via `.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+```
+
+### Manual Deployment
+
+If needed, deploy manually:
+
+```bash
+# Build the project
+npm run build
+
+# Preview locally before deploying
+npm run preview
+
+# Push to main branch (triggers auto-deploy)
+git add .
+git commit -m "Deploy: description"
+git push origin main
+```
+
+## Pre-Deployment Checklist
+
+### 1. Code Quality
+
+```bash
+# Run linting
+npm run lint
+
+# Fix any ESLint errors before deploying
+```
+
+### 2. Build Test
+
+```bash
+# Create production build
+npm run build
+
+# Preview the production build
+npm run preview
+# Open http://localhost:4173/portfolio/
+```
+
+### 3. Asset Verification
+
+After build, check `dist/` folder:
+- [ ] `index.html` exists
+- [ ] `assets/js/` contains chunked JS files
+- [ ] `assets/` contains CSS with hash
+- [ ] `favicon.svg` copied correctly
+- [ ] No console errors in preview
+
+### 4. Performance Check
+
+Run Lighthouse on the preview:
+- [ ] Performance > 90
+- [ ] Accessibility = 100
+- [ ] Best Practices = 100
+- [ ] SEO = 100
+
+### 5. Content Verification
+
+- [ ] All sections render correctly
+- [ ] Theme toggle works
+- [ ] Navigation links work
+- [ ] External links open correctly
+- [ ] No console errors
+
+## Build Output Structure
+
+```
+dist/
+├── assets/
+│   ├── js/
+│   │   ├── index-[hash].js
+│   │   ├── react-vendor-[hash].js
+│   │   └── icons-[hash].js
+│   └── index-[hash].css
+├── favicon.svg
+├── robots.txt
+├── sitemap.xml
+├── index.html
+├── index.html.gz
+└── index.html.br
+```
+
+## Troubleshooting
+
+### 404 on Refresh
+
+GitHub Pages doesn't support client-side routing by default. This SPA uses hash routing or direct section links which work correctly.
+
+### Assets Not Loading
+
+Check base path in `vite.config.js`:
+```javascript
+base: '/portfolio/'  // Must match repo name
+```
+
+### Old Version Showing
+
+Browser cache issue. Force refresh or check GitHub Actions completed successfully.
+
+### Build Fails
+
+Common causes:
+1. **ESLint errors**: Run `npm run lint` and fix
+2. **Import errors**: Check all imports resolve correctly
+3. **Missing dependencies**: Run `npm ci`
+
+### Deployment Fails
+
+1. Check GitHub Actions logs
+2. Verify `GITHUB_TOKEN` permissions
+3. Ensure `gh-pages` branch exists (created automatically)
+
+## Environment-Specific Behavior
+
+### Development (`npm run dev`)
+- Source maps enabled
+- Console.log visible
+- Hot Module Replacement active
+- Served at `http://localhost:5173/portfolio/`
+
+### Production (`npm run build`)
+- Minified with Terser
+- Console.log stripped
+- Gzip/Brotli compressed
+- Hash-based cache busting
+
+## SEO Verification
+
+After deployment, verify:
+
+### Meta Tags
+Check `index.html`:
+- Title tag with keywords
+- Meta description
+- Open Graph tags
+- Twitter Card tags
+- Canonical URL
+
+### Structured Data
+JSON-LD Person schema is embedded in `index.html`.
+
+### Robots & Sitemap
+- `robots.txt` allows indexing
+- `sitemap.xml` lists all sections
+
+## Rollback Procedure
+
+If deployment breaks:
+
+```bash
+# Find previous working commit
+git log --oneline
+
+# Revert to previous commit
+git revert HEAD
+git push origin main
+
+# Or reset to specific commit (destructive)
+git reset --hard <commit-hash>
+git push origin main --force
+```
+
+## Domain Configuration (Future)
+
+For custom domain:
+1. Add `CNAME` file to `public/` with domain
+2. Configure DNS with GitHub IPs
+3. Enable HTTPS in repo settings
+
+## File References
+@vite.config.js - Base path and build configuration
+@.github/workflows/deploy.yml - CI/CD workflow
+@index.html - Meta tags and SEO
+@public/robots.txt - Crawler configuration
+@public/sitemap.xml - Site structure

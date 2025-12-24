@@ -1,0 +1,288 @@
+---
+description: Accessibility (a11y) guidelines and WCAG compliance patterns for The Navigator portfolio. Invoke when working on accessible features, keyboard navigation, or screen reader support.
+alwaysApply: false
+---
+
+# Accessibility Guidelines
+
+## Accessibility Philosophy
+
+The Navigator portfolio aims for WCAG 2.1 AA compliance with elements of AAA. Every user, regardless of ability, should experience the full portfolio.
+
+## Skip Link
+
+The site includes a skip link for keyboard users:
+
+```jsx
+// In App.jsx - First focusable element
+<a href="#main-content" className="skip-link">
+  Skip to main content
+</a>
+
+// Main content target
+<main id="main-content" role="main">
+```
+
+Skip link styles in `index.css`:
+- Hidden by default (`top: -3rem`)
+- Appears on focus (`top: 1rem`)
+- High contrast gradient background
+
+## Semantic HTML Structure
+
+### Page Structure
+
+```jsx
+<div className="app-container">
+  <a href="#main-content" className="skip-link">Skip to main content</a>
+  <nav role="navigation" aria-label="Main navigation">
+    {/* Navigation */}
+  </nav>
+  
+  <main id="main-content" role="main">
+    <section id="hero" aria-label="Hero section">
+    <section id="career" aria-labelledby="career-heading">
+    <section id="projects" aria-labelledby="projects-heading">
+    <section id="skills" aria-labelledby="skills-heading">
+    <section id="about" aria-labelledby="about-heading">
+  </main>
+  
+  <footer role="contentinfo">
+    {/* Footer */}
+  </footer>
+</div>
+```
+
+### Section Headings
+
+Each section needs a proper heading hierarchy:
+
+```jsx
+<section id="projects" aria-labelledby="projects-heading">
+  <h2 id="projects-heading" className="text-section">
+    Featured Projects
+  </h2>
+  {/* Section content */}
+</section>
+```
+
+## ARIA Attributes
+
+### Required Patterns
+
+```jsx
+// Sections with visible headings
+<section aria-labelledby="heading-id">
+  <h2 id="heading-id">Section Title</h2>
+
+// Sections without visible headings
+<section aria-label="Hero section">
+
+// Decorative elements (hide from screen readers)
+<div aria-hidden="true">
+  {/* Decorative content */}
+</div>
+
+// Interactive cards
+<article
+  role="button"
+  tabIndex={0}
+  aria-label="View project details for Project Name"
+>
+
+// External links
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="View live demo (opens in new tab)"
+>
+
+// Icon-only buttons
+<button aria-label="Toggle theme">
+  <SunIcon />
+</button>
+
+// Loading states
+<div aria-live="polite" aria-busy={isLoading}>
+```
+
+### ARIA Roles Reference
+
+| Element | Role |
+|---------|------|
+| `<nav>` | `navigation` |
+| `<main>` | `main` |
+| `<footer>` | `contentinfo` |
+| Clickable `<article>` | `button` |
+| Tab panels | `tabpanel` with `aria-labelledby` |
+
+## Keyboard Navigation
+
+### Interactive Elements Must Be Keyboard Accessible
+
+```jsx
+// Cards that act as buttons
+<article
+  role="button"
+  tabIndex={0}
+  onClick={handleClick}
+  onKeyDown={(e) => e.key === 'Enter' && handleClick()}
+>
+
+// Custom buttons need Enter handling (Space is automatic)
+<div
+  role="button"
+  tabIndex={0}
+  onClick={handleAction}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleAction()
+    }
+  }}
+>
+```
+
+### Focus Styles
+
+Focus outlines are customized but visible:
+
+```css
+/* In index.css */
+:focus-visible {
+  outline: 2px solid rgb(var(--navigator));
+  outline-offset: 2px;
+}
+```
+
+**Note**: Cards intentionally remove focus outline (`outline: none`) as they have other visual indicators (borders, shadows).
+
+## Reduced Motion
+
+### Always Check User Preference
+
+```jsx
+import { useReducedMotion } from '../../hooks/useReducedMotion'
+
+const Component = () => {
+  const prefersReducedMotion = useReducedMotion()
+
+  // Skip animations entirely
+  if (prefersReducedMotion) return {}
+
+  // Or adjust animation timing
+  style={{ 
+    transitionDelay: prefersReducedMotion ? '0ms' : '200ms'
+  }}
+
+  // Or remove animation classes
+  className={`${!prefersReducedMotion ? 'animate-float' : ''}`}
+}
+```
+
+### CSS Fallback
+
+The CSS also respects reduced motion:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+## Color Contrast
+
+### Minimum Contrast Ratios
+
+| Text Type | Ratio | Requirement |
+|-----------|-------|-------------|
+| Body text | 4.5:1 | WCAG AA |
+| Large text (18px+ bold) | 3:1 | WCAG AA |
+| Interactive elements | 3:1 | WCAG AA |
+| Ideal target | 7:1 | WCAG AAA |
+
+### Using Theme Colors
+
+The color system maintains contrast in both themes:
+
+```jsx
+// High contrast text
+className="text-ink-600 dark:text-ink-50"  // Near black/white
+
+// Secondary text (still meets 4.5:1)
+className="text-ink-400 dark:text-ink-100"
+
+// Links have sufficient contrast
+className="text-[rgb(var(--horizon))]"  // Teal
+```
+
+## Screen Reader Considerations
+
+### Announce Dynamic Content
+
+```jsx
+// For content that updates
+<div aria-live="polite" aria-atomic="true">
+  {statusMessage}
+</div>
+
+// For important updates
+<div aria-live="assertive">
+  {errorMessage}
+</div>
+```
+
+### Descriptive Link Text
+
+```jsx
+// ✅ Descriptive
+<a href={url} aria-label="View live demo for Geolink API">
+  <ExternalLink />
+</a>
+
+// ❌ Not descriptive
+<a href={url}>Click here</a>
+```
+
+### Image Alternatives
+
+For decorative images (used in this portfolio):
+
+```jsx
+<div aria-hidden="true">
+  <img src="decorative.svg" alt="" />
+</div>
+```
+
+## Testing Checklist
+
+### Keyboard Testing
+- [ ] All interactive elements reachable via Tab
+- [ ] Focus visible on all focused elements
+- [ ] Enter/Space activates buttons and cards
+- [ ] Escape closes modals
+- [ ] Skip link works and is visible on focus
+
+### Screen Reader Testing
+- [ ] Page structure announced correctly
+- [ ] All images have appropriate alt text
+- [ ] Links have descriptive labels
+- [ ] Forms have associated labels
+- [ ] Dynamic content announced
+
+### Visual Testing
+- [ ] Passes color contrast checker
+- [ ] Readable at 200% zoom
+- [ ] Animations respect reduced motion
+- [ ] Focus indicators visible
+
+## File References
+@src/App.jsx - Skip link implementation
+@src/hooks/useReducedMotion.js - Motion preference detection
+@src/index.css - Focus styles and reduced motion media query

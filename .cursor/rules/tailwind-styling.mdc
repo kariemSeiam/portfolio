@@ -1,0 +1,263 @@
+---
+description: Tailwind CSS styling patterns, custom classes, and theming system for The Navigator portfolio. Auto-attached when working with JSX or CSS files.
+globs: ["src/**/*.jsx", "src/**/*.css", "tailwind.config.js"]
+alwaysApply: false
+---
+
+# Tailwind CSS & Styling System
+
+## The Navigator Color System
+
+### Theme Colors (use these via Tailwind or CSS variables)
+
+| Color | Tailwind | CSS Variable | Usage |
+|-------|----------|--------------|-------|
+| Navigator (Coral) | `navigator-500` | `--navigator` | Primary accent, signature |
+| Compass (Gold) | `compass-500` | `--compass` | CTAs, guidance |
+| Horizon (Teal) | `horizon-500` | `--horizon` | Links, exploration |
+| Pathfinder (Indigo) | `pathfinder-500` | `--pathfinder` | Code, technical |
+| Growth (Green) | `growth` | `--growth` | Success, achievements |
+| Canvas | `canvas-50` to `canvas-300` | `--canvas-*` | Backgrounds |
+| Ink | `ink-100` to `ink-700` | `--ink-*` | Text |
+| Cosmos | `cosmos-50` to `cosmos-400` | N/A | Dark mode backgrounds |
+
+### Using CSS Variables in Inline Styles
+
+```jsx
+// ✅ Correct: Use rgb() with CSS variable
+style={{ color: 'rgb(var(--navigator))' }}
+style={{ backgroundColor: 'rgba(var(--navigator), 0.1)' }}
+style={{ borderColor: 'rgb(var(--border-primary))' }}
+
+// ❌ Wrong: Don't use hex colors inline
+style={{ color: '#FF6B4A' }}
+```
+
+### Using CSS Variables in Tailwind Classes
+
+```jsx
+// ✅ Correct: Use bracket notation
+className="text-[rgb(var(--navigator))]"
+className="bg-[rgba(var(--navigator),0.1)]"
+className="border-[rgb(var(--border-primary))]"
+
+// Or use Tailwind theme colors
+className="text-navigator-500"
+className="bg-compass-400"
+```
+
+## Custom CSS Classes (from index.css)
+
+### Typography Classes
+
+| Class | Usage |
+|-------|-------|
+| `text-hero` | Hero section main title (clamp 3.5rem - 9rem) |
+| `text-section` | Section headings (clamp 2.5rem - 4.5rem) |
+| `text-title` | Card titles (clamp 1.5rem - 2rem) |
+| `text-subtitle` | Subtitles |
+| `text-body` | Body text with proper line-height |
+| `text-body-lg` | Larger body text |
+| `text-mono` | Monospace/code text |
+| `text-label` | Small uppercase labels |
+| `gradient-text` | Animated gradient text effect |
+
+### Card Classes
+
+```jsx
+// Primary featured cards (coral accent)
+<div className="card-navigator">
+
+// Secondary cards (gold accent)
+<div className="card-compass">
+
+// Technical/code cards (indigo accent)
+<div className="card-pathfinder">
+
+// Exploration cards (teal accent)
+<div className="card-horizon">
+
+// Achievement cards (green accent)
+<div className="card-growth">
+
+// Featured variant (larger with glow effects)
+<div className="card-navigator-featured">
+```
+
+### Tag/Badge Classes
+
+```jsx
+// Base tag with variants
+<span className="tag tag-navigator">React</span>
+<span className="tag tag-compass">Featured</span>
+<span className="tag tag-horizon">Explore</span>
+<span className="tag tag-pathfinder">TypeScript</span>
+<span className="tag tag-growth">Success</span>
+```
+
+### Section Elements
+
+```jsx
+// Section badge (top label with icon)
+<div className="section-badge">
+  <Icon size={14} />
+  <span>Label</span>
+</div>
+
+// Standard section container
+<section className="section py-20 sm:py-28 lg:py-36">
+```
+
+## Layout Patterns
+
+### Container Widths
+
+```jsx
+// Standard content container
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+// Narrow content (text-heavy)
+<div className="max-w-3xl mx-auto">
+
+// Wide content (galleries)
+<div className="max-w-[100rem] mx-auto">
+```
+
+### Responsive Spacing
+
+```jsx
+// Section padding (responsive)
+className="py-20 sm:py-28 lg:py-36"
+
+// Gap between items
+className="gap-4 sm:gap-6 lg:gap-8"
+
+// Margin bottom
+className="mb-6 sm:mb-8 lg:mb-12"
+```
+
+### Grid Patterns
+
+```jsx
+// Auto-fit responsive grid (cards)
+className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+
+// Bento grid with featured item
+className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+// Featured item spans 2 columns
+className="bento-item-wide md:col-span-2"
+```
+
+## Animation Classes
+
+### Tailwind Config Animations
+
+```jsx
+// Floating elements
+className="animate-float"
+className="animate-float-slow"
+className="animate-float-reverse"
+
+// Entrance animations
+className="animate-rise"
+className="animate-fade-up"
+className="animate-fade-down"
+className="animate-scale-up"
+className="animate-blur-in"
+
+// Continuous animations
+className="animate-spin-slow"
+className="animate-pulse-soft"
+className="animate-shimmer"
+```
+
+### Scroll-Triggered Animation Pattern
+
+```jsx
+// Add class when element is in viewport
+className={`animate-on-scroll ${isVisible ? 'visible' : ''}`}
+```
+
+### Timing Functions
+
+```jsx
+// Custom easing (from tailwind.config.js)
+className="ease-out-expo"   // cubic-bezier(0.16, 1, 0.3, 1)
+className="ease-out-quint"  // cubic-bezier(0.22, 1, 0.36, 1)
+className="ease-out-back"   // cubic-bezier(0.34, 1.56, 0.64, 1)
+className="ease-spring"     // cubic-bezier(0.5, 1.5, 0.5, 1)
+```
+
+### Duration Values
+
+```jsx
+className="duration-400"   // 400ms
+className="duration-600"   // 600ms
+className="duration-800"   // 800ms
+className="duration-1000"  // 1000ms
+```
+
+## Shadow System
+
+```jsx
+// Soft shadows (light mode optimized)
+className="shadow-soft-xs"
+className="shadow-soft-sm"
+className="shadow-soft-md"
+className="shadow-soft-lg"
+className="shadow-soft-xl"
+
+// Glow effects
+className="shadow-glow-navigator"
+className="shadow-glow-compass"
+className="shadow-glow-horizon"
+
+// Colored shadows
+className="shadow-navigator"
+className="shadow-navigator-lg"
+```
+
+## Gradient Backgrounds
+
+```jsx
+// Built-in gradients
+className="bg-gradient-navigator"
+className="bg-gradient-horizon"
+className="bg-gradient-cosmos"
+
+// Mesh gradients for depth
+className="bg-mesh-light"
+className="bg-mesh-dark"
+```
+
+## Dark Mode
+
+Use Tailwind's `dark:` prefix for dark mode overrides:
+
+```jsx
+className="bg-canvas-50 dark:bg-cosmos-200"
+className="text-ink-600 dark:text-ink-50"
+className="border-border-primary dark:border-cosmos-50"
+```
+
+Theme is toggled via `.dark` class on `<html>` element.
+
+## Forbidden Patterns
+
+```jsx
+// ❌ Don't use inline hex colors
+style={{ color: '#FF6B4A' }}
+
+// ❌ Don't use arbitrary values for theme colors
+className="text-[#FF6B4A]"
+
+// ❌ Don't mix CSS frameworks
+import styled from 'styled-components'  // NO
+
+// ❌ Don't use !important in Tailwind
+className="!text-red-500"
+```
+
+## File References
+@tailwind.config.js - All custom colors, animations, and utilities
+@src/index.css - Complete CSS component classes (lines 1-300 for overview)

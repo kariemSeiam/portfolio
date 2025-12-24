@@ -1,0 +1,212 @@
+---
+description: Custom React hooks patterns and conventions for The Navigator portfolio. Auto-attached when working with hook files in the hooks directory.
+globs: ["src/hooks/**/*.js"]
+alwaysApply: false
+---
+
+# Custom Hooks Patterns
+
+## Hook Architecture
+
+All hooks follow a consistent pattern with named exports, JSDoc documentation, and proper cleanup.
+
+### Standard Hook Template
+
+```javascript
+import { useState, useEffect, useCallback, useRef } from 'react'
+
+/**
+ * useHookName - Brief description of purpose
+ * 
+ * Longer description of functionality and use cases.
+ * 
+ * @param {Object} options - Configuration options
+ * @param {number} options.threshold - Description with default
+ * @returns {[ref, value]} - Description of return value
+ */
+export const useHookName = (options = {}) => {
+  const ref = useRef(null)
+  const [value, setValue] = useState(initialValue)
+
+  useEffect(() => {
+    // Setup logic
+    const element = ref.current
+    if (!element) return
+
+    // Effect implementation
+
+    // Cleanup function
+    return () => {
+      // Cleanup logic
+    }
+  }, [dependencies])
+
+  return [ref, value]
+}
+```
+
+## Existing Hooks Reference
+
+### useIntersectionObserver
+
+Tracks when an element enters the viewport. Primary hook for scroll-triggered animations.
+
+```javascript
+// Usage
+const [ref, isVisible] = useIntersectionObserver({ 
+  threshold: 0.1,      // 10% visibility triggers
+  rootMargin: '0px',   // No margin
+  triggerOnce: true    // Disconnect after first intersection
+})
+
+// In component
+<div ref={ref} className={isVisible ? 'visible' : ''}>
+```
+
+**Key behaviors:**
+- Disconnects observer after first intersection when `triggerOnce: true` (default)
+- Returns tuple: `[ref, isVisible]`
+
+### useReducedMotion
+
+Detects user's motion preference for accessibility.
+
+```javascript
+// Usage
+const prefersReducedMotion = useReducedMotion()
+
+// Skip animations if user prefers reduced motion
+if (prefersReducedMotion) return {}
+```
+
+**Key behaviors:**
+- Listens for system preference changes
+- Supports both modern and legacy browsers
+- Returns boolean
+
+### useTheme
+
+Manages dark/light theme with persistence.
+
+```javascript
+// Usage
+const { 
+  theme,          // 'light' | 'dark'
+  toggleTheme,    // () => void
+  isDark,         // boolean
+  isLight,        // boolean
+  setLightTheme,  // () => void
+  setDarkTheme    // () => void
+} = useTheme()
+```
+
+**Key behaviors:**
+- Persists to `localStorage` with key `'navigator-theme'`
+- Detects system preference on first load
+- Applies `.dark` class to `<html>` element
+- Updates `meta[name="theme-color"]`
+
+### useScrollProgress
+
+Tracks scroll position as a 0-1 value.
+
+```javascript
+// Usage
+const scrollProgress = useScrollProgress()
+
+// Use for progress indicators
+style={{ transform: `scaleX(${scrollProgress})` }}
+```
+
+### useSmoothScroll
+
+Enables smooth scrolling behavior globally.
+
+```javascript
+// Usage in App.jsx
+useSmoothScroll()  // No return value, effect only
+```
+
+## Hook Creation Guidelines
+
+### ✅ DO
+
+```javascript
+// Named exports (not default)
+export const useMyHook = () => {}
+
+// JSDoc with @param and @returns
+/**
+ * @param {Object} options
+ * @returns {boolean}
+ */
+
+// Proper cleanup
+useEffect(() => {
+  element.addEventListener('event', handler)
+  return () => element.removeEventListener('event', handler)
+}, [])
+
+// Optional chaining for DOM elements
+const element = ref.current
+if (!element) return
+
+// Support both modern and legacy APIs
+if (mediaQuery.addEventListener) {
+  mediaQuery.addEventListener('change', handler)
+} else {
+  mediaQuery.addListener(handler)  // Legacy
+}
+```
+
+### ❌ DON'T
+
+```javascript
+// DON'T: Default exports
+export default function useMyHook() {}
+
+// DON'T: Missing cleanup
+useEffect(() => {
+  window.addEventListener('scroll', handler)
+  // Missing return cleanup!
+}, [])
+
+// DON'T: Assuming element exists
+ref.current.getBoundingClientRect()  // Might be null!
+
+// DON'T: Missing dependency in options
+useEffect(() => {
+  // uses options.threshold
+}, [])  // Should include options.threshold
+```
+
+## Dependency Tracking
+
+Be explicit about dependencies from options objects:
+
+```javascript
+// ✅ Correct: Extract used properties
+useEffect(() => {
+  // Effect using threshold and rootMargin
+}, [options.threshold, options.rootMargin, options.triggerOnce])
+
+// ❌ Wrong: Using entire options object (causes re-runs)
+useEffect(() => {
+  // Effect
+}, [options])  // Object reference changes every render!
+```
+
+## Testing Considerations
+
+Hooks should work correctly when:
+- Component mounts/unmounts rapidly
+- Element ref is null initially
+- Browser doesn't support modern APIs
+- User changes system preferences mid-session
+
+## File References
+@src/hooks/useIntersectionObserver.js - Visibility detection pattern
+@src/hooks/useReducedMotion.js - Motion preference detection
+@src/hooks/useTheme.js - Theme management with persistence
+@src/hooks/useScrollProgress.js - Scroll position tracking
+@src/hooks/useSmoothScroll.js - Smooth scroll behavior

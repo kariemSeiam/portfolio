@@ -1,0 +1,209 @@
+---
+description: Data file patterns and content structure for The Navigator portfolio. Auto-attached when working with data files that store site content.
+globs: ["src/data/**/*.js"]
+alwaysApply: false
+---
+
+# Data Management
+
+## Purpose
+
+Data files in `src/data/` contain all site content. Edit these files to update the portfolio without touching component code.
+
+## Data File Patterns
+
+### Standard Export Pattern
+
+```javascript
+// Single named export for primary data
+export const featuredProjects = [
+  { /* item */ },
+]
+
+// Additional exports for related data
+export const projectCategories = ['All', 'Full-Stack', 'Mobile App']
+```
+
+## Data Structures
+
+### Projects (`projects.js`)
+
+```javascript
+export const featuredProjects = [
+  {
+    id: 1,                           // Unique identifier (number)
+    title: 'Project Name',           // Display title
+    shortDescription: 'Brief...',    // 1-2 sentences for cards
+    longDescription: `Multi-line     // Full description for modal
+      description with markdown-like 
+      formatting allowed.`,
+    technologies: [                  // Array of tech strings
+      'React', 'Flask', 'MySQL'
+    ],
+    category: 'Full-Stack',          // Must match projectCategories
+    features: [                      // Key features list
+      'Feature one',
+      'Feature two'
+    ],
+    performanceMetrics: {
+      loadTime: '< 2s',              // String with unit
+      bundleSize: '245KB',           // String with unit
+      lighthouseScore: 92            // Number 0-100 or null
+    },
+    liveDemoUrl: 'https://...',      // URL string or null
+    githubUrl: 'https://...',        // URL string or '#' if private
+    isPrivate: false,                // Boolean
+    stars: 8                         // Optional: GitHub stars
+  }
+]
+
+export const projectCategories = [
+  'All',           // Always first
+  'Full-Stack',
+  'API Platform', 
+  'Mobile App',
+  'Marketing Site'
+]
+```
+
+### Skills (`skills.js`)
+
+```javascript
+export const skillCategories = [
+  {
+    id: 'frontend',                  // Unique string identifier
+    name: 'Frontend',                // Display name
+    icon: 'Code',                    // Lucide icon name (string)
+    skills: [
+      { 
+        name: 'React',               // Skill name
+        level: 92,                   // 0-100 proficiency
+        description: 'Component...'  // Brief description
+      }
+    ]
+  }
+]
+```
+
+### Career (`career.js`)
+
+```javascript
+export const careerPositions = [
+  {
+    id: 1,                           // Unique identifier
+    company: 'Company Name',         // Company/organization
+    role: 'Job Title',               // Position title
+    period: '2020 - Present',        // Date range string
+    description: 'Brief role desc',  // 1-2 sentences
+    achievements: [                  // Key accomplishments
+      'Achievement one',
+      'Achievement two'
+    ],
+    isCurrent: true                  // Boolean for current position
+  }
+]
+```
+
+### About (`about.js`)
+
+```javascript
+export const aboutData = {
+  name: 'Kariem Seiam',
+  title: 'Full-Stack Developer',
+  bio: 'Multi-paragraph biography...',
+  
+  statistics: [
+    { label: 'Years Experience', value: '6+' },
+    { label: 'Projects Completed', value: '75+' }
+  ],
+  
+  philosophy: {
+    title: 'Development Philosophy',
+    content: 'Philosophy description...'
+  },
+  
+  journey: [
+    { year: '2018', milestone: 'Started coding' }
+  ]
+}
+```
+
+## Guidelines
+
+### ✅ DO
+
+```javascript
+// Use consistent structure
+{ id: 1, title: 'First' },
+{ id: 2, title: 'Second' },
+
+// Use descriptive, SEO-friendly text
+shortDescription: 'Production geolocation API with credit-based billing'
+
+// Keep technology names consistent
+technologies: ['React', 'Flask']  // Not 'ReactJS', 'flask'
+
+// Use null for optional missing values
+liveDemoUrl: null  // Not undefined or empty string
+
+// Order items by importance/recency
+// Most recent/featured items first
+```
+
+### ❌ DON'T
+
+```javascript
+// DON'T: Inconsistent IDs
+{ id: 'proj-1' },  // Use numbers for IDs
+{ id: 2 },
+
+// DON'T: HTML in descriptions
+longDescription: '<strong>Bold</strong>'  // Plain text only
+
+// DON'T: Broken URLs
+liveDemoUrl: 'example.com'  // Need full https://
+
+// DON'T: Undefined for missing optional
+liveDemoUrl: undefined  // Use null
+
+// DON'T: Empty arrays when no data
+features: []  // Either have content or remove property
+```
+
+## Adding New Content
+
+### New Project
+
+1. Add object to `featuredProjects` array in `projects.js`
+2. Ensure unique `id` (increment from highest existing)
+3. Category must exist in `projectCategories`
+4. Technologies should be consistent with existing names
+
+### New Skill Category
+
+1. Add object to `skillCategories` array in `skills.js`
+2. `icon` must be valid Lucide icon name
+3. Each skill needs `name`, `level` (0-100), `description`
+
+### New Career Position
+
+1. Add object to `careerPositions` array in `career.js`
+2. Set `isCurrent: true` for current position
+3. Update previous current position to `isCurrent: false`
+
+## Icon Name Reference (for skills)
+
+Valid icon names from Lucide:
+- `Code` - Frontend/general coding
+- `Server` - Backend
+- `Smartphone` - Mobile
+- `Globe` - Cloud/DevOps
+- `Database` - Data
+- `Palette` - Design
+- `Terminal` - CLI/Scripts
+
+## File References
+@src/data/projects.js - Project data structure
+@src/data/skills.js - Skills categories structure
+@src/data/career.js - Career timeline structure
+@src/data/about.js - Personal info structure
