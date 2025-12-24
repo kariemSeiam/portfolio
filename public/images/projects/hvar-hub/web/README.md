@@ -1,6 +1,6 @@
 # Hvar-Hub Web Screenshots
 
-Add web/desktop screenshots of the Hvar-Hub (MCRM) system here.
+Add web/desktop screenshots of the Hvar-Hub system here.
 
 ## Suggested Screenshots
 - Dashboard overview
