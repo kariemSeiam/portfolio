@@ -1,0 +1,277 @@
+---
+description: Animation patterns, keyframes, and motion design guidelines for The Navigator portfolio. Invoke when implementing animations, transitions, or motion effects.
+alwaysApply: false
+---
+
+# Animation Patterns
+
+## Motion Philosophy
+
+Animations in The Navigator portfolio are:
+- **Purposeful**: Every animation tells a story or guides attention
+- **Accessible**: All animations respect `prefers-reduced-motion`
+- **Performant**: CSS-only where possible, GPU-accelerated transforms
+
+## Reduced Motion - CRITICAL
+
+**ALWAYS** check for reduced motion preference:
+
+```jsx
+import { useReducedMotion } from '../../hooks/useReducedMotion'
+
+const Component = () => {
+  const prefersReducedMotion = useReducedMotion()
+
+  // Skip animation calculations
+  if (prefersReducedMotion) return {}
+
+  // Adjust animation delays
+  style={{ transitionDelay: prefersReducedMotion ? '0ms' : '200ms' }}
+
+  // Conditional animation classes
+  className={`${!prefersReducedMotion ? 'animate-float' : ''}`}
+}
+```
+
+## Entrance Animations
+
+### Staggered Fade-Up Pattern
+
+Used for sequential reveals on page load or scroll:
+
+```jsx
+// State for load detection
+const [isLoaded, setIsLoaded] = useState(false)
+
+useEffect(() => {
+  const timer = setTimeout(() => setIsLoaded(true), 100)
+  return () => clearTimeout(timer)
+}, [])
+
+// Apply to elements with increasing delays
+<div 
+  className={`transition-all duration-1000 ${
+    isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+  }`}
+  style={{ transitionDelay: prefersReducedMotion ? '0ms' : '200ms' }}
+>
+  First element
+</div>
+
+<div 
+  className={`transition-all duration-1000 ${
+    isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+  }`}
+  style={{ transitionDelay: prefersReducedMotion ? '0ms' : '400ms' }}
+>
+  Second element (appears 200ms later)
+</div>
+```
+
+### Scroll-Triggered Animation
+
+For elements that animate when scrolling into view:
+
+```jsx
+const [ref, isVisible] = useIntersectionObserver({ 
+  threshold: 0.1, 
+  triggerOnce: true 
+})
+const prefersReducedMotion = useReducedMotion()
+
+const animationDelay = prefersReducedMotion ? '0s' : `${0.1 + index * 0.08}s`
+
+<article
+  ref={ref}
+  className={`${!prefersReducedMotion ? 'animate-on-scroll' : ''} ${
+    isVisible ? 'visible' : ''
+  }`}
+  style={{ transitionDelay: animationDelay }}
+>
+```
+
+## Interactive Animations
+
+### Hover Effects
+
+```jsx
+// Scale on hover (group pattern)
+<div className="group">
+  <div className="transition-transform group-hover:scale-105">
+    Scales on parent hover
+  </div>
+</div>
+
+// Icon movement
+<ArrowRight 
+  className="group-hover:translate-x-1 transition-transform" 
+/>
+
+// Glow effect on hover (use CSS classes)
+<button className="card-navigator hover:shadow-glow-navigator">
+```
+
+### Parallax Effect
+
+```jsx
+const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 })
+
+const handleMouseMove = useCallback((e) => {
+  if (prefersReducedMotion) return  // Critical!
+  
+  const rect = sectionRef.current?.getBoundingClientRect()
+  if (!rect) return
+  
+  const x = (e.clientX - rect.left) / rect.width
+  const y = (e.clientY - rect.top) / rect.height
+  setMousePosition({ x, y })
+}, [prefersReducedMotion])
+
+const getParallax = (intensity = 1) => {
+  if (prefersReducedMotion) return {}  // Return empty object
+  
+  const xOffset = (mousePosition.x - 0.5) * 30 * intensity
+  const yOffset = (mousePosition.y - 0.5) * 30 * intensity
+  return { transform: `translate(${xOffset}px, ${yOffset}px)` }
+}
+
+// Usage
+<div style={getParallax(0.5)}>Parallax element</div>
+```
+
+## Tailwind Animation Classes
+
+### Floating Animations
+
+```jsx
+// Gentle float (hero elements)
+className="animate-float"
+
+// Slower, larger movement
+className="animate-float-slow"
+
+// Opposite direction float
+className="animate-float-reverse"
+```
+
+### Entrance Animations
+
+```jsx
+// Rise up with scale
+className="animate-rise"
+
+// Directional fades
+className="animate-fade-up"
+className="animate-fade-down"
+className="animate-fade-left"
+className="animate-fade-right"
+
+// Scale entrance
+className="animate-scale-up"
+
+// Blur reveal
+className="animate-blur-in"
+```
+
+### Continuous Animations
+
+```jsx
+// Slow spin (decorative elements)
+className="animate-spin-slow"
+
+// Soft pulse
+className="animate-pulse-soft"
+
+// Shimmer effect
+className="animate-shimmer"
+
+// Gradient animation
+className="animate-gradient-x"
+```
+
+## Timing Functions
+
+Use custom easing for natural motion:
+
+```jsx
+// Expo ease-out (smooth deceleration) - DEFAULT
+className="ease-out-expo"
+
+// Quint ease-out (softer than expo)
+className="ease-out-quint"
+
+// Back ease-out (slight overshoot)
+className="ease-out-back"
+
+// Spring (bouncy)
+className="ease-spring"
+```
+
+## Duration Conventions
+
+| Duration | Use Case |
+|----------|----------|
+| `duration-150` | Micro-interactions (hover states) |
+| `duration-300` | Standard transitions |
+| `duration-500` | Moderate animations |
+| `duration-700` - `duration-1000` | Entrance animations |
+
+## CSS Custom Animations (in index.css)
+
+For complex animations, define keyframes in `index.css`:
+
+```css
+@keyframes customAnimation {
+  0% { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.my-animation {
+  animation: customAnimation 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+```
+
+## Performance Guidelines
+
+### ✅ DO
+
+```jsx
+// Use transform and opacity (GPU accelerated)
+transform: translateX(20px)
+opacity: 0.5
+
+// Use will-change sparingly for known animations
+className="will-change-transform"
+
+// Clean up event listeners
+useEffect(() => {
+  section.addEventListener('mousemove', handler)
+  return () => section.removeEventListener('mousemove', handler)
+}, [])
+```
+
+### ❌ DON'T
+
+```jsx
+// DON'T animate layout properties
+left: 20px    // Use transform instead
+width: 100px  // Use scale instead
+
+// DON'T use will-change everywhere
+className="will-change-auto"  // Browser handles this
+
+// DON'T forget reduced motion
+animation: spin 1s infinite;  // Check prefersReducedMotion!
+```
+
+## File References
+@tailwind.config.js - Animation keyframes and timing
+@src/hooks/useReducedMotion.js - Motion preference detection
+@src/hooks/useIntersectionObserver.js - Scroll-triggered visibility
+@src/components/Hero/HeroSection.jsx - Complex animation example
