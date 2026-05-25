@@ -207,8 +207,8 @@ const HeroSection = () => {
           >
             <div className="hero-orbit-stats-ring">
               <OrbitStat 
-                value="3+" 
-                label="Years" 
+                value="79K" 
+                label="Lines Live" 
                 angle={-60}
                 icon={<Briefcase size={14} />}
                 isHovered={hoveredOrbit === 0}
@@ -216,8 +216,8 @@ const HeroSection = () => {
                 onLeave={() => setHoveredOrbit(null)}
               />
               <OrbitStat 
-                value="75+" 
-                label="Projects" 
+                value="5M+" 
+                label="API Reqs/mo" 
                 angle={0}
                 icon={<Tag size={14} />}
                 isHovered={hoveredOrbit === 1}
@@ -225,8 +225,8 @@ const HeroSection = () => {
                 onLeave={() => setHoveredOrbit(null)}
               />
               <OrbitStat 
-                value="∞" 
-                label="Passion" 
+                value="75+" 
+                label="Projects" 
                 angle={60}
                 icon={<Sparkles size={14} />}
                 isHovered={hoveredOrbit === 2}
