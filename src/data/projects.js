@@ -4,94 +4,111 @@ export const featuredProjects = [
   {
     id: 1,
     title: 'Hvar Hub',
-    shortDescription: 'The nervous system connecting ERP, shipping, and customers — 79K lines of production code',
-    longDescription: `### The Problem
+    shortDescription: 'The missing layer between ERP accounting, Egyptian shipping, and the customer on the phone',
+    longDescription: `### The Gap
 
-ERP knows the numbers. Bosta knows the tracking. The customer knows what they need. **Nobody was connecting all three.**
+ERP knows the order. Bosta knows the tracking. The customer knows what they need.
 
-When a customer called Hvar saying "it's broken" or "I never got it" — the call center agent had no unified view. No way to know what was ordered, what shipped, what came back, or what happened in the workshop. Three separate realities, zero reconciliation.
-
----
-
-### What I Built
-
-**Hvar Hub** is the missing layer — a **three-way reconciliation engine** between ERP (accounting/inventory), Bosta (Egyptian shipping API), and the customer on the phone.
-
-**79,000+ lines** of production code. Two separate systems working as one organism:
-
-- **Call Center** — ERP sell orders auto-enriched with Bosta data → agent calls → confirms → ticket created → leader approves → hub takes over
-- **Hub** — Four parallel state machines governing the entire post-sale journey:
-
-| Type | Journey | States |
-|------|---------|--------|
-| **Replacement** | Confirm → Prepare → Dispatch → Receive → Validate | 7 states |
-| **Maintenance** | Confirm → Receive → Start → Complete → Dispatch → Deliver | 6 states + 3 internal sub-states |
-| **Return** | Confirm → Receive → Validate | 4 states |
-| **Sell** | Confirm → Prepare → Dispatch → Deliver | 6 states |
-
-Every state transition touches **three inventory dimensions** atomically: quantity on-hand, quantity reserved, and quantity damaged — all inside a single MySQL transaction.
+**Nobody was connecting all three.** When a customer called Hvar saying "it's broken" or "I never got it" — the agent had no unified view. Three separate realities, zero reconciliation.
 
 ---
 
-### The Architecture
+### The Bridge
 
-- **Backend:** Flask 3 layered architecture (API → Service → Model) with MySQL and 40+ REST endpoints
-- **Frontend:** React 18 + Vite 6 + TailwindCSS, Arabic/RTL-first with Cairo and Tajawal fonts
-- **Integrations:** ERP proxy for order sync + Bosta API for shipping/reverse-shipping
+**Hvar Hub** is the reconciliation layer — a three-way engine connecting ERP (Laravel), Bosta (shipping API), and every customer interaction into one organism.
+
+The system has **two hearts**:
+
+- **Call Center** — ERP sell orders auto-enriched with Bosta tracking data. Agent calls. Confirms. Ticket created. Leader approves. Hub takes over.
+- **Hub** — Four parallel state machines governing the entire post-sale journey. Every state transition touches three inventory dimensions atomically inside a single MySQL transaction.
+
+---
+
+### Four Machines, One Organism
+
+| Machine | Journey | The Hard Part |
+|---------|---------|---------------|
+| **⇄ Replacement** | 7 states: Confirm → Prepare → Dispatch → Receive → Validate | Reserve at confirm, commit at dispatch, receive at validation — three different stock operations in one flow |
+| **🔧 Maintenance** | 6 states + 3 internal sub-states in Arabic | Status stays IN_PROCESS while three internal actions happen — tracked via history counting, not status flags |
+| **↩ Return** | 4 states: the shortest path | Clean by design. Receive, validate condition, done |
+| **💰 Sell** | 6 states: products are reference-only, parts get reserved | Products don't touch inventory. Only parts. Different rules for different item types |
+
+56 state transitions. All atomic. Zero tolerance for inconsistency.
+
+---
+
+### What's Under the Hood
+
+- **Backend:** Flask 3 with layered architecture (API → Service → Model) — 19K lines Python, 40+ endpoints
+- **Frontend:** React 18 + Vite 6 + TailwindCSS — 60K lines, Arabic/RTL-first with Cairo and Tajawal fonts
+- **Integrations:** ERP proxy (order sync) + Bosta API (shipping, tracking, reverse-shipping)
 - **Auth:** JWT + bcrypt with transparent plaintext→bcrypt migration for existing users
-- **Stock:** Products, parts, and Bill of Materials with reservation→commit→receive lifecycle
-- **Call Center:** Two entry paths (ERP-sourced orders vs. direct inbound) with real-time Bosta enrichment
+- **Stock:** Products, parts, Bill of Materials — RESERVE → COMMIT → RECEIVE lifecycle
+- **Customer 360°:** Unified profile across calls, tickets, orders, shipping history
 
 ---
 
-### Why This Matters
+### Why This Is Different
 
-This isn't a CRUD app with a coat of paint. It's a **business-critical system** where every bug means either:
+This isn't a CRUD app. Every bug here means real consequences:
 - A customer doesn't get their money back
-- Inventory counts are wrong
+- Inventory counts diverge from reality
 - A package ships to the wrong address
 
-The state machines are **interlocked** — confirming a replacement *must* reserve stock. Dispatching *must* commit the reservation. Receiving *must* validate item condition. One broken link and the entire chain is corrupted.
+The machines are **interlocked** — confirming a replacement *must* reserve stock. Dispatching *must* commit. Receiving *must* validate condition. One broken link and the chain corrupts.
 
-**This is the system that makes Hvar capable of serving customers after the sale.** Without it, they have accounting software and a shipping API. With it, they have a nervous system.
+**Without Hub, Hvar has accounting software and a shipping API. With it, they have a nervous system.**
 
 ---
 
-### Numbers
+### By the Numbers
 
 | Metric | Value |
 |--------|-------|
-| Backend | 19,000+ lines Python |
-| Frontend | 60,000+ lines React/JSX |
-| API Endpoints | 40+ |
-| State Machines | 4 parallel, 56 transitions |
+| Production code | 79,000+ lines |
+| Commits | 126+ over 7 months |
+| API endpoints | 40+ |
+| State machines | 4 parallel, 56 transitions |
 | Production URL | mcrm.hvarstore.com |
-| Commits | 126+ |`,
-    technologies: ['Flask', 'React', 'MySQL', 'Vite', 'Tailwind CSS', 'PWA', 'Python', 'JavaScript', 'WSGI', 'JWT', 'Bcrypt', 'Bosta API', 'QR Scanner', 'Gunicorn'],
+| Language | Arabic-first RTL, not translated |`,
+    technologies: ['Flask', 'React', 'MySQL', 'Tailwind CSS', 'Python', 'JavaScript', 'Vite', 'JWT', 'Bcrypt', 'REST API', 'WSGI', 'Gunicorn'],
     category: 'Full-Stack',
     createdDate: 'Aug 2025',
     lastUpdated: 'May 2026',
     commits: 126,
     features: [
-      '4 interlocked state machines with atomic stock operations',
-      'Three-way reconciliation: ERP ↔ Bosta ↔ Customer',
-      'Call center with ERP order auto-enrichment and Bosta lookup',
-      '3-tier inventory control (on-hand / reserved / damaged)',
-      'Native Arabic/RTL — built for MENA, not translated',
-      'JWT auth with transparent legacy password migration',
-      'Bill of Materials with product↔part composition',
-      'QR scan receiving and dispatch tracking',
-      'Customer 360° — unified profile across all touchpoints',
-      'PWA with offline capabilities for warehouse use',
+      '4 interlocked state machines — 56 transitions, all atomic',
+      'Three-way reconciliation: ERP ↔ Bosta shipping ↔ Customer',
+      'Call center auto-enriched with shipping data from two sources',
+      '3-tier inventory: on-hand / reserved / damaged — lifecycle tracked',
+      'Arabic-first RTL — Cairo + Tajawal, built for MENA',
+      'JWT + bcrypt with transparent legacy password migration',
+      'Bill of Materials — products reference, parts reserve',
+      'Customer 360° — calls, tickets, orders, shipping unified',
+      'QR scan receiving + dispatch for warehouse operations',
+      'PWA with offline capabilities for workshop use',
     ],
     performanceMetrics: {
       loadTime: '< 2s',
       bundleSize: '245KB',
       lighthouseScore: 92,
     },
-    images: [],
+    images: [
+      {
+        url: '/images/projects/hvar-hub/web/architecture.svg',
+        type: 'web',
+        alt: 'Hvar Hub three-way reconciliation architecture',
+        caption: 'Architecture: ERP ↔ Hub ↔ Bosta ↔ Customer — the missing layer'
+      },
+      {
+        url: '/images/projects/hvar-hub/web/state-machines.svg',
+        type: 'web',
+        alt: 'Four parallel state machines and inventory lifecycle',
+        caption: 'Four state machines (R/M/T/S) with RESERVE → COMMIT → RECEIVE inventory lifecycle'
+      },
+    ],
     liveDemoUrl: 'https://mcrm.hvarstore.com',
-    githubUrl: '#',
+    githubUrl: null,
     isPrivate: true,
   },
   {
