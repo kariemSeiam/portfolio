@@ -8,8 +8,8 @@ export const aboutContent = {
   
   bio: [
     'A dedicated and passionate Computer Science and Mathematics student, skilled native Android developer, and full-stack architect with 3+ years of experience building production systems.',
-    'Specialized in geolocation services (10+ projects, public API with 8 stars), Arabic/RTL localization (rare skill, MENA market focus), and complete business management systems.',
-    'From first code to production systems - building complete solutions, not just features. Every project reflects a commitment to quality, performance, and real-world impact.',
+    'Built a three-way reconciliation engine connecting ERP, shipping, and customers across 79K+ lines of production code. Created a public geolocation API serving 5M+ requests/month to 50+ active clients. Every project ships to production — not portfolios, real users.',
+    'From first code to production systems — building complete solutions, not just features. Every project reflects a commitment to quality, performance, and real-world impact.',
   ],
   
   statistics: {
@@ -17,20 +17,22 @@ export const aboutContent = {
     projectsCompleted: 75,
     publicProjects: 64,
     githubStars: 10,
+    apiRequestsMonthly: '5M+',
+    productionApps: 4,
   },
   
   philosophy: [
     {
       title: 'Production-Ready Mindset',
-      description: 'Every project is built for production - comprehensive documentation, proper deployment, and real-world focus.',
+      description: 'Every project ships to production — not demo, not portfolio. Real users, real traffic, real stakes.',
     },
     {
-      title: 'Complete Solutions',
-      description: 'Not just features, but complete business systems that solve real problems from end to end.',
+      title: 'Complete Systems',
+      description: 'Not just features, but entire business ecosystems. Hvar Hub connects ERP + shipping + customers in 79K lines of production code.',
     },
     {
-      title: 'Continuous Evolution',
-      description: 'From Java to Kotlin to Python to TypeScript - always learning, always adapting, always growing.',
+      title: 'Cultural Bridge',
+      description: 'Native Arabic/RTL built for MENA — not translated, not afterthought. Cairo and Tajawal fonts, RTL layout, Egyptian market integration.',
     },
   ],
   

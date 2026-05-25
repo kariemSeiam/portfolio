@@ -3,46 +3,94 @@
 export const featuredProjects = [
   {
     id: 1,
-    title: 'Hvar-Hub',
-    shortDescription: 'Full-stack service management platform with Arabic RTL',
-    longDescription: `Production-ready service management system featuring complete stock management, customer workflows, and integrated shipping solutions. Built with a modern full-stack architecture using Flask backend and React frontend.
+    title: 'Hvar Hub',
+    shortDescription: 'The nervous system connecting ERP, shipping, and customers — 79K lines of production code',
+    longDescription: `### The Problem
 
-The system includes service ticket workflows for replacements, maintenance, and returns, along with comprehensive stock management featuring Bill of Materials (BOM) tracking and three-tier inventory control (quantity_on_hand, quantity_reserved, quantity_damaged).
+ERP knows the numbers. Bosta knows the tracking. The customer knows what they need. **Nobody was connecting all three.**
 
-Evolved from initial Order Management System (Pre-MCRM: July 29 - August 15, 2025) to complete platform with multiple API modules (customers, tickets, hub, stock, bosta). Features modular Flask Blueprint architecture with service layer separation, production WSGI deployment, and comprehensive documentation.
+When a customer called Hvar saying "it's broken" or "I never got it" — the call center agent had no unified view. No way to know what was ordered, what shipped, what came back, or what happened in the workshop. Three separate realities, zero reconciliation.
 
-Native Arabic/RTL support with Cairo and Tajawal fonts ensures first-class localization for the MENA market, while PWA capabilities and QR scanning integration provide seamless mobile experiences.`,
-    technologies: ['Flask', 'React', 'MySQL', 'Vite', 'Tailwind CSS', 'PWA', 'Python', 'JavaScript', 'WSGI', 'SQLAlchemy'],
+---
+
+### What I Built
+
+**Hvar Hub** is the missing layer — a **three-way reconciliation engine** between ERP (accounting/inventory), Bosta (Egyptian shipping API), and the customer on the phone.
+
+**79,000+ lines** of production code. Two separate systems working as one organism:
+
+- **Call Center** — ERP sell orders auto-enriched with Bosta data → agent calls → confirms → ticket created → leader approves → hub takes over
+- **Hub** — Four parallel state machines governing the entire post-sale journey:
+
+| Type | Journey | States |
+|------|---------|--------|
+| **Replacement** | Confirm → Prepare → Dispatch → Receive → Validate | 7 states |
+| **Maintenance** | Confirm → Receive → Start → Complete → Dispatch → Deliver | 6 states + 3 internal sub-states |
+| **Return** | Confirm → Receive → Validate | 4 states |
+| **Sell** | Confirm → Prepare → Dispatch → Deliver | 6 states |
+
+Every state transition touches **three inventory dimensions** atomically: quantity on-hand, quantity reserved, and quantity damaged — all inside a single MySQL transaction.
+
+---
+
+### The Architecture
+
+- **Backend:** Flask 3 layered architecture (API → Service → Model) with MySQL and 40+ REST endpoints
+- **Frontend:** React 18 + Vite 6 + TailwindCSS, Arabic/RTL-first with Cairo and Tajawal fonts
+- **Integrations:** ERP proxy for order sync + Bosta API for shipping/reverse-shipping
+- **Auth:** JWT + bcrypt with transparent plaintext→bcrypt migration for existing users
+- **Stock:** Products, parts, and Bill of Materials with reservation→commit→receive lifecycle
+- **Call Center:** Two entry paths (ERP-sourced orders vs. direct inbound) with real-time Bosta enrichment
+
+---
+
+### Why This Matters
+
+This isn't a CRUD app with a coat of paint. It's a **business-critical system** where every bug means either:
+- A customer doesn't get their money back
+- Inventory counts are wrong
+- A package ships to the wrong address
+
+The state machines are **interlocked** — confirming a replacement *must* reserve stock. Dispatching *must* commit the reservation. Receiving *must* validate item condition. One broken link and the entire chain is corrupted.
+
+**This is the system that makes Hvar capable of serving customers after the sale.** Without it, they have accounting software and a shipping API. With it, they have a nervous system.
+
+---
+
+### Numbers
+
+| Metric | Value |
+|--------|-------|
+| Backend | 19,000+ lines Python |
+| Frontend | 60,000+ lines React/JSX |
+| API Endpoints | 40+ |
+| State Machines | 4 parallel, 56 transitions |
+| Production URL | mcrm.hvarstore.com |
+| Commits | 126+ |`,
+    technologies: ['Flask', 'React', 'MySQL', 'Vite', 'Tailwind CSS', 'PWA', 'Python', 'JavaScript', 'WSGI', 'JWT', 'Bcrypt', 'Bosta API', 'QR Scanner', 'Gunicorn'],
     category: 'Full-Stack',
+    createdDate: 'Aug 2025',
+    lastUpdated: 'May 2026',
+    commits: 126,
     features: [
-      'Service ticket workflows (replacement, maintenance, return)',
-      'Stock management with BOM tracking',
-      'Three-tier inventory control (on-hand, reserved, damaged)',
-      'Arabic/RTL native support',
-      'Bosta shipping API integration',
-      'QR scanning with camera',
-      'PWA with service worker',
-      'Modular Blueprint architecture',
-      'Production WSGI deployment',
-      'Customer workflow automation',
+      '4 interlocked state machines with atomic stock operations',
+      'Three-way reconciliation: ERP ↔ Bosta ↔ Customer',
+      'Call center with ERP order auto-enrichment and Bosta lookup',
+      '3-tier inventory control (on-hand / reserved / damaged)',
+      'Native Arabic/RTL — built for MENA, not translated',
+      'JWT auth with transparent legacy password migration',
+      'Bill of Materials with product↔part composition',
+      'QR scan receiving and dispatch tracking',
+      'Customer 360° — unified profile across all touchpoints',
+      'PWA with offline capabilities for warehouse use',
     ],
     performanceMetrics: {
       loadTime: '< 2s',
       bundleSize: '245KB',
       lighthouseScore: 92,
     },
-    images: [
-      // Add web screenshots to: public/images/projects/hvar-hub/web/
-      // Add mobile screenshots to: public/images/projects/hvar-hub/mobile/
-      // Example:
-      // {
-      //   url: '/images/projects/hvar-hub/web/dashboard.png',
-      //   type: 'web',
-      //   alt: 'Hvar-Hub dashboard interface',
-      //   caption: 'Main dashboard with service management overview'
-      // },
-    ],
-    liveDemoUrl: null,
+    images: [],
+    liveDemoUrl: 'https://mcrm.hvarstore.com',
     githubUrl: '#',
     isPrivate: true,
   },
