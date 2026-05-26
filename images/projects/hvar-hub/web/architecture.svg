@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0c14"/>
+      <stop offset="100%" stop-color="#0f1220"/>
+    </linearGradient>
+    <linearGradient id="hubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF5A36"/>
+      <stop offset="100%" stop-color="#FF7A5A"/>
+    </linearGradient>
+    <linearGradient id="erpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+    <linearGradient id="bostaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="customerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#FCD34D"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.04" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1200" y2="100"/><line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/><line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="0" y1="700" x2="1200" y2="700"/>
+    <line x1="200" y1="0" x2="200" y2="800"/><line x1="400" y1="0" x2="400" y2="800"/>
+    <line x1="600" y1="0" x2="600" y2="800"/><line x1="800" y1="0" x2="800" y2="800"/>
+    <line x1="1000" y1="0" x2="1000" y2="800"/>
+  </g>
+
+  <!-- Connection lines (drawn first, behind boxes) -->
+  <!-- ERP → Hub -->
+  <line x1="420" y1="200" x2="520" y2="340" stroke="#6366F1" stroke-width="1.5" opacity="0.4" stroke-dasharray="8 4">
+    <animate attributeName="stroke-dashoffset" from="24" to="0" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <!-- Bosta → Hub -->
+  <line x1="780" y1="200" x2="680" y2="340" stroke="#06B6D4" stroke-width="1.5" opacity="0.4" stroke-dasharray="8 4">
+    <animate attributeName="stroke-dashoffset" from="24" to="0" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <!-- Hub → Customer -->
+  <line x1="600" y1="460" x2="600" y2="560" stroke="#FBBF24" stroke-width="1.5" opacity="0.4" stroke-dasharray="8 4">
+    <animate attributeName="stroke-dashoffset" from="24" to="0" dur="2s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- Data flow particles on ERP line -->
+  <circle r="3" fill="#6366F1" opacity="0.8" filter="url(#glow)">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M420,200 L520,340"/>
+  </circle>
+  <!-- Data flow particles on Bosta line -->
+  <circle r="3" fill="#06B6D4" opacity="0.8" filter="url(#glow)">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M780,200 L680,340"/>
+  </circle>
+  <!-- Data flow particles on Customer line -->
+  <circle r="3" fill="#FBBF24" opacity="0.8" filter="url(#glow)">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M600,460 L600,560"/>
+  </circle>
+
+  <!-- ═══ ERP BOX ═══ -->
+  <g filter="url(#glow)">
+    <rect x="240" y="80" width="180" height="120" rx="16" fill="url(#erpGrad)" opacity="0.12" stroke="#6366F1" stroke-width="1.5"/>
+  </g>
+  <rect x="240" y="80" width="180" height="120" rx="16" fill="#0f1220" stroke="#6366F1" stroke-width="1" opacity="0.9"/>
+  <text x="330" y="125" text-anchor="middle" fill="#818CF8" font-family="system-ui, sans-serif" font-size="14" font-weight="700">ERP</text>
+  <text x="330" y="148" text-anchor="middle" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="10">erp.hvarstore.com</text>
+  <text x="330" y="170" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">Orders · Inventory · Accounting</text>
+  <!-- Icon: database -->
+  <ellipse cx="330" cy="105" rx="10" ry="4" stroke="#6366F1" stroke-width="1" fill="none"/>
+  <path d="M320,105 v12 a10,4 0 0,0 20,0 v-12" stroke="#6366F1" stroke-width="1" fill="none"/>
+
+  <!-- ═══ BOSTA BOX ═══ -->
+  <g filter="url(#glow)">
+    <rect x="780" y="80" width="180" height="120" rx="16" fill="url(#bostaGrad)" opacity="0.12" stroke="#06B6D4" stroke-width="1.5"/>
+  </g>
+  <rect x="780" y="80" width="180" height="120" rx="16" fill="#0f1220" stroke="#06B6D4" stroke-width="1" opacity="0.9"/>
+  <text x="870" y="125" text-anchor="middle" fill="#22D3EE" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Bosta</text>
+  <text x="870" y="148" text-anchor="middle" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="10">Shipping API</text>
+  <text x="870" y="170" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">Tracking · COD · Delivery</text>
+  <!-- Icon: truck -->
+  <rect x="856" y="96" width="16" height="10" rx="2" stroke="#06B6D4" stroke-width="1" fill="none"/>
+  <path d="M872,100 h6 l4,4 v2 h-10 v-6z" stroke="#06B6D4" stroke-width="1" fill="none"/>
+  <circle cx="862" cy="108" r="2" stroke="#06B6D4" stroke-width="1" fill="none"/>
+  <circle cx="878" cy="108" r="2" stroke="#06B6D4" stroke-width="1" fill="none"/>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- ═══ HVAR HUB (CENTER, LARGE) ═══ -->
+  <!-- ═══════════════════════════════════════ -->
+  <g filter="url(#softGlow)">
+    <rect x="460" y="310" width="280" height="160" rx="20" fill="url(#hubGrad)" opacity="0.1"/>
+  </g>
+  <rect x="460" y="310" width="280" height="160" rx="20" fill="#0f1220" stroke="#FF5A36" stroke-width="2" opacity="0.95"/>
+  <!-- Inner glow border -->
+  <rect x="464" y="314" width="272" height="152" rx="18" fill="none" stroke="#FF5A36" stroke-width="0.5" opacity="0.3"/>
+
+  <text x="600" y="365" text-anchor="middle" fill="#FF7A5A" font-family="system-ui, sans-serif" font-size="20" font-weight="800">HVAR HUB</text>
+  <text x="600" y="388" text-anchor="middle" fill="#FF5A36" font-family="system-ui, sans-serif" font-size="11" font-weight="600" opacity="0.8">Three-Way Reconciliation Engine</text>
+
+  <!-- State machine badges -->
+  <g transform="translate(480, 405)">
+    <rect width="48" height="22" rx="6" fill="#FF5A36" opacity="0.15" stroke="#FF5A36" stroke-width="0.5"/>
+    <text x="24" y="15" text-anchor="middle" fill="#FF7A5A" font-family="system-ui, sans-serif" font-size="9" font-weight="700">R</text>
+  </g>
+  <g transform="translate(536, 405)">
+    <rect width="48" height="22" rx="6" fill="#FF5A36" opacity="0.15" stroke="#FF5A36" stroke-width="0.5"/>
+    <text x="24" y="15" text-anchor="middle" fill="#FF7A5A" font-family="system-ui, sans-serif" font-size="9" font-weight="700">M</text>
+  </g>
+  <g transform="translate(592, 405)">
+    <rect width="48" height="22" rx="6" fill="#FF5A36" opacity="0.15" stroke="#FF5A36" stroke-width="0.5"/>
+    <text x="24" y="15" text-anchor="middle" fill="#FF7A5A" font-family="system-ui, sans-serif" font-size="9" font-weight="700">T</text>
+  </g>
+  <g transform="translate(648, 405)">
+    <rect width="48" height="22" rx="6" fill="#FF5A36" opacity="0.15" stroke="#FF5A36" stroke-width="0.5"/>
+    <text x="24" y="15" text-anchor="middle" fill="#FF7A5A" font-family="system-ui, sans-serif" font-size="9" font-weight="700">S</text>
+  </g>
+
+  <text x="600" y="455" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">4 State Machines · 56 Transitions · Atomic Stock Ops</text>
+
+  <!-- ═══ CUSTOMER BOX ═══ -->
+  <g filter="url(#glow)">
+    <rect x="460" y="570" width="280" height="130" rx="16" fill="url(#customerGrad)" opacity="0.12" stroke="#FBBF24" stroke-width="1.5"/>
+  </g>
+  <rect x="460" y="570" width="280" height="130" rx="16" fill="#0f1220" stroke="#FBBF24" stroke-width="1" opacity="0.9"/>
+  <!-- Icon: person -->
+  <circle cx="600" cy="598" r="8" stroke="#FBBF24" stroke-width="1.5" fill="none"/>
+  <path d="M584,622 a16,12 0 0,1 32,0" stroke="#FBBF24" stroke-width="1.5" fill="none"/>
+  <text x="600" y="645" text-anchor="middle" fill="#FCD34D" font-family="system-ui, sans-serif" font-size="14" font-weight="700">العميل</text>
+  <text x="600" y="665" text-anchor="middle" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="10">The Customer</text>
+  <text x="600" y="685" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">"مجتشيش" · "مكسور" · "عايز أرجع"</text>
+
+  <!-- ═══ CALL CENTER BOX (left) ═══ -->
+  <rect x="100" y="340" width="200" height="100" rx="12" fill="#0f1220" stroke="#818CF8" stroke-width="0.8" opacity="0.8"/>
+  <text x="200" y="375" text-anchor="middle" fill="#A5B4FC" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Call Center</text>
+  <text x="200" y="395" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">ERP orders → Agent calls</text>
+  <text x="200" y="410" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">Confirm → Ticket PENDING</text>
+  <text x="200" y="425" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">Leader approval → Hub</text>
+  <!-- Arrow to Hub -->
+  <line x1="300" y1="390" x2="455" y2="390" stroke="#818CF8" stroke-width="1" opacity="0.4" stroke-dasharray="4 3"/>
+  <circle r="2" fill="#818CF8" opacity="0.8">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M300,390 L455,390"/>
+  </circle>
+
+  <!-- ═══ STOCK BOX (right) ═══ -->
+  <rect x="900" y="340" width="200" height="100" rx="12" fill="#0f1220" stroke="#22D3EE" stroke-width="0.8" opacity="0.8"/>
+  <text x="1000" y="375" text-anchor="middle" fill="#67E8F9" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Stock System</text>
+  <text x="1000" y="395" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">on_hand · reserved · damaged</text>
+  <text x="1000" y="410" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">RESERVE → COMMIT → RECEIVE</text>
+  <text x="1000" y="425" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="9">Products · Parts · BOM</text>
+  <!-- Arrow to Hub -->
+  <line x1="900" y1="390" x2="745" y2="390" stroke="#22D3EE" stroke-width="1" opacity="0.4" stroke-dasharray="4 3"/>
+  <circle r="2" fill="#22D3EE" opacity="0.8">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M900,390 L745,390"/>
+  </circle>
+
+  <!-- ═══ FLOW LABELS ═══ -->
+  <text x="460" y="270" text-anchor="middle" fill="#818CF8" font-family="system-ui, sans-serif" font-size="9" opacity="0.6" transform="rotate(-35 460 270)">sell orders</text>
+  <text x="740" y="270" text-anchor="middle" fill="#22D3EE" font-family="system-ui, sans-serif" font-size="9" opacity="0.6" transform="rotate(35 740 270)">tracking data</text>
+  <text x="615" y="520" text-anchor="middle" fill="#FCD34D" font-family="system-ui, sans-serif" font-size="9" opacity="0.6">service journey</text>
+
+  <!-- ═══ STATS BAR ═══ -->
+  <rect x="100" y="730" width="1000" height="1" fill="#1E293B"/>
+  <text x="200" y="760" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="10">79K lines</text>
+  <text x="400" y="760" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="10">40+ APIs</text>
+  <text x="600" y="760" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="10">126 commits</text>
+  <text x="800" y="760" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="10">Arabic-first RTL</text>
+  <text x="1000" y="760" text-anchor="middle" fill="#64748B" font-family="system-ui, sans-serif" font-size="10">Production since 2025</text>
+
+  <!-- Corner accents (matching portfolio design) -->
+  <line x1="20" y1="20" x2="60" y2="20" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <line x1="20" y1="20" x2="20" y2="60" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <circle cx="20" cy="20" r="2" fill="#FF5A36" opacity="0.5"/>
+
+  <line x1="1180" y1="20" x2="1140" y2="20" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <line x1="1180" y1="20" x2="1180" y2="60" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <circle cx="1180" cy="20" r="2" fill="#FF5A36" opacity="0.5"/>
+
+  <line x1="20" y1="780" x2="60" y2="780" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <line x1="20" y1="780" x2="20" y2="740" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <circle cx="20" cy="780" r="2" fill="#FF5A36" opacity="0.5"/>
+
+  <line x1="1180" y1="780" x2="1140" y2="780" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <line x1="1180" y1="780" x2="1180" y2="740" stroke="#FF5A36" stroke-width="1" opacity="0.3"/>
+  <circle cx="1180" cy="780" r="2" fill="#FF5A36" opacity="0.5"/>
+</svg>
