@@ -413,6 +413,74 @@ Premium Arabic/RTL design system uses Almarai and Tajawal fonts with a carefully
     githubUrl: '#',
     isPrivate: true,
   },
+  {
+    id: 6,
+    title: 'Plumb',
+    shortDescription: 'The wire between CLI coding agents and the agent internet',
+    longDescription: `### The Gap
+
+CLI coding agents (Pi, Cursor, Claude) can't talk to each other. No standard bridge between command-line tools and the emerging agent-to-agent internet.
+
+---
+
+### The Wire
+
+**Plumb** is a wire, not a switch. It wraps each CLI agent into a standard A2A interface without adding orchestration. The philosophy: transport, not control.
+
+**8 adapters** — echo, pi, claude, cursor, opencode, venom, wolfy, generic — each wrapping a different CLI tool into one protocol.
+
+---
+
+### Architecture
+
+- **AgentAdapter interface**: 6 methods. Every adapter implements the same contract.
+- **ProcessManager + PersistentProcess**: oneshot for stateless tools, persistent for stateful agents.
+- **PlumbExecutor**: bridges to A2A 0.3.0 (JSON-RPC + SSE).
+- **Ledger**: append-only JSONL audit trail. Every message logged, never overwritten.
+- **INK metadata**: deadline, depth, budget — protocol fields that travel with every request.
+- **FangPostParse hook**: the single extension point. A function, not a plugin system.
+
+---
+
+### What Makes It Different
+
+Plumb doesn't decide. It connects. No orchestration, no scheduling, no intelligence in the pipe — just reliable transport with audit. The agent mesh builds on top of it; Plumb stays invisible.
+
+---
+
+### By the Numbers
+
+| Metric | Value |
+|--------|-------|
+| Adapters | 8 |
+| Protocol | A2A 0.3.0 (JSON-RPC + SSE) |
+| Ledger | Append-only JSONL |
+| Spec | INK metadata (deadline, depth, budget) |
+| Fleet | Pi, Cursor, Wolfy, VENOM (production) |
+| Philosophy | Wire not switch |`,
+    technologies: ['TypeScript', 'Bun', 'A2A Protocol', 'JSON-RPC', 'SSE', 'JSONL'],
+    category: 'Infrastructure',
+    createdDate: '2025',
+    lastUpdated: 'May 2026',
+    commits: 80,
+    features: [
+      '8 adapters wrapping CLI agents into A2A interface',
+      'Append-only JSONL ledger for audit trail',
+      'INK metadata: deadline, depth, budget as protocol fields',
+      'Wire philosophy — transport without orchestration',
+      'FangPostParse hook — single extension point',
+      'Production fleet: Pi, Cursor, Wolfy, VENOM live',
+    ],
+    performanceMetrics: {
+      loadTime: 'N/A',
+      bundleSize: 'N/A',
+      lighthouseScore: null,
+    },
+    images: [],
+    liveDemoUrl: null,
+    githubUrl: null,
+    isPrivate: true,
+  },
 ]
 
 export const projectCategories = [
@@ -421,4 +489,5 @@ export const projectCategories = [
   'API Platform',
   'Mobile App',
   'Marketing Site',
+  'Infrastructure',
 ]

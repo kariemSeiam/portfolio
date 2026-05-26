@@ -3,17 +3,17 @@
 
 export const aboutContent = {
   name: 'Kariem Seiam',
-  title: 'Full-Stack Developer & Software Architect',
-  tagline: 'Building production-ready systems that make a difference',
+  title: 'Full-Stack Architect & Geolocation Specialist',
+  tagline: 'Location infrastructure, Arabic-first systems, Cairo',
   
   bio: [
-    'A dedicated and passionate Computer Science and Mathematics student, skilled native Android developer, and full-stack architect with 3+ years of experience building production systems.',
-    'Built a three-way reconciliation engine connecting ERP, shipping, and customers across 79K+ lines of production code. Created a public geolocation API serving 5M+ requests/month to 50+ active clients. Every project ships to production — not portfolios, real users.',
-    'From first code to production systems — building complete solutions, not just features. Every project reflects a commitment to quality, performance, and real-world impact.',
+    'Six years building production systems. Geolocation infrastructure serving 5M+ requests/month. Arabic/RTL-native across every flagship. Not a generalist — a specialist who evolved through Java → Kotlin → Python → TypeScript because each problem demanded it.',
+    'Built a three-way reconciliation engine connecting ERP, shipping, and customers across 79K+ lines of production code. Created a public geolocation API serving 50+ active clients. Production ride-sharing platform with dual apps. Every project ships to production — not portfolios, real users.',
+    'Complete systems, not features. Hvar Hub is a nervous system connecting accounting, logistics, and the customer on the phone. Geolink is the geolocation layer the Egyptian market was missing. Plumb is the wire between CLI agents and the agent internet.',
   ],
   
   statistics: {
-    yearsExperience: 3,
+    yearsExperience: 6,
     projectsCompleted: 75,
     publicProjects: 64,
     githubStars: 10,
@@ -23,16 +23,20 @@ export const aboutContent = {
   
   philosophy: [
     {
-      title: 'Production-Ready Mindset',
-      description: 'Every project ships to production — not demo, not portfolio. Real users, real traffic, real stakes.',
+      title: 'Production Thinking',
+      description: 'Every project ships to production. Real users, real traffic, real stakes. Connection pooling, atomic state transitions, battery optimization — because bugs have consequences.',
     },
     {
       title: 'Complete Systems',
-      description: 'Not just features, but entire business ecosystems. Hvar Hub connects ERP + shipping + customers in 79K lines of production code.',
+      description: 'Not features — organisms. Hvar Hub is a nervous system connecting ERP + shipping + customers. Geolink is the geolocation layer Egypt was missing.',
     },
     {
-      title: 'Cultural Bridge',
-      description: 'Native Arabic/RTL built for MENA — not translated, not afterthought. Cairo and Tajawal fonts, RTL layout, Egyptian market integration.',
+      title: 'Arabic/RTL Native',
+      description: 'Not translated. Not afterthought. Day one. Logical properties, real RTL layout, diacritics-insensitive search, WCAG 3 AAA compliance.',
+    },
+    {
+      title: 'The Pact',
+      description: 'Evaluate before agreeing. State the path when clear. Pushback is loyalty. Remember what was decided.',
     },
   ],
   
@@ -88,10 +92,10 @@ export const aboutContent = {
   
   // Journey milestones
   journey: [
-    { year: '2019', event: 'Android Passion Ignited', highlight: 'Started Android development, joined Android Engineers community' },
-    { year: '2021', event: 'The Chance Internship', highlight: 'UI/UX mastery, MotionLayout, architecture foundations' },
-    { year: '2023', event: 'Enterprise Systems', highlight: 'Complex backend architectures, marketplace development' },
-    { year: '2024', event: 'Agency Founded', highlight: 'Leading 5-person team, Hvar Hub, GeoLink platform' },
-    { year: 'NOW', event: 'Building the Future', highlight: 'MASAR platform, continuous evolution' },
+    { year: '2019', event: 'Android Genesis', highlight: 'Java fundamentals. Object-oriented thinking. First marketplace app.' },
+    { year: '2021', event: 'The Chance Cohort', highlight: 'Kotlin transition. Modern Android. Architecture foundations.' },
+    { year: '2023', event: 'Backend Expansion', highlight: 'Python/Flask. Geolink API born. Production systems thinking.' },
+    { year: '2024', event: 'Platform Builder', highlight: 'Agency founded. Hvar Hub. Taxiarab dual-app. Geolink at 5M+ req/mo.' },
+    { year: 'NOW', event: 'Infrastructure Phase', highlight: 'Plumb (A2A bridge). Hvar ERP. Systems that survive their creator.' },
   ],
 }
