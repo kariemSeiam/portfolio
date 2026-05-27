@@ -6,9 +6,11 @@ import HeroSection from './components/Hero/HeroSection'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { useTheme } from './hooks/useTheme'
 
-// Lazy load below-the-fold sections for performance
 const CareerTimeline = lazy(() => import('./components/Career/CareerTimeline'))
 const ProjectGallery = lazy(() => import('./components/Projects/ProjectGallery'))
+const KariemDNA = lazy(() => import('./components/KariemDNA'))
+const TheJourney = lazy(() => import('./components/TheJourney'))
+const WhatIBelieve = lazy(() => import('./components/WhatIBelieve'))
 const SkillsSection = lazy(() => import('./components/Skills/SkillsSection'))
 const AboutSection = lazy(() => import('./components/About/AboutSection'))
 
@@ -102,6 +104,21 @@ function App() {
         {/* Projects - The work */}
         <Suspense fallback={<SectionLoader />}>
           <ProjectGallery />
+        </Suspense>
+
+        {/* Kariem DNA - The patterns that prove it */}
+        <Suspense fallback={<SectionLoader />}>
+          <KariemDNA />
+        </Suspense>
+
+        {/* The Journey - How it all connects */}
+        <Suspense fallback={<SectionLoader />}>
+          <TheJourney />
+        </Suspense>
+
+        {/* What I Believe - The actual principles */}
+        <Suspense fallback={<SectionLoader />}>
+          <WhatIBelieve />
         </Suspense>
 
         {/* Skills - The expertise */}
