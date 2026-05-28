@@ -11,6 +11,8 @@ const ProjectGallery = lazy(() => import('./components/Projects/ProjectGallery')
 const KariemDNA = lazy(() => import('./components/KariemDNA'))
 const TheJourney = lazy(() => import('./components/TheJourney'))
 const WhatIBelieve = lazy(() => import('./components/WhatIBelieve'))
+const ThinkingAmplified = lazy(() => import('./components/ThinkingAmplified'))
+const DecisionsLedger = lazy(() => import('./components/DecisionsLedger'))
 const SkillsSection = lazy(() => import('./components/Skills/SkillsSection'))
 const AboutSection = lazy(() => import('./components/About/AboutSection'))
 
@@ -109,6 +111,16 @@ function App() {
         {/* Kariem DNA - The patterns that prove it */}
         <Suspense fallback={<SectionLoader />}>
           <KariemDNA />
+        </Suspense>
+
+        {/* Thinking Amplified - Infinite depth pattern explorer */}
+        <Suspense fallback={<SectionLoader />}>
+          <ThinkingAmplified />
+        </Suspense>
+
+        {/* Decisions Ledger - Public decision documentation */}
+        <Suspense fallback={<SectionLoader />}>
+          <DecisionsLedger />
         </Suspense>
 
         {/* The Journey - How it all connects */}
