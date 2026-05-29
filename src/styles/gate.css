@@ -1840,3 +1840,123 @@ button, a, [role="button"] {
     padding: 1rem;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIVE API DEMO — proof in motion
+   A real-looking terminal showing Geolink responding to a request.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.api-demo-shell {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background: rgb(8, 10, 18);
+  border: 1px solid rgba(var(--navigator), 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(var(--navigator), 0.04),
+    0 16px 48px -12px rgba(0, 0, 0, 0.5);
+  text-align: left;
+}
+
+/* Title bar */
+.api-demo-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.api-demo-dots {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.api-demo-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.api-demo-dot-r { background: #ff5f57; }
+.api-demo-dot-a { background: #ffbd2e; }
+.api-demo-dot-g { background: #28c840; }
+
+.api-demo-title {
+  flex: 1;
+  text-align: center;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.63rem;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.04em;
+}
+
+.api-demo-replay {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0 4px;
+  min-height: unset;
+  min-width: unset;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.api-demo-replay:hover:not(:disabled) { color: rgb(var(--navigator)); }
+.api-demo-replay:disabled { opacity: 0.5; cursor: default; }
+
+/* Output */
+.api-demo-output {
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.72rem;
+  line-height: 1.65;
+  min-height: 160px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.api-demo-output::-webkit-scrollbar { width: 3px; }
+.api-demo-output::-webkit-scrollbar-thumb { background: rgba(var(--navigator), 0.2); border-radius: 2px; }
+
+/* Line types */
+.api-line { display: block; }
+.api-line-req  { color: rgb(var(--compass)); }
+.api-line-dim  { color: rgba(255, 255, 255, 0.2); }
+.api-line-json { color: rgba(255, 255, 255, 0.6); }
+.api-line-key  { color: rgba(255, 255, 255, 0.6); }
+.api-line-stat { color: rgb(var(--growth)); font-weight: 600; }
+
+.api-key-name  { color: rgb(var(--horizon)); }
+.api-key-value { color: rgb(var(--growth)); }
+
+/* Blinking cursor */
+.api-cursor {
+  display: inline-block;
+  color: rgb(var(--navigator));
+  animation: cursorBlink 0.8s step-end infinite;
+  font-size: 0.72rem;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Mobile: smaller */
+@media (max-width: 480px) {
+  .api-demo-shell {
+    max-width: 100%;
+  }
+  .api-demo-output {
+    font-size: 0.65rem;
+    min-height: 140px;
+  }
+}
