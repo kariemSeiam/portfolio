@@ -5,7 +5,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * CareerTimeline - The Navigator's Ascending Path
+ * CareerTimeline - Kariem's Career Arc
  * 
  * Compact, responsive timeline from 2019 to 2025.
  * Clean design matching the overall theme.

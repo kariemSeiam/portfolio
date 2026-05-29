@@ -189,17 +189,14 @@ function AppShell() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-body">
-            {lang === 'ar' ? 'بُني بـ' : 'Built with'}{' '}
-            <span style={{ color: 'rgb(var(--navigator))' }}>
-              {lang === 'ar' ? 'دقة' : 'precision'}
-            </span>
-            {lang === 'ar' ? '' : '.'}
+            <span style={{ color: 'rgb(var(--navigator))' }}>Kariem Seiam</span>
+            {lang === 'ar' ? ' — معمار أنظمة — القاهرة' : ' — Systems Architect — Cairo'}
           </p>
           <p className="mt-2 text-sm text-[rgb(var(--ink-tertiary))]">
-            © {new Date().getFullYear()} Kariem Seiam. {lang === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
+            Geolink · Hvar-Hub · Taxiarab · Plumb · Areo · Hvar-Catalog
           </p>
-          <p className="mt-4 text-mono text-xs" style={{ color: 'rgba(var(--ink-tertiary), 0.6)' }}>
-            v2.0.0 • {lang === 'ar' ? 'البوابة' : 'The Gate'}
+          <p className="mt-4 font-mono text-xs" style={{ color: 'rgba(var(--ink-tertiary), 0.4)', letterSpacing: '0.08em' }}>
+            {new Date().getFullYear()} · v3.0.0 · {lang === 'ar' ? 'أنظمة تتجاوز منشئيها' : 'systems that outlast their creator'}
           </p>
         </div>
       </footer>

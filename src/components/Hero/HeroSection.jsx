@@ -6,7 +6,7 @@ import { scrollToSection } from '../../utils/animations'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * HeroSection - The Navigator's Horizon
+ * HeroSection - Kariem Seiam — Systems Architect
  * 
  * An architectural, cinematic hero with flowing geometric forms.
  * Inspired by maps, horizons, and the journey of navigation.
@@ -297,18 +297,47 @@ const HeroSection = () => {
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          SCROLL INDICATOR
+          LIVE SYSTEM PULSE — bottom bar showing active production
           ═══════════════════════════════════════════════════════════════════ */}
+      <div
+        className={`absolute bottom-0 left-0 right-0 transition-all duration-1000 ${
+          isLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1800ms' }}
+        aria-hidden="true"
+      >
+        <div className="hero-live-bar">
+          <div className="hero-live-system">
+            <span className="hero-live-dot" />
+            <span className="hero-live-label">geolink-eg.com</span>
+            <span className="hero-live-stat">5.2M req/mo</span>
+          </div>
+          <div className="hero-live-divider" />
+          <div className="hero-live-system">
+            <span className="hero-live-dot hero-live-dot-amber" />
+            <span className="hero-live-label">mcrm.hvarstore.com</span>
+            <span className="hero-live-stat">production</span>
+          </div>
+          <div className="hero-live-divider" />
+          <div className="hero-live-system hero-live-hide-sm">
+            <span className="hero-live-dot hero-live-dot-blue" />
+            <span className="hero-live-label">taxiarab</span>
+            <span className="hero-live-stat">15K+ downloads</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll hint — minimal */}
       <div 
-        className={`absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
-          isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        className={`absolute bottom-14 sm:bottom-16 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
+          isLoaded ? 'opacity-40 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
         style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1700ms' }}
       >
         <button
-          onClick={() => scrollToSection('career', 80)}
+          onClick={() => scrollToSection('metrics', 80)}
           className="hero-scroll-btn group"
-          aria-label="Scroll to next section"
+          aria-label="Scroll to metrics"
         >
           <span className="hero-scroll-line" />
           <ArrowDown size={16} className="hero-scroll-arrow" />

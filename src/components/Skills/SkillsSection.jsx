@@ -8,7 +8,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * SkillsSection - The Navigator's Mastery Atlas
+ * SkillsSection - Skills & Expertise
  * 
  * A masterpiece visualization of technical expertise.
  * Clean, elegant, and works perfectly on all devices.

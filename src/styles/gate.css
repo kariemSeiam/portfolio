@@ -1009,3 +1009,240 @@ button, a, [role="button"] {
     min-width: 160px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIVE SYSTEM BAR — real production proof, always visible at hero bottom
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hero-live-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0.625rem 1rem;
+  border-top: 1px solid rgba(var(--border-primary), 0.15);
+  background: rgba(var(--canvas-primary), 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.hero-live-system {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+.hero-live-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(var(--border-primary), 0.3);
+  flex-shrink: 0;
+}
+
+.hero-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--growth));
+  box-shadow: 0 0 6px rgba(var(--growth), 0.6);
+  animation: livePulse 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hero-live-dot-amber {
+  background: rgb(var(--compass));
+  box-shadow: 0 0 6px rgba(var(--compass), 0.6);
+  animation-delay: 0.8s;
+}
+
+.hero-live-dot-blue {
+  background: rgb(var(--horizon));
+  box-shadow: 0 0 6px rgba(var(--horizon), 0.6);
+  animation-delay: 1.6s;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-live-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.65rem;
+  color: rgb(var(--ink-tertiary));
+  letter-spacing: 0.03em;
+}
+
+.hero-live-stat {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgb(var(--navigator));
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 480px) {
+  .hero-live-hide-sm {
+    display: none;
+  }
+  .hero-live-system {
+    padding: 0 0.6rem;
+  }
+  .hero-live-label {
+    font-size: 0.6rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ABOUT SECTION — kill "The Navigator", make it Kariem
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* About section skills/DNA tags — use brand color, not generic */
+.about-skill-tag {
+  border-color: rgba(var(--navigator), 0.2);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.about-skill-tag:hover {
+  border-color: rgba(var(--navigator), 0.5);
+  background: rgba(var(--navigator), 0.05);
+}
+
+/* About status badge — "available" in navigator green */
+.about-status-available {
+  color: rgb(var(--growth));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLL PROGRESS — 1px brand line at top, not a thick bar
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.scroll-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  z-index: 10000;
+  background: rgba(var(--border-primary), 0.1);
+}
+
+.scroll-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--navigator)) 0%,
+    rgb(var(--compass)) 50%,
+    rgb(var(--horizon)) 100%
+  );
+  transform-origin: left;
+  transition: transform 0.05s linear;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THINKING AMPLIFIED — evidence chain visual connectors
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Pattern selector active state — sharper brand signal */
+.thinking-pattern-active {
+  border-left: 2px solid rgb(var(--navigator));
+  background: rgba(var(--navigator), 0.04);
+}
+
+/* Trajectory text — future signal */
+.thinking-trajectory {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: rgb(var(--compass));
+  letter-spacing: 0.03em;
+}
+
+/* Tradeoffs: gained vs sacrificed — visual polarity */
+.thinking-gained {
+  border-left: 2px solid rgb(var(--growth));
+  padding-left: 0.75rem;
+}
+
+.thinking-sacrificed {
+  border-left: 2px solid rgba(var(--navigator), 0.3);
+  padding-left: 0.75rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CAREER TIMELINE — year markers in code style
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.timeline-period {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: rgb(var(--navigator));
+  opacity: 0.8;
+}
+
+/* Current position marker — green pulse */
+.timeline-current-dot {
+  background: rgb(var(--growth));
+  box-shadow: 0 0 0 4px rgba(var(--growth), 0.15);
+  animation: livePulse 2.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DECISIONS LEDGER — confidence badge precision
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* High confidence (≥90%) — navigator coral */
+.confidence-high {
+  color: rgb(var(--navigator));
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+}
+
+/* Medium confidence (70–89%) — compass gold */
+.confidence-mid {
+  color: rgb(var(--compass));
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   METRICS HUB — numbers feel real, not stats-page generic
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Sparkline: trajectory made visible */
+.metric-sparkline path {
+  stroke: rgb(var(--navigator));
+  stroke-width: 1.5;
+  fill: none;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.metric-card:hover .metric-sparkline path {
+  opacity: 1;
+  stroke-width: 2;
+}
+
+/* Value: tabular numbers — precision aligned */
+.metric-card-value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SYSTEM DIAGRAM — architecture language, not illustration
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.diagram-node {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.diagram-edge {
+  stroke: rgba(var(--navigator), 0.4);
+}
+
+.diagram-edge:hover {
+  stroke: rgb(var(--navigator));
+  stroke-width: 2;
+}

@@ -1,7 +1,5 @@
 /**
- * Constants - The Navigator's Configuration
- * 
- * Central configuration for themes, navigation, and app-wide constants.
+ * Constants — Kariem Seiam's portfolio configuration
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -17,14 +15,13 @@ export const DEFAULT_THEME = LIGHT_THEME
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const NAV_SECTIONS = [
-  { id: 'hero', label: 'Home', labelKey: 'nav.home' },
-  { id: 'career', label: 'Journey', labelKey: 'nav.journey' },
-  { id: 'metrics', label: 'Metrics', labelKey: 'nav.metrics' },
-  { id: 'architecture', label: 'Systems', labelKey: 'nav.systems' },
-  { id: 'projects', label: 'Projects', labelKey: 'nav.projects' },
-  { id: 'knowledge', label: 'Knowledge', labelKey: 'nav.knowledge' },
-  { id: 'philosophy', label: 'Philosophy', labelKey: 'nav.philosophy' },
-  { id: 'skills', label: 'Skills', labelKey: 'nav.skills' },
+  { id: 'hero', label: 'Kariem', labelKey: 'nav.home' },
+  { id: 'metrics', label: 'Scale', labelKey: 'nav.metrics' },
+  { id: 'thinking', label: 'Thinking', labelKey: 'nav.thinking' },
+  { id: 'projects', label: 'Systems', labelKey: 'nav.projects' },
+  { id: 'architecture', label: 'Architecture', labelKey: 'nav.systems' },
+  { id: 'philosophy', label: 'Pact', labelKey: 'nav.philosophy' },
+  { id: 'skills', label: 'Stack', labelKey: 'nav.skills' },
   { id: 'about', label: 'About', labelKey: 'nav.about' },
 ]
 
