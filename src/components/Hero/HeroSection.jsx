@@ -2,6 +2,7 @@ import { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import { 
   ArrowDown, ArrowRight, Layers, GitBranch, Cpu
 } from 'lucide-react'
+import LiveApiDemo from './LiveApiDemo'
 import { scrollToSection } from '../../utils/animations'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
@@ -298,6 +299,16 @@ const HeroSection = () => {
               <span>How I Think</span>
               <ArrowDown size={18} className="group-hover:translate-y-0.5 transition-transform" />
             </button>
+          </div>
+
+          {/* Live API Demo — proof in motion */}
+          <div
+            className={`mt-10 sm:mt-14 transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+            style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1600ms' }}
+          >
+            <LiveApiDemo />
           </div>
         </div>
       </div>
