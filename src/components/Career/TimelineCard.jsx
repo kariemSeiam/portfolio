@@ -4,7 +4,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * TimelineCard - A Luminous Waypoint on The Navigator's Journey
+ * TimelineCard - Career milestone
  * 
  * Each card represents a chapter in the story:
  * - Emerges from the timeline with depth and presence

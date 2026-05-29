@@ -7,6 +7,8 @@ import MetricsHub from './components/MetricsHub'
 import PactSection from './components/PactSection'
 import SystemDiagram from './components/SystemDiagram'
 import BrainHubSearch from './components/BrainHubSearch'
+import PortfolioTerminal from './components/Terminal/PortfolioTerminal'
+import PactGate from './components/PactGate/PactGate'
 import { LanguageProvider, useLanguage } from './context/LanguageContext'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { useTheme } from './hooks/useTheme'
@@ -105,6 +107,12 @@ function AppShell() {
         {lang === 'ar' ? 'تخطى إلى المحتوى الرئيسي' : 'Skip to main content'}
       </a>
 
+      {/* Pact Gate — first visit only */}
+      <PactGate />
+
+      {/* Portfolio Terminal — press / anywhere */}
+      <PortfolioTerminal />
+
       {/* Navigation */}
       <Navigation />
       
@@ -121,42 +129,42 @@ function AppShell() {
         {/* Hero - The Gate */}
         <HeroSection />
 
-        {/* Career Timeline - The journey */}
-        <Suspense fallback={<SectionLoader />}>
-          <CareerTimeline />
-        </Suspense>
-
-        {/* Live Metrics - Proof visible */}
+        {/* Live Metrics - First proof: real numbers, no fluff */}
         <MetricsHub />
 
-        {/* System Architecture - Interactive diagram */}
-        <SystemDiagram />
-
-        {/* Projects - The work */}
-        <Suspense fallback={<SectionLoader />}>
-          <ProjectGallery />
-        </Suspense>
-
-        {/* Kariem DNA - The patterns that prove it */}
-        <Suspense fallback={<SectionLoader />}>
-          <KariemDNA />
-        </Suspense>
-
-        {/* Thinking Amplified - Infinite depth pattern explorer */}
+        {/* Thinking Amplified - How I think: PROMOTED to position 2 */}
         <Suspense fallback={<SectionLoader />}>
           <ThinkingAmplified />
         </Suspense>
 
-        {/* BrainHub - Knowledge base search */}
-        <BrainHubSearch />
+        {/* Kariem DNA - 8 patterns proven by production */}
+        <Suspense fallback={<SectionLoader />}>
+          <KariemDNA />
+        </Suspense>
 
-        {/* Decisions Ledger - Public decision documentation */}
+        {/* Projects - The systems: 6 real production builds */}
+        <Suspense fallback={<SectionLoader />}>
+          <ProjectGallery />
+        </Suspense>
+
+        {/* System Architecture - Interactive diagram */}
+        <SystemDiagram />
+
+        {/* Decisions Ledger - Public decision documentation: PROMOTED */}
         <Suspense fallback={<SectionLoader />}>
           <DecisionsLedger />
         </Suspense>
 
-        {/* The Pact - Operating system philosophy */}
+        {/* Career Timeline - The arc */}
+        <Suspense fallback={<SectionLoader />}>
+          <CareerTimeline />
+        </Suspense>
+
+        {/* The Pact - Operating principles */}
         <PactSection />
+
+        {/* BrainHub - Knowledge base search */}
+        <BrainHubSearch />
 
         {/* The Journey - How it all connects */}
         <Suspense fallback={<SectionLoader />}>
@@ -189,17 +197,14 @@ function AppShell() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-body">
-            {lang === 'ar' ? 'بُني بـ' : 'Built with'}{' '}
-            <span style={{ color: 'rgb(var(--navigator))' }}>
-              {lang === 'ar' ? 'دقة' : 'precision'}
-            </span>
-            {lang === 'ar' ? '' : '.'}
+            <span style={{ color: 'rgb(var(--navigator))' }}>Kariem Seiam</span>
+            {lang === 'ar' ? ' — معمار أنظمة — القاهرة' : ' — Systems Architect — Cairo'}
           </p>
           <p className="mt-2 text-sm text-[rgb(var(--ink-tertiary))]">
-            © {new Date().getFullYear()} Kariem Seiam. {lang === 'ar' ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
+            Geolink · Hvar-Hub · Taxiarab · Plumb · Areo · Hvar-Catalog
           </p>
-          <p className="mt-4 text-mono text-xs" style={{ color: 'rgba(var(--ink-tertiary), 0.6)' }}>
-            v2.0.0 • {lang === 'ar' ? 'البوابة' : 'The Gate'}
+          <p className="mt-4 font-mono text-xs" style={{ color: 'rgba(var(--ink-tertiary), 0.4)', letterSpacing: '0.08em' }}>
+            {new Date().getFullYear()} · v3.0.0 · {lang === 'ar' ? 'أنظمة تتجاوز منشئيها' : 'systems that outlast their creator'}
           </p>
         </div>
       </footer>

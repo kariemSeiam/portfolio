@@ -219,7 +219,7 @@ export default function ThinkingAmplified() {
   const displayPatterns = showAll ? patterns : patterns.slice(0, 3);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+    <section id="thinking" className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
