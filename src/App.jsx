@@ -7,6 +7,8 @@ import MetricsHub from './components/MetricsHub'
 import PactSection from './components/PactSection'
 import SystemDiagram from './components/SystemDiagram'
 import BrainHubSearch from './components/BrainHubSearch'
+import PortfolioTerminal from './components/Terminal/PortfolioTerminal'
+import PactGate from './components/PactGate/PactGate'
 import { LanguageProvider, useLanguage } from './context/LanguageContext'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { useTheme } from './hooks/useTheme'
@@ -104,6 +106,12 @@ function AppShell() {
       <a href="#main-content" className="skip-link">
         {lang === 'ar' ? 'تخطى إلى المحتوى الرئيسي' : 'Skip to main content'}
       </a>
+
+      {/* Pact Gate — first visit only */}
+      <PactGate />
+
+      {/* Portfolio Terminal — press / anywhere */}
+      <PortfolioTerminal />
 
       {/* Navigation */}
       <Navigation />
