@@ -729,3 +729,283 @@
   --ledger-card: rgba(255, 255, 255, 0.8);
   --ledger-border: rgba(226, 232, 240, 0.5);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ∞ HIDDEN GEMS LAYER — Pure intelligence perfectionism
+   Unexpected precision that rewards attention.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Boot sequence: monospace truth, not decoration ── */
+.gate-boot-sequence {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 3rem;
+  background: rgb(var(--canvas-primary));
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  font-weight: 400;
+  gap: 0.6rem;
+}
+
+.gate-boot-line {
+  opacity: 0;
+  color: rgb(var(--ink-secondary));
+  animation: bootReveal 0.4s ease forwards;
+  letter-spacing: 0.02em;
+}
+
+.gate-boot-line::before {
+  content: '';
+}
+
+@keyframes bootReveal {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Last boot line — status green */
+.gate-boot-line:last-child {
+  color: rgb(var(--growth));
+  font-weight: 600;
+}
+
+/* ── Hero: identity bracket uses code syntax, not decoration ── */
+.hero-identity-bracket {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.85em;
+  opacity: 0.5;
+  color: rgb(var(--navigator));
+  user-select: none;
+}
+
+.hero-identity-text {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--ink-secondary));
+  padding: 0 0.5em;
+}
+
+/* ── Role divider: precise slash, not ornamental ── */
+.hero-role-divider {
+  color: rgb(var(--navigator));
+  opacity: 0.4;
+  font-weight: 300;
+  padding: 0 0.5em;
+  font-size: 0.9em;
+}
+
+/* ── Metrics: sparkline glow on hover reveals trajectory ── */
+.metric-card:hover .metric-card-value {
+  color: rgb(var(--navigator));
+  transition: color 0.3s ease;
+}
+
+/* ── Project cards: left border reveals on hover = system thinking made visual ── */
+.project-card-root {
+  border-left: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.project-card-root:hover {
+  border-left-color: rgb(var(--navigator));
+}
+
+/* ── KariemDNA patterns: strength bar animates from zero ── */
+.dna-strength-bar {
+  transform-origin: left;
+  animation: strengthGrow 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-play-state: paused;
+}
+
+.dna-card:hover .dna-strength-bar,
+.dna-card:focus-within .dna-strength-bar {
+  animation-play-state: running;
+}
+
+@keyframes strengthGrow {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+/* ── ThinkingAmplified: evidence chain connector line ── */
+.evidence-chain-item {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.evidence-chain-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1rem;
+  height: 1px;
+  background: rgb(var(--navigator));
+  opacity: 0.4;
+}
+
+.evidence-chain-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  bottom: -50%;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(var(--navigator), 0.3), transparent);
+}
+
+/* ── Decisions Ledger: confidence bar color-codes certainty ── */
+.decision-confidence-bar {
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(
+    to right,
+    rgb(var(--growth)) 0%,
+    rgb(var(--compass)) 70%,
+    rgb(var(--navigator)) 100%
+  );
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Navigation: active section indicator — hairline precision ── */
+.nav-active-indicator {
+  height: 1px;
+  background: rgb(var(--navigator));
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Scroll progress: 1px line at top — barely visible, always present ── */
+.scroll-progress-bar {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgb(var(--navigator)),
+    rgb(var(--compass)),
+    rgb(var(--horizon))
+  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  transform-origin: left;
+  transition: transform 0.1s linear;
+}
+
+/* ── Footer: version stamp in monospace — system identifier ── */
+footer .version-stamp {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.65rem;
+  opacity: 0.3;
+  letter-spacing: 0.1em;
+}
+
+/* ── Focus ring: precise 1px coral, not generic blue ── */
+:focus-visible {
+  outline: 1px solid rgb(var(--navigator));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Arabic: right-to-left perfection — metrics read naturally ── */
+[dir="rtl"] .hero-role {
+  direction: rtl;
+  letter-spacing: 0;
+}
+
+[dir="rtl"] .gate-boot-sequence {
+  align-items: flex-end;
+  font-family: 'Cairo', 'Tajawal', monospace;
+}
+
+/* ── Dark mode: deeper blacks, not just grey ── */
+.dark .metric-card {
+  background: rgb(8, 10, 18);
+}
+
+.dark .metric-card:hover {
+  background: rgb(12, 15, 26);
+}
+
+/* ── Cursor: invisible system cursor on interactive elements ── */
+button, a, [role="button"] {
+  cursor: pointer;
+}
+
+/* ── Selection: branded highlight ── */
+::selection {
+  background: rgba(var(--navigator), 0.25);
+  color: rgb(var(--ink-primary));
+}
+
+/* ── Orbit stats: subtle grid alignment — numbers feel anchored ── */
+.hero-orbit-stat-value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ── BrainHub: search result highlights use brand color ── */
+.brainhub-highlight {
+  background: rgba(var(--navigator), 0.15);
+  color: rgb(var(--navigator));
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* ── System diagram: node labels in monospace ── */
+.system-node-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── Career timeline: year markers in code style ── */
+.timeline-year {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: rgb(var(--navigator));
+  opacity: 0.7;
+}
+
+/* ── What I Believe: principles use left border as emphasis ── */
+.belief-card {
+  border-left: 2px solid rgba(var(--navigator), 0.2);
+  transition: border-color 0.3s ease;
+  padding-left: 1.25rem;
+}
+
+.belief-card:hover {
+  border-left-color: rgb(var(--navigator));
+}
+
+/* ── Pact: violation items pulse once on enter ── */
+.pact-tenet-violation {
+  animation: pactPulse 0.6s ease 0.3s both;
+}
+
+@keyframes pactPulse {
+  0%  { box-shadow: 0 0 0 0 rgba(var(--navigator), 0); }
+  50% { box-shadow: 0 0 0 6px rgba(var(--navigator), 0.1); }
+  100%{ box-shadow: 0 0 0 0 rgba(var(--navigator), 0); }
+}
+
+/* ── Mobile: touch targets stay precise ── */
+@media (max-width: 640px) {
+  .hero-orbit-stats-ring {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  
+  .hero-orbit-stat {
+    width: auto;
+    min-width: 160px;
+  }
+}
