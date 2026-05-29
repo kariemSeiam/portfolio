@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import { 
-  ArrowDown, Sparkles, Briefcase, Tag, ArrowRight, Navigation, Code
+  ArrowDown, ArrowRight, Layers, GitBranch, Cpu
 } from 'lucide-react'
 import { scrollToSection } from '../../utils/animations'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
@@ -81,11 +81,10 @@ const HeroSection = () => {
   }, [])
 
   const bootLines = [
-    '[VENOM∞] System boot initiated...',
-    '[KERNEL] Loading operating system philosophies...',
-    '[NETWORK] Geolink API — 5.2M req/mo · 52 clients',
-    '[MEMORY] BrainHub — 51 knowledge documents indexed',
-    '[STATUS] All systems online. Gate open.',
+    '> Geolink API ........... 5.2M req/mo · 52 clients · live',
+    '> Hvar-Hub .............. 79K lines · 4 machines · production',
+    '> Taxiarab .............. Rider v4.4 · Driver v2.6 · 15K+ downloads',
+    '> Systems online ........ Cairo → production',
   ]
 
   return (
@@ -108,8 +107,8 @@ const HeroSection = () => {
         </div>
       )}
       {/* ═══════════════════════════════════════════════════════════════════
-          THE NAVIGATOR'S HORIZON - MASTERPIECE BACKGROUND
-          Minimal, elegant, artistic - not noisy
+          SYSTEM TOPOLOGY BACKGROUND — architecture made visible
+          Precise, purposeful, not decorative
           ═══════════════════════════════════════════════════════════════════ */}
       
       {/* Base gradient - Pure & Clean */}
@@ -141,14 +140,14 @@ const HeroSection = () => {
         <div className="hero-orb hero-orb-3" style={getParallax(0.12)} />
       </div>
 
-      {/* Two signature icons - refined placement */}
+      {/* Two signature icons - system topology */}
       <div 
         className="hero-signature-icon hero-signature-nav"
         style={getParallax(0.18)}
         aria-hidden="true"
       >
         <div className="hero-signature-glow" />
-        <Navigation size={80} strokeWidth={0.4} />
+        <Layers size={80} strokeWidth={0.4} />
       </div>
       
       <div 
@@ -157,7 +156,7 @@ const HeroSection = () => {
         aria-hidden="true"
       >
         <div className="hero-signature-glow" />
-        <Code size={70} strokeWidth={0.4} />
+        <GitBranch size={70} strokeWidth={0.4} />
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
@@ -186,9 +185,9 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: prefersReducedMotion ? '0ms' : '400ms' }}
           >
-            <span className="hero-identity-bracket">[</span>
-            <span className="hero-identity-text">THE NAVIGATOR</span>
-            <span className="hero-identity-bracket">]</span>
+            <span className="hero-identity-bracket">{'{'}</span>
+            <span className="hero-identity-text">Systems Architect · Cairo</span>
+            <span className="hero-identity-bracket">{'}'}</span>
           </div>
 
           {/* Ultra Display Name */}
@@ -213,9 +212,11 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: prefersReducedMotion ? '0ms' : '900ms' }}
           >
-            <span className="hero-role-text">Full-Stack Developer</span>
-            <span className="hero-role-divider">×</span>
-            <span className="hero-role-text">Digital Architect</span>
+            <span className="hero-role-text">Infrastructure Builder</span>
+            <span className="hero-role-divider">/</span>
+            <span className="hero-role-text">Geolocation Specialist</span>
+            <span className="hero-role-divider">/</span>
+            <span className="hero-role-text">Arabic-Native Systems</span>
           </div>
 
           {/* Poetic tagline */}
@@ -225,10 +226,9 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1100ms' }}
           >
-            Crafting digital experiences that bridge
-            <span className="hero-poetry-highlight"> cultures</span>,
-            <span className="hero-poetry-highlight"> platforms</span>, and
-            <span className="hero-poetry-highlight"> possibilities</span>
+            Production systems that<span className="hero-poetry-highlight"> outlast their creator</span>.
+            Infrastructure that<span className="hero-poetry-highlight"> others build on</span>.
+            Problems solved<span className="hero-poetry-highlight"> permanently</span>.
           </p>
 
           {/* Orbit Stats - Creative floating stats around center */}
@@ -241,27 +241,27 @@ const HeroSection = () => {
             <div className="hero-orbit-stats-ring">
               <OrbitStat 
                 value="79K" 
-                label="Lines Live" 
+                label="Lines in Production" 
                 angle={-60}
-                icon={<Briefcase size={14} />}
+                icon={<Layers size={14} />}
                 isHovered={hoveredOrbit === 0}
                 onHover={() => setHoveredOrbit(0)}
                 onLeave={() => setHoveredOrbit(null)}
               />
               <OrbitStat 
-                value="5M+" 
-                label="API Reqs/mo" 
+                value="5.2M" 
+                label="API Calls / Month" 
                 angle={0}
-                icon={<Tag size={14} />}
+                icon={<Cpu size={14} />}
                 isHovered={hoveredOrbit === 1}
                 onHover={() => setHoveredOrbit(1)}
                 onLeave={() => setHoveredOrbit(null)}
               />
               <OrbitStat 
-                value="75+" 
-                label="Projects" 
+                value="56" 
+                label="Atomic State Transitions" 
                 angle={60}
-                icon={<Sparkles size={14} />}
+                icon={<GitBranch size={14} />}
                 isHovered={hoveredOrbit === 2}
                 onHover={() => setHoveredOrbit(2)}
                 onLeave={() => setHoveredOrbit(null)}
@@ -281,16 +281,16 @@ const HeroSection = () => {
               className="hero-cta-primary group"
             >
               <span className="hero-cta-glow" />
-              <span className="hero-cta-text">View My Work</span>
-              <Sparkles size={18} className="hero-cta-icon" />
+              <span className="hero-cta-text">Explore the Systems</span>
+              <ArrowRight size={18} className="hero-cta-icon group-hover:translate-x-1 transition-transform" />
             </button>
             <button
-              onClick={() => scrollToSection('about', 80)}
+              onClick={() => scrollToSection('thinking', 80)}
               className="hero-cta-secondary group"
             >
               <span className="hero-cta-secondary-ripple" />
-              <span>Connect With Me</span>
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              <span>How I Think</span>
+              <ArrowDown size={18} className="group-hover:translate-y-0.5 transition-transform" />
             </button>
           </div>
         </div>

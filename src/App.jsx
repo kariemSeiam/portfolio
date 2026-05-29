@@ -121,42 +121,42 @@ function AppShell() {
         {/* Hero - The Gate */}
         <HeroSection />
 
-        {/* Career Timeline - The journey */}
-        <Suspense fallback={<SectionLoader />}>
-          <CareerTimeline />
-        </Suspense>
-
-        {/* Live Metrics - Proof visible */}
+        {/* Live Metrics - First proof: real numbers, no fluff */}
         <MetricsHub />
 
-        {/* System Architecture - Interactive diagram */}
-        <SystemDiagram />
-
-        {/* Projects - The work */}
-        <Suspense fallback={<SectionLoader />}>
-          <ProjectGallery />
-        </Suspense>
-
-        {/* Kariem DNA - The patterns that prove it */}
-        <Suspense fallback={<SectionLoader />}>
-          <KariemDNA />
-        </Suspense>
-
-        {/* Thinking Amplified - Infinite depth pattern explorer */}
+        {/* Thinking Amplified - How I think: PROMOTED to position 2 */}
         <Suspense fallback={<SectionLoader />}>
           <ThinkingAmplified />
         </Suspense>
 
-        {/* BrainHub - Knowledge base search */}
-        <BrainHubSearch />
+        {/* Kariem DNA - 8 patterns proven by production */}
+        <Suspense fallback={<SectionLoader />}>
+          <KariemDNA />
+        </Suspense>
 
-        {/* Decisions Ledger - Public decision documentation */}
+        {/* Projects - The systems: 6 real production builds */}
+        <Suspense fallback={<SectionLoader />}>
+          <ProjectGallery />
+        </Suspense>
+
+        {/* System Architecture - Interactive diagram */}
+        <SystemDiagram />
+
+        {/* Decisions Ledger - Public decision documentation: PROMOTED */}
         <Suspense fallback={<SectionLoader />}>
           <DecisionsLedger />
         </Suspense>
 
-        {/* The Pact - Operating system philosophy */}
+        {/* Career Timeline - The arc */}
+        <Suspense fallback={<SectionLoader />}>
+          <CareerTimeline />
+        </Suspense>
+
+        {/* The Pact - Operating principles */}
         <PactSection />
+
+        {/* BrainHub - Knowledge base search */}
+        <BrainHubSearch />
 
         {/* The Journey - How it all connects */}
         <Suspense fallback={<SectionLoader />}>
