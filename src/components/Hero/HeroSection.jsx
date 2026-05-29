@@ -17,11 +17,22 @@ const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 })
   const [isLoaded, setIsLoaded] = useState(false)
   const [hoveredOrbit, setHoveredOrbit] = useState(null)
+  const [bootDone, setBootDone] = useState(prefersReducedMotion)
 
+  // Gate boot sequence: show terminal output, then reveal
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100)
-    return () => clearTimeout(timer)
-  }, [])
+    if (prefersReducedMotion) {
+      setBootDone(true)
+      setIsLoaded(true)
+      return
+    }
+    const bootTimer = setTimeout(() => setBootDone(true), 2500)
+    const loadTimer = setTimeout(() => setIsLoaded(true), 100)
+    return () => {
+      clearTimeout(bootTimer)
+      clearTimeout(loadTimer)
+    }
+  }, [prefersReducedMotion])
 
   // Smooth cursor tracking
   const handleMouseMove = useCallback((e) => {
@@ -69,6 +80,14 @@ const HeroSection = () => {
     return shapes
   }, [])
 
+  const bootLines = [
+    '[VENOM∞] System boot initiated...',
+    '[KERNEL] Loading operating system philosophies...',
+    '[NETWORK] Geolink API — 5.2M req/mo · 52 clients',
+    '[MEMORY] BrainHub — 51 knowledge documents indexed',
+    '[STATUS] All systems online. Gate open.',
+  ]
+
   return (
     <section
       ref={sectionRef}
@@ -76,6 +95,18 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       aria-label="Hero section"
     >
+      {/* ═══════════════════════════════════════════════════════════════════
+          GATE BOOT SEQUENCE — Terminal overlay before reveal
+          ═══════════════════════════════════════════════════════════════════ */}
+      {!bootDone && (
+        <div className="gate-boot-sequence" aria-hidden="true">
+          {bootLines.map((line, i) => (
+            <div key={i} className="gate-boot-line" style={{ animationDelay: `${i * 0.4}s` }}>
+              {line}
+            </div>
+          ))}
+        </div>
+      )}
       {/* ═══════════════════════════════════════════════════════════════════
           THE NAVIGATOR'S HORIZON - MASTERPIECE BACKGROUND
           Minimal, elegant, artistic - not noisy
@@ -132,7 +163,9 @@ const HeroSection = () => {
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT - ULTRA MINIMAL
           ═══════════════════════════════════════════════════════════════════ */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20">
+      {/* Hide main content during boot sequence */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20"
+        style={{ opacity: bootDone ? 1 : 0, transition: 'opacity 0.8s ease' }}>
         <div className="text-center">
           
           {/* Status beacon */}
