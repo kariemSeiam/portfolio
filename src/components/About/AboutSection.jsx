@@ -122,7 +122,7 @@ const AboutSection = () => {
         >
           <div className="section-badge">
             <Navigation size={16} />
-            <span>About Me</span>
+            <span>Kariem Seiam</span>
           </div>
           
           <h2 id="about-heading" className="text-section mb-4">
