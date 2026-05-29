@@ -1246,3 +1246,170 @@ button, a, [role="button"] {
   stroke: rgb(var(--navigator));
   stroke-width: 2;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   KS MONOGRAM — the identity behind the identity
+   Massive, barely visible. Pure ego. Pure art.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hero-ks-monogram {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  gap: -0.05em;
+}
+
+.hero-ks-k,
+.hero-ks-s {
+  font-family: 'Satoshi', system-ui, sans-serif;
+  font-size: clamp(280px, 40vw, 560px);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.08em;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  pointer-events: none;
+}
+
+.hero-ks-k {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--navigator), 0.025) 0%,
+    rgba(var(--compass), 0.015) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.hero-ks-s {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--compass), 0.015) 0%,
+    rgba(var(--horizon), 0.025) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.dark .hero-ks-k {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--navigator), 0.04) 0%,
+    rgba(var(--compass), 0.025) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.dark .hero-ks-s {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--compass), 0.025) 0%,
+    rgba(var(--horizon), 0.04) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Mobile: slightly less overwhelming */
+@media (max-width: 640px) {
+  .hero-ks-monogram {
+    opacity: 0.7;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   METRICS HUB — numbers count up from zero (already implemented via hook)
+   Visual enhancement: number glow on count complete
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.metric-card-value.count-complete {
+  text-shadow: 0 0 30px rgba(var(--navigator), 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE HERO LIVE BAR — tighter layout
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 380px) {
+  .hero-live-bar {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+  .hero-live-divider {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION BADGE — brand-aware, not generic
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.section-badge {
+  border: 1px solid rgba(var(--navigator), 0.2);
+  background: rgba(var(--navigator), 0.04);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.section-badge:hover {
+  border-color: rgba(var(--navigator), 0.4);
+  background: rgba(var(--navigator), 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THINKING AMPLIFIED HEADER — make it unmissable
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* The section that reveals HOW Kariem thinks gets a subtle left border */
+#thinking {
+  border-left: none;
+  position: relative;
+}
+
+#thinking::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(var(--navigator), 0.4) 30%,
+    rgba(var(--navigator), 0.4) 70%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BRAINHUB SEARCH — feels like a real knowledge system
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Search input: monospace, not sans-serif */
+.brainhub-input {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.9rem;
+}
+
+/* Results: highlight match in brand color */
+.brainhub-result-match {
+  color: rgb(var(--navigator));
+  font-weight: 600;
+}
+
+/* Document count: precision badge */
+.brainhub-count-badge {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+}

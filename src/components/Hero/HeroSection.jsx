@@ -114,6 +114,12 @@ const HeroSection = () => {
       {/* Base gradient - Pure & Clean */}
       <div className="absolute inset-0 hero-horizon-base" aria-hidden="true" />
 
+      {/* KS monogram watermark — massive, barely visible, deeply intentional */}
+      <div className="hero-ks-monogram" aria-hidden="true" style={getParallax(0.03)}>
+        <span className="hero-ks-k">K</span>
+        <span className="hero-ks-s">S</span>
+      </div>
+
       {/* Elegant geometric constellation - CSS styled */}
       <div 
         className="hero-constellation-art" 
