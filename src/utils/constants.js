@@ -17,11 +17,15 @@ export const DEFAULT_THEME = LIGHT_THEME
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const NAV_SECTIONS = [
-  { id: 'hero', label: 'Home' },
-  { id: 'career', label: 'Journey' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'about', label: 'About' },
+  { id: 'hero', label: 'Home', labelKey: 'nav.home' },
+  { id: 'career', label: 'Journey', labelKey: 'nav.journey' },
+  { id: 'metrics', label: 'Metrics', labelKey: 'nav.metrics' },
+  { id: 'architecture', label: 'Systems', labelKey: 'nav.systems' },
+  { id: 'projects', label: 'Projects', labelKey: 'nav.projects' },
+  { id: 'knowledge', label: 'Knowledge', labelKey: 'nav.knowledge' },
+  { id: 'philosophy', label: 'Philosophy', labelKey: 'nav.philosophy' },
+  { id: 'skills', label: 'Skills', labelKey: 'nav.skills' },
+  { id: 'about', label: 'About', labelKey: 'nav.about' },
 ]
 
 // ═══════════════════════════════════════════════════════════════════════════
