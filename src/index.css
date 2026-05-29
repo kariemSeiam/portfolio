@@ -8489,3 +8489,77 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   RTL SUPPORT — Flipped layouts for Arabic
+   ═══════════════════════════════════════════════════════════════════════════ */
+.rtl {
+  direction: rtl;
+}
+
+/* Arabic fonts — Cairo for headings, Tajawal for body */
+.rtl body,
+.rtl .text-body,
+.rtl .text-body-lg,
+.rtl .text-subtitle,
+.rtl .text-label,
+.rtl p,
+.rtl span:not(.gate-boot-line):not(.hero-boot-line),
+.rtl button:not(.gate-boot-line),
+.rtl a,
+.rtl input {
+  font-family: 'Tajawal', 'Plus Jakarta Sans', system-ui, sans-serif !important;
+}
+
+.rtl .text-hero,
+.rtl .text-section,
+.rtl .text-title,
+.rtl h1, .rtl h2, .rtl h3, .rtl h4, .rtl h5, .rtl h6,
+.rtl .pact-title,
+.rtl .diagram-title,
+.rtl .gate-name,
+.rtl .metric-card-value,
+.rtl .about-stat-value {
+  font-family: 'Cairo', 'Satoshi', system-ui, sans-serif !important;
+}
+
+/* Mono stays JetBrains Mono — code is language-agnostic */
+.rtl .text-mono,
+.rtl code,
+.rtl pre,
+.rtl .gate-boot-line,
+.rtl .hero-boot-line {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Letter spacing reset for Arabic (Arabic doesn't use letter-spacing the same way) */
+.rtl .hero-identity,
+.rtl .gate-identity,
+.rtl .gate-section-label,
+.rtl .pact-tenet-label,
+.rtl .pact-scale-title,
+.rtl .text-label {
+  letter-spacing: 0 !important;
+}
+
+.rtl .text-left {
+  text-align: right;
+}
+
+.rtl .text-right {
+  text-align: left;
+}
+
+/* Theme toggle: move to left side in RTL */
+.rtl button.fixed.bottom-6.right-6 {
+  right: auto;
+  left: 1.5rem;
+}
+
+/* Theme toggle tooltip: flip side */
+.rtl button.fixed.bottom-6.right-6 span.absolute.right-full {
+  right: auto;
+  left: 100%;
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
