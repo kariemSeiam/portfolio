@@ -1,5 +1,7 @@
 /**
- * Constants — Kariem Seiam's portfolio configuration
+ * Constants - The Navigator's Configuration
+ * 
+ * Central configuration for themes, navigation, and app-wide constants.
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -15,14 +17,11 @@ export const DEFAULT_THEME = LIGHT_THEME
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const NAV_SECTIONS = [
-  { id: 'hero', label: 'Kariem', labelKey: 'nav.home' },
-  { id: 'metrics', label: 'Scale', labelKey: 'nav.metrics' },
-  { id: 'thinking', label: 'Thinking', labelKey: 'nav.thinking' },
-  { id: 'projects', label: 'Systems', labelKey: 'nav.projects' },
-  { id: 'architecture', label: 'Architecture', labelKey: 'nav.systems' },
-  { id: 'philosophy', label: 'Pact', labelKey: 'nav.philosophy' },
-  { id: 'skills', label: 'Stack', labelKey: 'nav.skills' },
-  { id: 'about', label: 'About', labelKey: 'nav.about' },
+  { id: 'hero', label: 'Home' },
+  { id: 'career', label: 'Journey' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'about', label: 'About' },
 ]
 
 // ═══════════════════════════════════════════════════════════════════════════

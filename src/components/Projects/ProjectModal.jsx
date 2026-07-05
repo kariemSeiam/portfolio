@@ -1179,7 +1179,7 @@ const CompactAppCard = ({ app }) => {
 
 /**
  * AppCard - Elegant app download card using design system card classes
- * Kariem's design system
+ * Perfect integration with Navigator design vision
  */
 const AppCard = ({ app }) => {
   const [isHovered, setIsHovered] = useState(false)

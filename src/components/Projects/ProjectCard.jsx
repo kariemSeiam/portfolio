@@ -4,7 +4,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * ProjectCard - Production system card
+ * ProjectCard - A window into The Navigator's creations
  * 
  * Creative design system with geometric accents, layered gradients,
  * and cinematic animations. Featured cards showcase signature work.

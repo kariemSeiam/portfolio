@@ -7,7 +7,7 @@ import profileImage from '../../assets/images/profile.jpg'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * AboutSection - Kariem Seiam — About
+ * AboutSection - The Navigator's Atlas
  * 
  * A masterpiece profile section that tells the story of a developer
  * who builds bridges between worlds. Inspired by ancient maps,
@@ -114,7 +114,7 @@ const AboutSection = () => {
       
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* ═══════════════════════════════════════════════════════════════════
-            Section Header - About Section Header
+            Section Header - The Navigator's Title
             ═══════════════════════════════════════════════════════════════════ */}
         <div 
           ref={headerRef}
@@ -122,16 +122,17 @@ const AboutSection = () => {
         >
           <div className="section-badge">
             <Navigation size={16} />
-            <span>Kariem Seiam</span>
+            <span>About Me</span>
           </div>
           
           <h2 id="about-heading" className="text-section mb-4">
             <span className="text-[rgb(var(--ink-primary))]">The </span>
-            <span className="gradient-text">Architect</span>
+            <span className="gradient-text">Navigator</span>
           </h2>
           
           <p className="text-body-lg max-w-2xl mx-auto">
-            Systems that outlast their creator. Infrastructure that others build on. Six years, Cairo to production.
+            A developer who builds bridges between worlds—
+            code to impact, problems to solutions, ideas to reality.
           </p>
         </div>
 
@@ -148,7 +149,7 @@ const AboutSection = () => {
             {/* gap-6 = 24px (8pt grid), gap-8 = 32px (8pt grid) */}
             
             {/* ═══════════════════════════════════════════════════════════════════
-                Left Column - Kariem's Profile
+                Left Column - The Navigator's Profile
                 ═══════════════════════════════════════════════════════════════════ */}
             <div className="lg:col-span-7">
               <div className="about-profile-masterpiece">
@@ -219,7 +220,7 @@ const AboutSection = () => {
                 </div>
 
                 {/* ═══════════════════════════════════════════════════════════════════
-                    The Narrative - Kariem's Story
+                    The Narrative - The Navigator's Story
                     ═══════════════════════════════════════════════════════════════════ */}
                 <div className="about-narrative">
                   <div className="about-narrative-marker" aria-hidden="true">

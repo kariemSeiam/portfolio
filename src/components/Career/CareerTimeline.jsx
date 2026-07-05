@@ -5,7 +5,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * CareerTimeline - Kariem's Career Arc
+ * CareerTimeline - The Navigator's Ascending Path
  * 
  * Compact, responsive timeline from 2019 to 2025.
  * Clean design matching the overall theme.
@@ -44,17 +44,17 @@ const CareerTimeline = () => {
         >
           <div className="section-badge">
             <Briefcase size={16} />
-            <span>The Arc</span>
+            <span>Career Journey</span>
           </div>
           
           <h2 className="text-section mb-4">
-            <span className="text-[rgb(var(--ink-primary))]">Six </span>
-            <span className="gradient-text">Years</span>
+            <span className="text-[rgb(var(--ink-primary))]">My </span>
+            <span className="gradient-text">Evolution</span>
           </h2>
           
           <p className="text-body-lg max-w-2xl mx-auto">
-            Java to Bun. Android to infrastructure. Single apps to production ecosystems.
-            Every year a different stack — the same<span className="font-semibold" style={{ color: 'rgb(var(--navigator))' }}> hunger</span>.
+            From first code to production systems—a journey of continuous learning, 
+            building, and growing over <span className="font-semibold" style={{ color: 'rgb(var(--navigator))' }}>3+ years</span>.
           </p>
         </div>
 

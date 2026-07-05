@@ -3,24 +3,12 @@ import Navigation from './components/Shared/Navigation'
 import ScrollProgress from './components/Shared/ScrollProgress'
 import ThemeToggle from './components/Shared/ThemeToggle'
 import HeroSection from './components/Hero/HeroSection'
-import MetricsHub from './components/MetricsHub'
-import PactSection from './components/PactSection'
-import SystemDiagram from './components/SystemDiagram'
-import BrainHubSearch from './components/BrainHubSearch'
-import PortfolioTerminal from './components/Terminal/PortfolioTerminal'
-import PactGate from './components/PactGate/PactGate'
-import { LanguageProvider, useLanguage } from './context/LanguageContext'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { useTheme } from './hooks/useTheme'
-import './styles/gate.css'
 
+// Lazy load below-the-fold sections for performance
 const CareerTimeline = lazy(() => import('./components/Career/CareerTimeline'))
 const ProjectGallery = lazy(() => import('./components/Projects/ProjectGallery'))
-const KariemDNA = lazy(() => import('./components/KariemDNA'))
-const TheJourney = lazy(() => import('./components/TheJourney'))
-const WhatIBelieve = lazy(() => import('./components/WhatIBelieve'))
-const ThinkingAmplified = lazy(() => import('./components/ThinkingAmplified'))
-const DecisionsLedger = lazy(() => import('./components/DecisionsLedger'))
 const SkillsSection = lazy(() => import('./components/Skills/SkillsSection'))
 const AboutSection = lazy(() => import('./components/About/AboutSection'))
 
@@ -55,28 +43,14 @@ const SectionLoader = () => (
 )
 
 /**
- * Language Toggle Button — fixed position top-right
+ * App - The Navigator's Portfolio
+ * 
+ * A masterpiece portfolio showcasing Kariem Seiam's journey
+ * as a developer who builds bridges between worlds.
  */
-function LangToggle() {
-  const { lang, toggleLang } = useLanguage()
-  return (
-    <button
-      onClick={toggleLang}
-      className="lang-toggle-btn"
-      aria-label={`Switch to ${lang === 'en' ? 'Arabic' : 'English'}`}
-    >
-      {lang === 'en' ? 'عربي' : 'English'}
-    </button>
-  )
-}
-
-/**
- * AppShell — Inner component that accesses language context
- */
-function AppShell() {
+function App() {
   useSmoothScroll()
   const { theme } = useTheme()
-  const { lang } = useLanguage()
 
   // Apply theme class to document
   useEffect(() => {
@@ -104,21 +78,12 @@ function AppShell() {
       
       {/* Skip link for accessibility */}
       <a href="#main-content" className="skip-link">
-        {lang === 'ar' ? 'تخطى إلى المحتوى الرئيسي' : 'Skip to main content'}
+        Skip to main content
       </a>
-
-      {/* Pact Gate — first visit only */}
-      <PactGate />
-
-      {/* Portfolio Terminal — press / anywhere */}
-      <PortfolioTerminal />
 
       {/* Navigation */}
       <Navigation />
       
-      {/* Language toggle */}
-      <LangToggle />
-
       {/* Scroll progress indicator */}
       <ScrollProgress />
 
@@ -126,54 +91,17 @@ function AppShell() {
           Main Content
           ═══════════════════════════════════════════════════════════════════ */}
       <main id="main-content" role="main">
-        {/* Hero - The Gate */}
+        {/* Hero - First impression */}
         <HeroSection />
 
-        {/* Live Metrics - First proof: real numbers, no fluff */}
-        <MetricsHub />
-
-        {/* Thinking Amplified - How I think: PROMOTED to position 2 */}
-        <Suspense fallback={<SectionLoader />}>
-          <ThinkingAmplified />
-        </Suspense>
-
-        {/* Kariem DNA - 8 patterns proven by production */}
-        <Suspense fallback={<SectionLoader />}>
-          <KariemDNA />
-        </Suspense>
-
-        {/* Projects - The systems: 6 real production builds */}
-        <Suspense fallback={<SectionLoader />}>
-          <ProjectGallery />
-        </Suspense>
-
-        {/* System Architecture - Interactive diagram */}
-        <SystemDiagram />
-
-        {/* Decisions Ledger - Public decision documentation: PROMOTED */}
-        <Suspense fallback={<SectionLoader />}>
-          <DecisionsLedger />
-        </Suspense>
-
-        {/* Career Timeline - The arc */}
+        {/* Career Timeline - The journey */}
         <Suspense fallback={<SectionLoader />}>
           <CareerTimeline />
         </Suspense>
 
-        {/* The Pact - Operating principles */}
-        <PactSection />
-
-        {/* BrainHub - Knowledge base search */}
-        <BrainHubSearch />
-
-        {/* The Journey - How it all connects */}
+        {/* Projects - The work */}
         <Suspense fallback={<SectionLoader />}>
-          <TheJourney />
-        </Suspense>
-
-        {/* What I Believe - The actual principles */}
-        <Suspense fallback={<SectionLoader />}>
-          <WhatIBelieve />
+          <ProjectGallery />
         </Suspense>
 
         {/* Skills - The expertise */}
@@ -197,14 +125,16 @@ function AppShell() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-body">
-            <span style={{ color: 'rgb(var(--navigator))' }}>Kariem Seiam</span>
-            {lang === 'ar' ? ' — معمار أنظمة — القاهرة' : ' — Systems Architect — Cairo'}
+            Crafted with{' '}
+            <span style={{ color: 'rgb(var(--navigator))' }}>passion</span>
+            {' '}and{' '}
+            <span style={{ color: 'rgb(var(--compass))' }}>precision</span>
           </p>
           <p className="mt-2 text-sm text-[rgb(var(--ink-tertiary))]">
-            Geolink · Hvar-Hub · Taxiarab · Plumb · Areo · Hvar-Catalog
+            © {new Date().getFullYear()} Kariem Seiam. All rights reserved.
           </p>
-          <p className="mt-4 font-mono text-xs" style={{ color: 'rgba(var(--ink-tertiary), 0.4)', letterSpacing: '0.08em' }}>
-            {new Date().getFullYear()} · v3.0.0 · {lang === 'ar' ? 'أنظمة تتجاوز منشئيها' : 'systems that outlast their creator'}
+          <p className="mt-4 text-mono text-xs" style={{ color: 'rgba(var(--ink-tertiary), 0.6)' }}>
+            v1.0.0 • The Navigator
           </p>
         </div>
       </footer>
@@ -212,17 +142,6 @@ function AppShell() {
       {/* Theme Toggle - Fixed position */}
       <ThemeToggle />
     </div>
-  )
-}
-
-/**
- * App — Root component with LanguageProvider
- */
-function App() {
-  return (
-    <LanguageProvider>
-      <AppShell />
-    </LanguageProvider>
   )
 }
 

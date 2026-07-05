@@ -7,7 +7,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * ProjectGallery - Kariem's Production Systems
+ * ProjectGallery - The Navigator's Creations
  * 
  * A beautiful Bento-grid showcase of projects,
  * with filtering and interactive details.
@@ -42,18 +42,18 @@ const ProjectGallery = () => {
         >
           <div className="section-badge">
             <FolderOpen size={16} />
-            <span>Production Systems</span>
+            <span>Featured Work</span>
           </div>
           
           <h2 className="text-section mb-4">
-            <span className="text-[rgb(var(--ink-primary))]">The </span>
-            <span className="gradient-text">Systems</span>
+            <span className="text-[rgb(var(--ink-primary))]">My </span>
+            <span className="gradient-text">Projects</span>
           </h2>
           
           <p className="text-body-lg max-w-2xl mx-auto">
-            Not demos. Not prototypes.
-            <span className="font-semibold" style={{ color: 'rgb(var(--navigator))' }}> Six production systems</span> — 
-            serving real users, handling real load, solving real problems.
+            From production systems to public APIs—
+            <span className="font-semibold" style={{ color: 'rgb(var(--navigator))' }}> 75+ projects</span> showcasing 
+            full-stack development, mobile apps, and creative solutions.
           </p>
         </div>
 

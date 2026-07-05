@@ -8,7 +8,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * SkillsSection - Skills & Expertise
+ * SkillsSection - The Navigator's Mastery Atlas
  * 
  * A masterpiece visualization of technical expertise.
  * Clean, elegant, and works perfectly on all devices.
@@ -71,18 +71,18 @@ const SkillsSection = () => {
         >
           <div className="skills-badge">
             <Zap size={14} />
-            <span>The Stack</span>
+            <span>Technical Expertise</span>
           </div>
           
           <h2 className="skills-title">
-            <span className="skills-title-primary">Tools That </span>
-            <span className="skills-title-gradient">Shipped</span>
+            <span className="skills-title-primary">Skills & </span>
+            <span className="skills-title-gradient">Mastery</span>
           </h2>
           
           <p className="skills-subtitle">
-            Not learned for interviews.
-            <span className="skills-highlight"> Used in production</span> —
-            each one carrying weight in a live system
+            A comprehensive toolkit built over
+            <span className="skills-highlight"> 3+ years</span> of 
+            continuous learning and real-world application
           </p>
 
           {/* Mastery Overview */}

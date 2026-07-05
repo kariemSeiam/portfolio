@@ -1,13 +1,12 @@
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react'
 import { 
-  ArrowDown, ArrowRight, Layers, GitBranch, Cpu
+  ArrowDown, Sparkles, Briefcase, Tag, ArrowRight, Navigation, Code
 } from 'lucide-react'
-import LiveApiDemo from './LiveApiDemo'
 import { scrollToSection } from '../../utils/animations'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 
 /**
- * HeroSection - Kariem Seiam — Systems Architect
+ * HeroSection - The Navigator's Horizon
  * 
  * An architectural, cinematic hero with flowing geometric forms.
  * Inspired by maps, horizons, and the journey of navigation.
@@ -18,22 +17,11 @@ const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 })
   const [isLoaded, setIsLoaded] = useState(false)
   const [hoveredOrbit, setHoveredOrbit] = useState(null)
-  const [bootDone, setBootDone] = useState(prefersReducedMotion)
 
-  // Gate boot sequence: show terminal output, then reveal
   useEffect(() => {
-    if (prefersReducedMotion) {
-      setBootDone(true)
-      setIsLoaded(true)
-      return
-    }
-    const bootTimer = setTimeout(() => setBootDone(true), 2500)
-    const loadTimer = setTimeout(() => setIsLoaded(true), 100)
-    return () => {
-      clearTimeout(bootTimer)
-      clearTimeout(loadTimer)
-    }
-  }, [prefersReducedMotion])
+    const timer = setTimeout(() => setIsLoaded(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Smooth cursor tracking
   const handleMouseMove = useCallback((e) => {
@@ -81,13 +69,6 @@ const HeroSection = () => {
     return shapes
   }, [])
 
-  const bootLines = [
-    '> Geolink API ........... 5.2M req/mo · 52 clients · live',
-    '> Hvar-Hub .............. 79K lines · 4 machines · production',
-    '> Taxiarab .............. Rider v4.4 · Driver v2.6 · 15K+ downloads',
-    '> Systems online ........ Cairo → production',
-  ]
-
   return (
     <section
       ref={sectionRef}
@@ -96,30 +77,12 @@ const HeroSection = () => {
       aria-label="Hero section"
     >
       {/* ═══════════════════════════════════════════════════════════════════
-          GATE BOOT SEQUENCE — Terminal overlay before reveal
-          ═══════════════════════════════════════════════════════════════════ */}
-      {!bootDone && (
-        <div className="gate-boot-sequence" aria-hidden="true">
-          {bootLines.map((line, i) => (
-            <div key={i} className="gate-boot-line" style={{ animationDelay: `${i * 0.4}s` }}>
-              {line}
-            </div>
-          ))}
-        </div>
-      )}
-      {/* ═══════════════════════════════════════════════════════════════════
-          SYSTEM TOPOLOGY BACKGROUND — architecture made visible
-          Precise, purposeful, not decorative
+          THE NAVIGATOR'S HORIZON - MASTERPIECE BACKGROUND
+          Minimal, elegant, artistic - not noisy
           ═══════════════════════════════════════════════════════════════════ */}
       
       {/* Base gradient - Pure & Clean */}
       <div className="absolute inset-0 hero-horizon-base" aria-hidden="true" />
-
-      {/* KS monogram watermark — massive, barely visible, deeply intentional */}
-      <div className="hero-ks-monogram" aria-hidden="true" style={getParallax(0.03)}>
-        <span className="hero-ks-k">K</span>
-        <span className="hero-ks-s">S</span>
-      </div>
 
       {/* Elegant geometric constellation - CSS styled */}
       <div 
@@ -147,14 +110,14 @@ const HeroSection = () => {
         <div className="hero-orb hero-orb-3" style={getParallax(0.12)} />
       </div>
 
-      {/* Two signature icons - system topology */}
+      {/* Two signature icons - refined placement */}
       <div 
         className="hero-signature-icon hero-signature-nav"
         style={getParallax(0.18)}
         aria-hidden="true"
       >
         <div className="hero-signature-glow" />
-        <Layers size={80} strokeWidth={0.4} />
+        <Navigation size={80} strokeWidth={0.4} />
       </div>
       
       <div 
@@ -163,15 +126,13 @@ const HeroSection = () => {
         aria-hidden="true"
       >
         <div className="hero-signature-glow" />
-        <GitBranch size={70} strokeWidth={0.4} />
+        <Code size={70} strokeWidth={0.4} />
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
           MAIN CONTENT - ULTRA MINIMAL
           ═══════════════════════════════════════════════════════════════════ */}
-      {/* Hide main content during boot sequence */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20"
-        style={{ opacity: bootDone ? 1 : 0, transition: 'opacity 0.8s ease' }}>
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-20">
         <div className="text-center">
           
           {/* Status beacon */}
@@ -192,9 +153,9 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: prefersReducedMotion ? '0ms' : '400ms' }}
           >
-            <span className="hero-identity-bracket">{'{'}</span>
-            <span className="hero-identity-text">Systems Architect · Cairo</span>
-            <span className="hero-identity-bracket">{'}'}</span>
+            <span className="hero-identity-bracket">[</span>
+            <span className="hero-identity-text">THE NAVIGATOR</span>
+            <span className="hero-identity-bracket">]</span>
           </div>
 
           {/* Ultra Display Name */}
@@ -219,11 +180,9 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: prefersReducedMotion ? '0ms' : '900ms' }}
           >
-            <span className="hero-role-text">Infrastructure Builder</span>
-            <span className="hero-role-divider">/</span>
-            <span className="hero-role-text">Geolocation Specialist</span>
-            <span className="hero-role-divider">/</span>
-            <span className="hero-role-text">Arabic-Native Systems</span>
+            <span className="hero-role-text">Full-Stack Developer</span>
+            <span className="hero-role-divider">×</span>
+            <span className="hero-role-text">Digital Architect</span>
           </div>
 
           {/* Poetic tagline */}
@@ -233,9 +192,10 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1100ms' }}
           >
-            Production systems that<span className="hero-poetry-highlight"> outlast their creator</span>.
-            Infrastructure that<span className="hero-poetry-highlight"> others build on</span>.
-            Problems solved<span className="hero-poetry-highlight"> permanently</span>.
+            Crafting digital experiences that bridge
+            <span className="hero-poetry-highlight"> cultures</span>,
+            <span className="hero-poetry-highlight"> platforms</span>, and
+            <span className="hero-poetry-highlight"> possibilities</span>
           </p>
 
           {/* Orbit Stats - Creative floating stats around center */}
@@ -248,27 +208,27 @@ const HeroSection = () => {
             <div className="hero-orbit-stats-ring">
               <OrbitStat 
                 value="79K" 
-                label="Lines in Production" 
+                label="Lines Live" 
                 angle={-60}
-                icon={<Layers size={14} />}
+                icon={<Briefcase size={14} />}
                 isHovered={hoveredOrbit === 0}
                 onHover={() => setHoveredOrbit(0)}
                 onLeave={() => setHoveredOrbit(null)}
               />
               <OrbitStat 
-                value="5.2M" 
-                label="API Calls / Month" 
+                value="5M+" 
+                label="API Reqs/mo" 
                 angle={0}
-                icon={<Cpu size={14} />}
+                icon={<Tag size={14} />}
                 isHovered={hoveredOrbit === 1}
                 onHover={() => setHoveredOrbit(1)}
                 onLeave={() => setHoveredOrbit(null)}
               />
               <OrbitStat 
-                value="56" 
-                label="Atomic State Transitions" 
+                value="75+" 
+                label="Projects" 
                 angle={60}
-                icon={<GitBranch size={14} />}
+                icon={<Sparkles size={14} />}
                 isHovered={hoveredOrbit === 2}
                 onHover={() => setHoveredOrbit(2)}
                 onLeave={() => setHoveredOrbit(null)}
@@ -288,73 +248,34 @@ const HeroSection = () => {
               className="hero-cta-primary group"
             >
               <span className="hero-cta-glow" />
-              <span className="hero-cta-text">Explore the Systems</span>
-              <ArrowRight size={18} className="hero-cta-icon group-hover:translate-x-1 transition-transform" />
+              <span className="hero-cta-text">View My Work</span>
+              <Sparkles size={18} className="hero-cta-icon" />
             </button>
             <button
-              onClick={() => scrollToSection('thinking', 80)}
+              onClick={() => scrollToSection('about', 80)}
               className="hero-cta-secondary group"
             >
               <span className="hero-cta-secondary-ripple" />
-              <span>How I Think</span>
-              <ArrowDown size={18} className="group-hover:translate-y-0.5 transition-transform" />
+              <span>Connect With Me</span>
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-          </div>
-
-          {/* Live API Demo — proof in motion */}
-          <div
-            className={`mt-10 sm:mt-14 transition-all duration-1000 ${
-              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1600ms' }}
-          >
-            <LiveApiDemo />
           </div>
         </div>
       </div>
 
       {/* ═══════════════════════════════════════════════════════════════════
-          LIVE SYSTEM PULSE — bottom bar showing active production
+          SCROLL INDICATOR
           ═══════════════════════════════════════════════════════════════════ */}
-      <div
-        className={`absolute bottom-0 left-0 right-0 transition-all duration-1000 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1800ms' }}
-        aria-hidden="true"
-      >
-        <div className="hero-live-bar">
-          <div className="hero-live-system">
-            <span className="hero-live-dot" />
-            <span className="hero-live-label">geolink-eg.com</span>
-            <span className="hero-live-stat">5.2M req/mo</span>
-          </div>
-          <div className="hero-live-divider" />
-          <div className="hero-live-system">
-            <span className="hero-live-dot hero-live-dot-amber" />
-            <span className="hero-live-label">mcrm.hvarstore.com</span>
-            <span className="hero-live-stat">production</span>
-          </div>
-          <div className="hero-live-divider" />
-          <div className="hero-live-system hero-live-hide-sm">
-            <span className="hero-live-dot hero-live-dot-blue" />
-            <span className="hero-live-label">taxiarab</span>
-            <span className="hero-live-stat">15K+ downloads</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll hint — minimal */}
       <div 
-        className={`absolute bottom-14 sm:bottom-16 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
-          isLoaded ? 'opacity-40 translate-y-0' : 'opacity-0 translate-y-8'
+        className={`absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 transition-all duration-1000 ${
+          isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
         style={{ transitionDelay: prefersReducedMotion ? '0ms' : '1700ms' }}
       >
         <button
-          onClick={() => scrollToSection('metrics', 80)}
+          onClick={() => scrollToSection('career', 80)}
           className="hero-scroll-btn group"
-          aria-label="Scroll to metrics"
+          aria-label="Scroll to next section"
         >
           <span className="hero-scroll-line" />
           <ArrowDown size={16} className="hero-scroll-arrow" />

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Menu, X, Github, Linkedin, Mail, Code2, Briefcase, FolderOpen, Zap, User, BarChart3, Network, Search, Shield } from 'lucide-react'
+import { Menu, X, Github, Linkedin, Mail, Code2, Briefcase, FolderOpen, Zap, User } from 'lucide-react'
 import { NAV_SECTIONS } from '../../utils/constants'
 import { scrollToSection } from '../../utils/animations'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
-import { useLanguage } from '../../context/LanguageContext'
 
 /**
  * Navigation - The Navigator's Compass
@@ -12,7 +11,6 @@ import { useLanguage } from '../../context/LanguageContext'
  * the portfolio journey. Elegant, unobtrusive, always accessible.
  */
 const Navigation = () => {
-  const { t } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const [isScrolled, setIsScrolled] = useState(false)
@@ -23,11 +21,7 @@ const Navigation = () => {
   const sectionIcons = {
     hero: Code2,
     career: Briefcase,
-    metrics: BarChart3,
-    architecture: Network,
     projects: FolderOpen,
-    knowledge: Search,
-    philosophy: Shield,
     skills: Zap,
     about: User,
   }
@@ -133,7 +127,7 @@ const Navigation = () => {
                   className={`nav-item ${activeSection === section.id ? 'active' : ''}`}
                   aria-current={activeSection === section.id ? 'page' : undefined}
                 >
-                  {t(section.labelKey || section.label)}
+                  {section.label}
                 </button>
               ))}
             </div>
@@ -306,7 +300,7 @@ const Navigation = () => {
                         color: isActive ? 'white' : 'rgb(var(--ink-primary))'
                       }}
                     >
-                      {t(section.labelKey || section.label)}
+                      {section.label}
                     </p>
                   </div>
                 </button>
